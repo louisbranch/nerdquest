@@ -10,8 +10,8 @@ module NerdQuest
     attr_reader :user_id
 
     def initialize(signed_request)
-      request = api.parse_signed_request(signed_request)
-      @user_id = request['user_id']
+      request = Authentication.api(signed_request)
+      @user_id = request['user_id'] if request
     end
 
     def valid?
@@ -22,10 +22,8 @@ module NerdQuest
       "https://www.facebook.com/dialog/oauth?client_id=#{APP_ID}&redirect_uri=#{CANVAS_URL}"
     end
 
-    private
-
-    def api
-      Koala::Facebook::OAuth.new(APP_ID, APP_KEY)
+    def self.api(signed_request)
+      Koala::Facebook::OAuth.new(APP_ID, APP_KEY).parse_signed_request(signed_request)
     end
 
   end
