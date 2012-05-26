@@ -5,10 +5,16 @@ module NerdQuest
   class App < Sinatra::Base
 
     set :protection, :except => :frame_options
+    set :views, 'app/views'
 
     post '/' do
       oauth = Authentication.new(params[:signed_request])
-      oauth.parse.to_s
+      if oauth.valid?
+        erb :show
+      else
+        @url = oauth.authorization_url
+        erb :new
+      end
     end
 
   end
