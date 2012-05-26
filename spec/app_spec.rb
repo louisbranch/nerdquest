@@ -9,10 +9,31 @@ module NerdQuest
       App
     end
 
-    it "says hello" do
-      get '/'
-      last_response.should be_ok
+    it "parses the request" do
+      Authentication.should_receive(:new).with('123')
+      post '/', signed_request: '123'
     end
 
+    context "when authenticating the signed request from Facebook" do
+
+      before do
+        @oauth = double('authentication')
+        Authentication.stub(:new).and_return(@oauth)
+      end
+
+      it "renders the game if the request is valid" do
+        @oauth.stub(:valid?).and_return(true)
+        post '/'
+        last_response.status.should eq(200)
+      end
+
+      it "asks for the user authorization if the request is invalid" do
+        @oauth.stub(:valid?).and_return(false)
+        @oauth.stub(:authorization_url)
+        post '/'
+        last_response.status.should eq(401)
+      end
+
+    end
   end
 end
