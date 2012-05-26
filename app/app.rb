@@ -3,8 +3,9 @@ module NerdQuest
 
   class App < Sinatra::Base
 
-    get '/' do
-      "hello world"
+    set :protection, :except => :frame_options
+
+    post '/' do
     end
 
   end
