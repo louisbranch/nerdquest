@@ -7,6 +7,10 @@ module NerdQuest
     set :protection, :except => :frame_options
     set :views, 'app/views'
 
+    get '/' do
+      200
+    end
+
     post '/' do
       oauth = Authentication.new(params[:signed_request])
       if oauth.valid?
