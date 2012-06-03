@@ -12,6 +12,16 @@ module NerdQuest
 
     it "builds a new mission" do
       @mission.build
+      m = @mission.to_json
+      File.open('result.json', 'w') do |f|
+        f.write(m)
+      end
+    end
+
+    private
+
+    def world
+      JSON.parse(File.read('./eg.json'))
     end
 
   end
