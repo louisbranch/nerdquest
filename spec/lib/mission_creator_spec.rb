@@ -11,8 +11,9 @@ module NerdQuest
     end
 
     it "builds a new mission" do
-      @mission.build
-      m = @mission.to_json
+      @mission.create_correct_path
+      @mission.create_wrong_path
+      m = @mission.build
       File.open('result.json', 'w') do |f|
         f.write(m)
       end

@@ -5,40 +5,44 @@ module NerdQuest
     attr_reader :levels
     attr_accessor :mission, :worlds
 
+    # Creates a new constructor with a number
+    # of levels (steps to reach the goal) and a list
+    # of info from the user's friend
+    # Automatically choose a mission from the pool
     def initialize(levels, friend_clues)
       @levels, @friend_clues = levels, friend_clues
       @mission = missions.slice!(0)
       @worlds = []
     end
 
+    # Add the world as an array for the mission
+    # and turn into a json to be saved/displayed
     def build
-      create_correct_path
-      create_wrong_path
-      shuffle_mission
-    end
-
-    def to_json
       mission['worlds'] = worlds
       mission.to_json
     end
 
+    # Creates a path with worlds that contains
+    # clues from the user's friend and from
+    # the next level's world
     def create_correct_path
       previous_world = nil
+      final_world = true
       levels.downto(1) do |level|
         world = all_worlds.slice!(0)
         world['level'] = level
-        if previous_world
-          add_clues(world, previous_world)
-        else
-          add_final_clues(world)
-        end
+        add_clues(world, previous_world, final_world)
+        final_world = false
         previous_world = world
         @worlds << world
       end
-      first_world = set_first_world
-      @worlds << add_clues(first_world, previous_world)
+      set_first_world(previous_world)
     end
 
+    # Creates a path with worlds that
+    # doesn't add information for the
+    # user, each level creates two worlds
+    # like that
     def create_wrong_path
       levels.downto(1) do |level|
         2.times do
@@ -50,37 +54,13 @@ module NerdQuest
       end
     end
 
-    def add_clues(world, previous_world)
-      first = true
-      places = world['places']
-      places.each do |place|
-        if first
-          place['phrase'] = friend_clues.slice!(0)
-          first = false
-        else
-          place['phrase'] = previous_world['clues'].slice!(0)
-        end
-      end
-      previous_world.delete('clues')
-      world
-    end
-
-    def add_final_clues(world)
-      first = true
-      places = world['places']
-      places.each do |place|
-        if first
-          place['final'] = true
-          first = false
-        end
-      end
-      world
-    end
-
+    # Shuffles and the worlds and places
+    # inside a mission
     def shuffle_mission
       worlds.each do |world|
         world['places'].shuffle!
       end
+      worlds.shuffle!
     end
 
     private
@@ -99,11 +79,29 @@ module NerdQuest
       @friend_clues.shuffle!
     end
 
-    def set_first_world
+    def add_clues(world, previous_world, final_world)
+      first_place = true
+      places = world['places']
+      places.each do |place|
+        if first_place && final_world
+          place['final'] = true
+          first_place = false
+        elsif first_place
+          place['phrase'] = friend_clues.slice!(0)
+          first_place = false
+        elsif previous_world
+          place['phrase'] = previous_world['clues'].shuffle!.slice!(0)
+        end
+      end
+      previous_world.delete('clues') if previous_world
+    end
+
+    def set_first_world(previous_world)
       world = mission.delete('world')
       world['level'] = 0
       world.delete('clues')
-      world
+      add_clues(world, previous_world, false)
+      @worlds << world
     end
 
   end
