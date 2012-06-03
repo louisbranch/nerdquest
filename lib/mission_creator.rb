@@ -18,6 +18,7 @@ module NerdQuest
     # Add the world as an array for the mission
     # and turn into a json to be saved/displayed
     def build
+      erase_clues
       mission['worlds'] = worlds
       mission.to_json
     end
@@ -93,7 +94,6 @@ module NerdQuest
           place['phrase'] = previous_world['clues'].shuffle!.slice!(0)
         end
       end
-      previous_world.delete('clues') if previous_world
     end
 
     def set_first_world(previous_world)
@@ -102,6 +102,10 @@ module NerdQuest
       world.delete('clues')
       add_clues(world, previous_world, false)
       @worlds << world
+    end
+
+    def erase_clues
+      worlds.each {|world| world.delete('clues')}
     end
 
   end
