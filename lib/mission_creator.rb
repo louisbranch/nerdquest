@@ -84,9 +84,11 @@ module NerdQuest
           first_place = false
         elsif first_place
           place['phrase'] = friend_clues.slice!(0)
+          place['clue_type'] = 'friend'
           first_place = false
         elsif previous_world
           place['phrase'] = previous_world['clues'].shuffle!.slice!(0)
+          place['clue_type'] = 'world'
         end
       end
     end
