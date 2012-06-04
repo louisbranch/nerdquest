@@ -2,7 +2,9 @@ module NerdQuest
   require 'json/ext'
   class MissionCreator
 
-    attr_reader :levels
+    MISSIONS_PATH = './data/missions.json'
+
+    attr_reader :levels, :mission
     attr_accessor :worlds
 
     # Creates a new constructor with a number
@@ -10,6 +12,7 @@ module NerdQuest
     # of info from the user's friend
     def initialize(levels, friend_clues)
       @levels, @friend_clues = levels, friend_clues
+      @mission = missions.slice!(0)
       @worlds = []
     end
 
@@ -61,20 +64,14 @@ module NerdQuest
       worlds.shuffle!
     end
 
-    def mission
-      @mission ||= missions.slice!(0)
-    end
-
     private
 
     def missions
-      @missions ||= JSON.parse(File.read('./data/missions.json'))
-      @missions.shuffle!
+      @missions ||= JSON.parse(File.read(MISSIONS_PATH)).shuffle!
     end
 
     def all_worlds
-      @all_worlds ||= missions.map {|m| m['world']}
-      @all_worlds.shuffle!
+      @all_worlds ||= missions.map {|m| m['world']}.shuffle!
     end
 
     def friend_clues
