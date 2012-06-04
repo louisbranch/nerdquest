@@ -9,6 +9,13 @@ module NerdQuest
       @levels = 2
       @friend_clues = ['male','25','Rio de Janeiro', 'Larissa Voigt', 'Uerj']
       @mission = MissionCreator.new(@levels, @friend_clues)
+      fake_missions = []
+      4.times {fake_missions << fake_mission}
+      @mission.stub(:missions).and_return(fake_missions)
+    end
+
+    it "adds a mission from the pool" do
+      @mission.mission.should eq(fake_mission)
     end
 
     context "when creating the right path" do
@@ -86,6 +93,10 @@ module NerdQuest
 
       end
 
+    end
+
+    def fake_mission
+      JSON.parse(File.read('./spec/data/mission.json'))
     end
 
   end

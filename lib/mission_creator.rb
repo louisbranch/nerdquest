@@ -3,15 +3,13 @@ module NerdQuest
   class MissionCreator
 
     attr_reader :levels
-    attr_accessor :mission, :worlds
+    attr_accessor :worlds
 
     # Creates a new constructor with a number
     # of levels (steps to reach the goal) and a list
     # of info from the user's friend
-    # Automatically choose a mission from the pool
     def initialize(levels, friend_clues)
       @levels, @friend_clues = levels, friend_clues
-      @mission = missions.slice!(0)
       @worlds = []
     end
 
@@ -49,7 +47,6 @@ module NerdQuest
         2.times do
           world = all_worlds.slice!(0)
           world['level'] = level
-          world.delete('clues')
           @worlds << world
         end
       end
@@ -62,6 +59,10 @@ module NerdQuest
         world['places'].shuffle!
       end
       worlds.shuffle!
+    end
+
+    def mission
+      @mission ||= missions.slice!(0)
     end
 
     private
@@ -98,9 +99,8 @@ module NerdQuest
 
     def set_first_world(previous_world)
       world = mission.delete('world')
-      world['level'] = 0
-      world.delete('clues')
       add_clues(world, previous_world, false)
+      world['level'] = 0
       @worlds << world
     end
 
