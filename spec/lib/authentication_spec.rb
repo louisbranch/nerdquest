@@ -19,17 +19,22 @@ module NerdQuest
       auth
     end
 
-    it "saves the facebook user id from a successful request" do
+    it "has a facebook user id when the request succceed" do
       Authentication.stub(:api).and_return({'user_id' => 1})
       auth.user_id.should eq(1)
     end
 
-    it "is valid when has an user_id" do
-      Authentication.stub(:api).and_return({'user_id' => 1})
+    it "has a facebook oauth token when the request succceed" do
+      Authentication.stub(:api).and_return({'oauth_token' => 123})
+      auth.oauth_token.should eq(123)
+    end
+
+    it "is valid when has an user_id and an oauth_token" do
+      Authentication.stub(:api).and_return({'user_id' => 1, 'oauth_token' => 123})
       auth.should be_valid
     end
 
-    it "is invalid when doesn't have an user_id" do
+    it "is invalid when doesn't have an user_id or an oauth_token" do
       Authentication.stub(:api)
       auth.should_not be_valid
     end
