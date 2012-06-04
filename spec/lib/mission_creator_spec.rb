@@ -3,14 +3,13 @@ require './lib/mission_creator'
 
 module NerdQuest
 
-  MissionCreator::MISSIONS_PATH = './spec/data/missions.json'
-
   describe MissionCreator do
 
     before do
       @levels = 2
       @friend_clues = ['male','25','Rio de Janeiro', 'Larissa Voigt', 'Uerj']
-      @mission = MissionCreator.new(@levels, @friend_clues)
+      @missions = File.read('./spec/data/missions.json')
+      @mission = MissionCreator.new(@levels, @friend_clues, @missions)
     end
 
     it "adds a mission from the pool" do
