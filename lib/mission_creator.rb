@@ -4,8 +4,7 @@ module NerdQuest
 
     MISSIONS_PATH = './data/missions.json'
 
-    attr_reader :levels, :mission
-    attr_accessor :worlds
+    attr_reader :levels, :mission, :worlds
 
     # Creates a new constructor with a number
     # of levels (steps to reach the goal) and a list
