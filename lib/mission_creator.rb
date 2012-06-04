@@ -17,6 +17,7 @@ module NerdQuest
     # and turn into a json to be saved/displayed
     def build
       erase_clues
+      shuffle_mission
       mission['worlds'] = worlds
       mission.to_json
     end
@@ -52,14 +53,6 @@ module NerdQuest
       end
     end
 
-    # Shuffles and the worlds and places
-    # inside a mission
-    def shuffle_mission
-      worlds.each do |world|
-        world['places'].shuffle!
-      end
-      worlds.shuffle!
-    end
 
     private
 
@@ -100,8 +93,18 @@ module NerdQuest
       @worlds << world
     end
 
+    # Erases all clues not used during the creation
     def erase_clues
       worlds.each {|world| world.delete('clues')}
+    end
+
+    # Shuffles and the worlds and places
+    # inside a mission
+    def shuffle_mission
+      worlds.each do |world|
+        world['places'].shuffle!
+      end
+      worlds.shuffle!
     end
 
   end

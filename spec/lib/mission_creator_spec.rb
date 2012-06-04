@@ -97,8 +97,53 @@ module NerdQuest
 
     end
 
-    def fake_mission
-      JSON.parse(File.read('./spec/data/mission.json')).dup
+    context "when creating the wrong path" do
+
+      before{@creator.create_wrong_path}
+
+      it "creates two worls for each mission level" do
+        @creator.worlds.size.should eq(@levels*2)
+      end
+
+      it "its has a level more than the first one and equal or less than the final one" do
+        @creator.worlds.each do |world|
+          world['level'].should be_between(1,@levels)
+        end
+      end
+
+    end
+
+    context "building a mission" do
+
+      before do
+        @creator.create_correct_path
+      end
+
+      it "erases the original clues from all worlds" do
+        @creator.build
+        @creator.worlds.sample['clues'].should be_nil
+      end
+
+      it "includes all worlds inside the mission" do
+        @creator.build
+        @creator.mission['worlds'].should eq(@creator.worlds)
+      end
+
+      it "shuffles all worlds" do
+        @creator.worlds.should_receive(:shuffle!)
+        @creator.build
+      end
+
+      it "shuffles all places" do
+        @creator.worlds.sample['places'].should_receive(:shuffle!)
+        @creator.build
+      end
+
+      it "turns into a json file" do
+        @creator.mission.should_receive(:to_json)
+        @creator.build
+      end
+
     end
 
   end
