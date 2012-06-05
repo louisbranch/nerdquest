@@ -9,37 +9,44 @@ module NerdQuest
       App
     end
 
-    it "parses the request" do
-      Authentication.should_receive(:new).with('123')
-      post '/', signed_request: '123'
-    end
-
     context "when authenticating the signed request from Facebook" do
 
-      before do
-        @oauth = double('authentication', {:token => 'ABC'})
-        Authentication.stub(:new).and_return(@oauth)
+      it "parses the request" do
+        Authentication.should_receive(:new).with('123')
+        post '/', signed_request: '123'
       end
 
-      it "stores the user token in the cookie" do
-        @oauth.stub(:valid?).and_return(true)
-        post '/'
-        rack_mock_session.cookie_jar['token'].should eq('ABC')
+      context "when the authentication is valid" do
+
+        before do
+          @oauth = double('authentication', {:token => 'ABC', :valid? => true})
+          Authentication.stub(:new).and_return(@oauth)
+        end
+
+        it "stores the user token in the cookie" do
+          post '/'
+          rack_mock_session.cookie_jar['token'].should eq('ABC')
+        end
+
+        it "renders the game" do
+          post '/'
+          last_response.status.should eq(200)
+        end
+
       end
 
-      it "renders the game if the request is valid" do
-        @oauth.stub(:valid?).and_return(true)
-        post '/'
-        last_response.status.should eq(200)
-      end
+      context "when the authentication is invalid" do
 
-      it "asks for the user authorization if the request is invalid" do
-        @oauth.stub(:valid?).and_return(false)
-        @oauth.stub(:authorization_url)
-        post '/'
-        last_response.status.should eq(401)
+        it "asks for the user authorization" do
+          @oauth = double('authentication', {:valid? => false, :authorization_url => 'http://...'})
+          Authentication.stub(:new).and_return(@oauth)
+          post '/'
+          last_response.status.should eq(401)
+        end
+
       end
 
     end
+
   end
 end
