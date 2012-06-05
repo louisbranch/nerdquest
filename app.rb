@@ -1,6 +1,7 @@
 module NerdQuest
   require 'sinatra/base'
   require_relative 'lib/authentication'
+  require_relative 'lib/mission'
 
   class App < Sinatra::Base
 
@@ -16,6 +17,16 @@ module NerdQuest
         @url = oauth.authorization_url
         status 401
         erb :new
+      end
+    end
+
+    get '/new_mission' do
+      oauth_token = request.cookies['token']
+      mission = Mission.new(oauth_token)
+      if mission.create
+        # returns mission.json
+      else
+        # possible errors: no friend suitable // invalid token
       end
     end
 

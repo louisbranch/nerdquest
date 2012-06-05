@@ -48,5 +48,8 @@ module NerdQuest
 
     end
 
+    context "when creating a new mission" do
+    end
+
   end
 end
