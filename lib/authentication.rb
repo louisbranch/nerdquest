@@ -7,18 +7,18 @@ module NerdQuest
     APP_KEY      = '2779b26c27700b8626a0bf89edb1f994'
     CANVAS_URL   = 'https://apps.facebook.com/nerd_quest/'
 
-    attr_reader :user_id, :oauth_token
+    attr_reader :user_id, :token
 
     def initialize(signed_request)
       request = Authentication.api(signed_request)
       if request
         @user_id = request['user_id']
-        @oauth_token = request['oauth_token']
+        @token = request['oauth_token']
       end
     end
 
     def valid?
-      user_id && oauth_token
+      user_id && token
     end
 
     def authorization_url

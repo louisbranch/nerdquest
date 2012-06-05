@@ -10,10 +10,11 @@ module NerdQuest
     post '/' do
       oauth = Authentication.new(params[:signed_request])
       if oauth.valid?
+        response.set_cookie('token', {:value => oauth.token})
         erb :show
       else
-        status 401
         @url = oauth.authorization_url
+        status 401
         erb :new
       end
     end

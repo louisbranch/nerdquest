@@ -17,8 +17,14 @@ module NerdQuest
     context "when authenticating the signed request from Facebook" do
 
       before do
-        @oauth = double('authentication')
+        @oauth = double('authentication', {:token => 'ABC'})
         Authentication.stub(:new).and_return(@oauth)
+      end
+
+      it "stores the user token in the cookie" do
+        @oauth.stub(:valid?).and_return(true)
+        post '/'
+        rack_mock_session.cookie_jar['token'].should eq('ABC')
       end
 
       it "renders the game if the request is valid" do

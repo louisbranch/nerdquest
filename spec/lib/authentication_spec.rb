@@ -25,12 +25,12 @@ module NerdQuest
     end
 
     it "has a facebook oauth token when the request succceed" do
-      Authentication.stub(:api).and_return({'oauth_token' => 123})
-      auth.oauth_token.should eq(123)
+      Authentication.stub(:api).and_return({'oauth_token' => 'ABC'})
+      auth.token.should eq('ABC')
     end
 
     it "is valid when has an user_id and an oauth_token" do
-      Authentication.stub(:api).and_return({'user_id' => 1, 'oauth_token' => 123})
+      Authentication.stub(:api).and_return({'user_id' => 1, 'oauth_token' => 'ABC'})
       auth.should be_valid
     end
 
