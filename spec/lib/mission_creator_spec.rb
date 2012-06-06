@@ -16,11 +16,21 @@ module NerdQuest
       @creator.mission.should have_key('name')
     end
 
-    it "saves the mission to a file" do
-      @creator.create_correct_path
-      m = @creator.build
-      File.open('result.json', 'w') do |f|
-        f.write(m)
+    context "when creating a full playable mission" do
+
+      it "creates the correct path" do
+        @creator.should_receive(:create_correct_path)
+        @creator.create_mission
+      end
+
+      it "creates the wrong path" do
+        @creator.should_receive(:create_wrong_path)
+        @creator.create_mission
+      end
+
+      it "builds the final mission" do
+        @creator.should_receive(:build)
+        @creator.create_mission
       end
     end
 

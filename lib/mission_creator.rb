@@ -13,6 +13,13 @@ module NerdQuest
       @worlds = []
     end
 
+    # Macro function to return a playable mission
+    def create_mission
+      create_correct_path
+      create_wrong_path
+      build
+    end
+
     # Add the world as an array for the mission
     # and turn into a json to be saved/displayed
     def build
