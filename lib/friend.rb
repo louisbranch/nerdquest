@@ -12,11 +12,11 @@ module NerdQuest
 
     def find
       friend = friends.sample
-      info = batch_request(friend['id'])
+      info, likes = batch_request(friend['id'])
       {
-        'id' => info.first['id'],
-        'name' => info.first['name'],
-        'clues' => clues(info[0],info[1])
+        'id' => info['id'],
+        'name' => info['name'],
+        'clues' => clues(info, likes)
       }
     end
 
