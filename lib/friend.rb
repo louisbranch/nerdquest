@@ -17,11 +17,13 @@ module NerdQuest
       # extract data
     end
 
-    private
-
     def random_friend
-      friend = graph.get_connections("me", "friends").sample
+      friend = friends.sample
       graph.get_object(friend['id'])
+    end
+
+    def friends
+      graph.get_connections('me', 'friends')
     end
 
     def graph
