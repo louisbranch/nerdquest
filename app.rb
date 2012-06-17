@@ -32,7 +32,7 @@ module NerdQuest
 
     get '/friend.json' do
       content_type :json
-      Friend.new(oauth_token).find
+      Friend.new(oauth_token).find.to_json
     end
 
     private

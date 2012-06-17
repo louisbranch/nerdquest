@@ -1,25 +1,36 @@
 module NerdQuest
   require 'koala'
+  require_relative 'clue'
 
   class Friend
 
-    attr_reader :oauth_token, :data
+    attr_reader :oauth_token
 
     def initialize(oauth_token)
       @oauth_token = oauth_token
     end
 
     def find
-      @data = random_friend.to_json
+      friend = random_friend
+      friend['likes'] = likes(friend['id'])
+      {
+        'id' => friend['id'],
+        'name' => friend['name'],
+        'clues' => clues(friend)
+      }
     end
 
-    def clues
-      # extract data
+    def clues(data)
+     Clue.new(data).extract
     end
 
     def random_friend
       friend = friends.sample
       graph.get_object(friend['id'])
+    end
+
+    def likes(id)
+      graph.get_connections(id, "likes")
     end
 
     def friends
