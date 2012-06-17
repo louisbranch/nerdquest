@@ -11,26 +11,24 @@ module NerdQuest
     end
 
     def find
-      friend = random_friend
-      friend['likes'] = likes(friend['id'])
+      friend = friends.sample
+      info = batch_request(friend['id'])
       {
-        'id' => friend['id'],
-        'name' => friend['name'],
-        'clues' => clues(friend)
+        'id' => info.first['id'],
+        'name' => info.first['name'],
+        'clues' => clues(info[0],info[1])
       }
     end
 
-    def clues(data)
-     Clue.new(data).extract
+    def clues(info, likes)
+      Clue.new(info, likes).extract
     end
 
-    def random_friend
-      friend = friends.sample
-      graph.get_object(friend['id'])
-    end
-
-    def likes(id)
-      graph.get_connections(id, "likes")
+    def batch_request(id)
+      graph.batch do |g|
+        g.get_object(id)
+        g.get_connections(id, "likes")
+      end
     end
 
     def friends

@@ -2,126 +2,164 @@ module NerdQuest
 
   class Clue
 
-    attr_reader :data, :clues
+    attr_reader :info, :clues, :likes
     attr_writer :clues
 
-    def initialize(data)
-      @data = data
-      @clues = {}
+    def initialize(info,likes)
+      @info, @likes = info, likes
+      @clues = []
     end
 
     def extract
-      data.each_pair do |k,v|
+      info.each_pair do |k,v|
         if respond_to?(k)
-          send(k,v)
+          phrase = send(k,v)
+          clues.push({type: k, phrase: phrase})
         end
       end
+      likes_parser
       clues
     end
 
-    def gender(data)
-      clues['gender'] = "The suspect was #{data}"
+    def gender(info)
+      "The suspect was #{info}"
     end
 
-    def birthday(data)
+    def birthday(info)
       year_regex = /\d\d\/\d\d\/\d\d\d\d/
-      if data.match(year_regex)
-        years = Time.now.year - data.match(/\d\d\d\d/)[0].to_i
-        clues['age'] = "He was #{years} years old"
+      if info.match(year_regex)
+        years = Time.now.year - info.match(/\d\d\d\d/)[0].to_i
+        "He was #{years} years old"
       else
-        clues['birthday'] = "He was born on #{data}"
+        "He was born on #{info}"
       end
     end
 
-    def hometown(data)
-      city = data['name']
-      clues['hometowm'] = "He was born in #{city}" if city
+    def hometown(info)
+      city = info['name']
+      "He was born in #{city}"
     end
 
-    def location(data)
-      city = data['name']
-      clues['location'] = "He lives in #{city}" if city
+    def location(info)
+      city = info['name']
+      "He lives in #{city}"
     end
 
-    def education(data)
-      school = data.sample['school']['name']
-      clues['education'] = "He has studied at #{school}"
+    def education(info)
+      school = info.sample['school']['name']
+      "He has studied at #{school}"
     end
 
-    def work(data)
-      employer = data.sample['employer']['name']
-      clues['work'] = "He has worked at #{employer}"
+    def work(info)
+      employer = info.sample['employer']['name']
+      "He has worked at #{employer}"
     end
 
-    def language(data)
-      language = data.sample['name']
-      clues['language'] = "I heard he speaking #{language}"
+    def language(info)
+      language = info.sample['name']
+      "I heard he speaking #{language}"
     end
 
-    def relationship_status(data)
-      case data
+    def relationship_status(info)
+      case info
       when 'Single'
-        status = "He looks single"
+        "He looks single"
       when 'In a relationship'
-        status = "I think he's dating someone"
+        "I think he's dating someone"
       when 'Engaged'
-        status = "He had a ring on his left hand"
+        "He had a ring on his left hand"
       when 'Married'
-        status = "He had a ring on his right hand"
+        "He had a ring on his right hand"
       when 'It\'s complidated'
-        status = "He seems to be in a complicated relationship"
+        "He seems to be in a complicated relationship"
       when 'In a open relationship'
-        status = "He is in a open relationship. If you know what I mean"
+        "He is in a open relationship. If you know what I mean"
       when 'Widowed'
-        status = "He said being widowed"
+        "He said being widowed"
       when 'Separated'
-        status = "He is separated"
+        "He is separated"
       when 'Divorced'
-        status = "He is divorced"
+        "He is divorced"
       end
-      clues['relationship_status'] = status
     end
 
-    def sports(data)
-      sport = data.sample['name']
-      clues['sports'] = "He had invited me to play #{sport}"
+    def sports(info)
+      sport = info.sample['name']
+      "He had invited me to play #{sport}"
     end
 
-    def favorite_teams(data)
-      team = data.sample['name']
-      clues['favorite_teams'] = "He was wearing a #{team} shirt"
+    def favorite_teams(info)
+      team = info.sample['name']
+      "He was wearing a #{team} shirt"
     end
 
-    def favorite_athletes(data)
-      athlete = data.sample['name']
-      clues['favorite_athletes'] = "He has an autograph from #{athlete}"
+    def favorite_athletes(info)
+      athlete = info.sample['name']
+      "He has an autograph from #{athlete}"
     end
 
-    def significant_other(data)
-      person = data['name']
-      clues['significant_other'] = "He showed me a few photos from #{person}"
+    def significant_other(info)
+      person = info['name']
+      "He showed me a few photos from #{person}"
     end
 
-    def inspirational_people(data)
-      person = data['name']
-      clues['inspirational_people'] = "He had a #{person} tattoo"
+    def inspirational_people(info)
+      person = info.sample['name']
+      "He had a #{person} tattoo"
     end
 
-    def quotes(data)
-      clues['quotes'] = "&quot;data&quot;"
+    def quotes(info)
+      "&quot;#{info}&quot;"
     end
 
-    def interested_in(data)
-      interest = data.sample['name']
-      clues['interested_in'] = "He has a strong interest in #{interest}"
+    def interested_in(info)
+      interest = info.sample['name']
+      "He has a strong interest in #{interest}"
     end
 
-    def political(data)
-      clues['political'] = "He has a #{data} political view"
+    def political(info)
+      "He has a #{info} political view"
     end
 
-    def religion(data)
-      clues['religion'] = "He believes in #{data} religion"
+    def religion(info)
+      "He believes in #{info} religion"
+    end
+
+    def likes_parser
+      likes.each do |like|
+        case like['category']
+        when 'Musician/band'
+          clues << {
+            type: 'music',
+            phrase: "He was listen to #{like['name']}"
+          }
+        when 'Movie'
+          clues << {
+            type: 'movie',
+            phrase: "He sent me a link of #{like['name']}'s torrent'"
+          }
+        when 'Games/toys'
+          clues << {
+            type: 'game',
+            phrase: "He owned me playing #{like['name']}"
+          }
+        when 'Tv show'
+          clues << {
+            type: 'tv_show',
+            phrase: "He gave me a #{like['name']} spoiler"
+          }
+        when 'Musical genre'
+          clues << {
+            type: 'musical_genre',
+            phrase: "He bet me at RockBand playing #{like['name']}"
+          }
+        when 'Sport'
+          clues << {
+            type: 'sport',
+            phrase: "He practices #{like['name']}"
+          }
+        end
+      end
     end
 
   end

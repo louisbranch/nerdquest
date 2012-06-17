@@ -2,6 +2,7 @@ module NerdQuest
   require 'sinatra/base'
   require_relative 'lib/authentication'
   require_relative 'lib/mission'
+  require_relative 'lib/friend'
 
   class App < Sinatra::Base
 
