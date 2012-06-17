@@ -14,7 +14,7 @@ module NerdQuest
       info.each_pair do |k,v|
         if respond_to?(k)
           phrase = send(k,v)
-          clues.push({type: k, phrase: phrase})
+          clues.push({'type' => k, 'phrase' => phrase})
         end
       end
       likes_parser
@@ -130,33 +130,33 @@ module NerdQuest
         case like['category']
         when 'Musician/band'
           clues << {
-            type: 'music',
-            phrase: "He was listen to #{like['name']}"
+            'type' => 'music',
+            'phrase' => "He was listen to #{like['name']}"
           }
         when 'Movie'
           clues << {
-            type: 'movie',
-            phrase: "He sent me a link of #{like['name']}'s torrent'"
+            'type' => 'movie',
+            'phrase' => "He sent me a link of #{like['name']}'s torrent'"
           }
         when 'Games/toys'
           clues << {
-            type: 'game',
-            phrase: "He owned me playing #{like['name']}"
+            'type' => 'game',
+            'phrase' => "He owned me playing #{like['name']}"
           }
         when 'Tv show'
           clues << {
-            type: 'tv_show',
-            phrase: "He gave me a #{like['name']} spoiler"
+            'type' => 'tv_show',
+            'phrase' => "He gave me a #{like['name']} spoiler"
           }
         when 'Musical genre'
           clues << {
-            type: 'musical_genre',
-            phrase: "He bet me at RockBand playing #{like['name']}"
+            'type' => 'musical_genre',
+            'phrase' => "He bet me at RockBand playing #{like['name']}"
           }
         when 'Sport'
           clues << {
-            type: 'sport',
-            phrase: "He practices #{like['name']}"
+            'type' => 'sport',
+            'phrase' => "He practices #{like['name']}"
           }
         end
       end

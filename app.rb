@@ -23,9 +23,9 @@ module NerdQuest
 
     get '/mission.json' do
       content_type :json
-      mission = Mission.new(oauth_token)
-      if mission.create
-        # returns mission.json
+      mission = Mission.new(oauth_token).create
+      if mission
+        mission
       else
         # possible errors: no friend suitable // invalid token
       end
