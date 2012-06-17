@@ -7,7 +7,12 @@ module NerdQuest
 
     before do
       @levels = 2
-      friend_clues = ['male','25','Rio de Janeiro', 'Larissa Voigt', 'Uerj']
+      friend_clues = [{'type' => 'gender', 'phrase' => 'male'},
+                      {'type' => 'age', 'phrase' => '25'},
+                      {'type' => 'location', 'phrase' => 'Rio de Janeiro'},
+                      {'type' => 'significant_other', 'phrase' => 'Larissa Voigt'},
+                      {'type' => 'education', 'phrase' => 'Uerj'}]
+
       missions = File.read('./spec/data/missions.json')
       @creator = MissionCreator.new(@levels, friend_clues, missions)
     end
@@ -52,7 +57,7 @@ module NerdQuest
 
         it "its first place include a friend's clue" do
           place = world['places'].first
-          place['clue_type'].should eq('friend')
+          place['clue_type'].should_not eq('world')
         end
 
         it "its other places include a clue from the next world" do
@@ -93,7 +98,7 @@ module NerdQuest
 
         it "its first place include a friend's clue" do
           place = world['places'].first
-          place['clue_type'].should eq('friend')
+          place['clue_type'].should_not eq('world')
         end
 
         it "its other places include a clue to the next world" do
