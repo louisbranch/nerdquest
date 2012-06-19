@@ -5,8 +5,8 @@ module NerdQuest
 
   class Friend
 
-    attr_reader :id, :name, :clues
-    attr_writer :clues
+    attr_reader :id, :name
+    attr_accessor :clues
 
     def initialize(id, name)
       @id, @name = id, name
