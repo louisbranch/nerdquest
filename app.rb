@@ -9,6 +9,10 @@ module NerdQuest
     set :protection, except: :frame_options
     set :views, 'app/views'
 
+    get '/' do
+      erb :show
+    end
+
     post '/' do
       oauth = Authentication.new(params[:signed_request])
       if oauth.valid?
@@ -21,25 +25,27 @@ module NerdQuest
       end
     end
 
-    get '/mission.json' do
+    get '/missions' do
       content_type :json
-      mission = Mission.new(oauth_token).create
-      if mission
-        mission
-      else
-        # possible errors: no friend suitable // invalid token
-      end
+      [].to_json
     end
 
-    get '/friend.json' do
+    post '/missions/new' do
       content_type :json
-      Friend.new(oauth_token).find.to_json
+      mission = Mission.build(oauth_token)
+      mission.to_json
+    end
+
+    get '/friends/new' do
+      content_type :json
+      friend = Friend.find(oauth_token)
+      friend.to_json
     end
 
     private
 
     def oauth_token
-      oauth_token = request.cookies['token']
+      request.cookies['token']
     end
 
   end

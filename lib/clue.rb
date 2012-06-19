@@ -2,22 +2,21 @@ module NerdQuest
 
   class Clue
 
-    attr_reader :info, :clues, :likes
-    attr_writer :clues
-
-    def initialize(info,likes)
-      @info, @likes = info, likes
-      @clues = []
+    def self.extract(info, likes)
+      clue = new
+      info = clue.parse_info(info)
+      likes = clue.parse_likes(likes)
+      info + likes
     end
 
-    def extract
+    def parse_info(info)
+      clues = []
       info.each_pair do |k,v|
         if respond_to?(k)
           phrase = send(k,v)
           clues.push({'type' => k, 'phrase' => phrase})
         end
       end
-      likes_parser
       clues
     end
 
@@ -125,41 +124,44 @@ module NerdQuest
       "He believes in #{info} religion"
     end
 
-    def likes_parser
+    def parse_likes(likes)
+      clues = []
       likes.each do |like|
-        case like['category']
+        clue = case like['category']
         when 'Musician/band'
-          clues << {
+          {
             'type' => 'music',
             'phrase' => "He was listen to #{like['name']}"
           }
         when 'Movie'
-          clues << {
+          {
             'type' => 'movie',
             'phrase' => "He sent me a link of #{like['name']}'s torrent'"
           }
         when 'Games/toys'
-          clues << {
+          {
             'type' => 'game',
             'phrase' => "He owned me playing #{like['name']}"
           }
         when 'Tv show'
-          clues << {
+          {
             'type' => 'tv_show',
             'phrase' => "He gave me a #{like['name']} spoiler"
           }
         when 'Musical genre'
-          clues << {
+          {
             'type' => 'musical_genre',
             'phrase' => "He bet me at RockBand playing #{like['name']}"
           }
         when 'Sport'
-          clues << {
+          {
             'type' => 'sport',
             'phrase' => "He practices #{like['name']}"
           }
         end
+        clues.push(clue) if clue
       end
+      clues
     end
 
   end

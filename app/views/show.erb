@@ -1,1 +1,14 @@
 <h1>Yahooo, ops...</h1>
+<script type='text/template' id='mission-template'>
+  <h2>%%= name %%</h2>
+  <p>%%= description %%</p>
+  <ol>
+  %% _.each(worlds, function(world) { %%
+    <li>
+      %%= world.level %%
+      %%= world.name %%
+    </li>
+    %% }); %%
+  </ol>
+</script>
+
