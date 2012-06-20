@@ -11,19 +11,20 @@ module NerdQuest
 
     def self.get_friend(oauth_token)
       fb = new(oauth_token)
-      id = fb.friends.sample['id']
-      fb.get_info(id)
+      fb.get_info
     end
 
-    def get_info(id)
+    def get_info
+      id = random_friend['uid']
       graph.batch do |g|
         g.get_object(id)
         g.get_connections(id, "likes")
       end
     end
 
-    def friends
-      graph.get_connections('me', 'friends')
+    def random_friend
+      friend = graph.fql_query("SELECT uid, name FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me()) ORDER BY rand() limit 1")
+      friend.first
     end
 
     def graph
