@@ -60,7 +60,6 @@ module NerdQuest
       end
     end
 
-
     private
 
     def missions

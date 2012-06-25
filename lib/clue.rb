@@ -104,7 +104,7 @@ module NerdQuest
 
     def inspirational_people(info)
       person = info.sample['name']
-      "He had a #{person} tattoo"
+      "He has a #{person} tattoo"
     end
 
     def quotes(info)
@@ -121,7 +121,7 @@ module NerdQuest
     end
 
     def religion(info)
-      "He believes in #{info} religion"
+      "He believes in the #{info} religion"
     end
 
     def parse_likes(likes)
@@ -136,7 +136,7 @@ module NerdQuest
         when 'Movie'
           {
             'type' => 'movie',
-            'phrase' => "He sent me a link of #{like['name']}'s torrent'"
+            'phrase' => "He dropped a movie ticket from #{like['name']}"
           }
         when 'Games/toys'
           {
@@ -146,7 +146,7 @@ module NerdQuest
         when 'Tv show'
           {
             'type' => 'tv_show',
-            'phrase' => "He gave me a #{like['name']} spoiler"
+            'phrase' => "He told something about the last episode from #{like['name']}"
           }
         when 'Musical genre'
           {
@@ -157,6 +157,21 @@ module NerdQuest
           {
             'type' => 'sport',
             'phrase' => "He practices #{like['name']}"
+          }
+        when 'Book'
+          {
+            'type' => 'book',
+            'phrase' => "He was carrying #{like['name']}"
+          }
+        when 'Writer'
+          {
+            'type' => 'writer',
+            'phrase' => "He was reading a book from #{like['name']}"
+          }
+        when 'App page'
+          {
+            'type' => 'app',
+            'phrase' => "He was using #{like['name']}"
           }
         end
         clues.push(clue) if clue
