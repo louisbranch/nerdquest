@@ -25,9 +25,8 @@ app.get '/', routes.index
 app.post '/', (req, res) ->
   signed_request = req.param('signed_request')
   if signed_request
-    res.render('index', { signed_request: signed_request, title: 'Facebook' })
+    res.render 'index', { signed_request: signed_request }
   else
-    url = "https://www.facebook.com/dialog/oauth?client_id=390782924297392&redirect_uri=https://apps.facebook.com/nerd_quest/"
-    res.render('index', { url: url })
+    res.render 'index'
 
 http.createServer(app).listen(app.get('port'))

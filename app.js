@@ -31,18 +31,14 @@
   app.get('/', routes.index);
 
   app.post('/', function(req, res) {
-    var signed_request, url;
+    var signed_request;
     signed_request = req.param('signed_request');
     if (signed_request) {
       return res.render('index', {
-        signed_request: signed_request,
-        title: 'Facebook'
+        signed_request: signed_request
       });
     } else {
-      url = "https://www.facebook.com/dialog/oauth?client_id=390782924297392&redirect_uri=https://apps.facebook.com/nerd_quest/";
-      return res.render('index', {
-        url: url
-      });
+      return res.render('index');
     }
   });
 

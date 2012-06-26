@@ -1,5 +1,8 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 NerdQuest
+  if locals.signed_request
+    p= signed_request
+  else
+    p Welcome to the game
