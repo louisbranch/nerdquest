@@ -1,6 +1,6 @@
 express = require 'express'
-routes = require('./routes')
-http = require('http')
+routes  = require './routes'
+http    = require 'http'
 
 app = express()
 
@@ -20,16 +20,14 @@ app.configure ->
 app.configure 'development', ->
   app.use(express.errorHandler())
 
-app.get('/', routes.index)
+app.get '/', routes.index
 
 app.post '/', (req, res) ->
   signed_request = req.param('signed_request')
   if signed_request
-    res.send(signed_request)
+    res.render('index', { signed_request: signed_request, title: 'Facebook' })
   else
     url = "https://www.facebook.com/dialog/oauth?client_id=390782924297392&redirect_uri=https://apps.facebook.com/nerd_quest/"
-    res.send 'index', {url: url}
+    res.render('index', { url: url })
 
-
-http.createServer(app).listen app.get('port'), ->
-  console.log("Express server listening on port " + app.get('port'))
+http.createServer(app).listen(app.get('port'))

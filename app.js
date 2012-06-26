@@ -34,17 +34,18 @@
     var signed_request, url;
     signed_request = req.param('signed_request');
     if (signed_request) {
-      return res.send(signed_request);
+      return res.render('index', {
+        signed_request: signed_request,
+        title: 'Facebook'
+      });
     } else {
       url = "https://www.facebook.com/dialog/oauth?client_id=390782924297392&redirect_uri=https://apps.facebook.com/nerd_quest/";
-      return res.send('index', {
+      return res.render('index', {
         url: url
       });
     }
   });
 
-  http.createServer(app).listen(app.get('port'), function() {
-    return console.log("Express server listening on port " + app.get('port'));
-  });
+  http.createServer(app).listen(app.get('port'));
 
 }).call(this);
