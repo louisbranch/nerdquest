@@ -1,7 +1,6 @@
 express = require 'express'
 routes  = require './routes'
 http    = require 'http'
-auth    = require './lib/authentication'
 
 app = express()
 
@@ -21,14 +20,6 @@ app.configure ->
 app.configure 'development', ->
   app.use(express.errorHandler())
 
-app.get '/', routes.index
-
-app.post '/', (req, res) ->
-  signed_request = req.param('signed_request')
-  if signed_request
-    token = auth.parse_signed_request(signed_request)
-    res.render 'index', { token: token }
-  else
-    res.render 'index'
+app.post('/', routes.index)
 
 http.createServer(app).listen(app.get('port'))
