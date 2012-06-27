@@ -1,6 +1,7 @@
 express = require 'express'
 routes  = require './routes'
 http    = require 'http'
+auth    = require './lib/authentication'
 
 app = express()
 
@@ -25,7 +26,8 @@ app.get '/', routes.index
 app.post '/', (req, res) ->
   signed_request = req.param('signed_request')
   if signed_request
-    res.render 'index', { signed_request: signed_request }
+    token = auth.parse_signed_request(signed_request)
+    res.render 'index', { token: token }
   else
     res.render 'index'
 

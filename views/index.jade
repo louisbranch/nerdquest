@@ -2,7 +2,4 @@ extends layout
 
 block content
   h1 NerdQuest
-  if locals.signed_request
-    p= signed_request
-  else
-    p Welcome to the game
+  p= token
