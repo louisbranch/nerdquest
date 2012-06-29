@@ -1,5 +1,3 @@
-fs = require('fs')
-
 Array::shuffle = -> @sort -> 0.5 - Math.random()
 
 getMissions = (json) ->
