@@ -8,7 +8,7 @@
     var signed_request, token;
     signed_request = req.param('signed_request');
     if (signed_request) {
-      token = auth.parse_signed_request(signed_request);
+      token = auth.get_token(signed_request);
       res.cookie('token', token);
       return res.render('index');
     } else {
