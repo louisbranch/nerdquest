@@ -11,5 +11,5 @@
     "sass": "*",
     "b64url": "*"
   },
-  "engine": "node >= 0.8.0"
+  "engine": "node >= 0.8.1"
 }
