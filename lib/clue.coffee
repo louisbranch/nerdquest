@@ -78,7 +78,7 @@ parseInfo = (friend) ->
       for sport in i
         parser.clues.push
           type: 'sports'
-          phrase: "He had invited me to play #{sport.name}"
+          phrase: "He had invited me to #{sport.name}"
 
     favorite_teams: (i) ->
       for team in i
