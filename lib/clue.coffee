@@ -1,1 +1,1 @@
-exports.get_clues = (friend) ->
+exports.getClues = (friend) ->

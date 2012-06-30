@@ -1,7 +1,8 @@
 express = require 'express'
+http = require 'http'
 routes = require './routes'
 friend = require './routes/friend'
-http = require 'http'
+missions = require './routes/missions'
 
 app = express()
 
@@ -23,5 +24,6 @@ app.configure 'development', ->
 
 app.post('/', routes.index)
 app.get('/friend.json', friend.index)
+app.post('/missions', missions.new)
 
 http.createServer(app).listen(app.get('port'))

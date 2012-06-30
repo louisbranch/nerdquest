@@ -7,7 +7,7 @@
   exports.index = function(req, res) {
     var token;
     token = req.cookies.token;
-    return facebook.get_friend(token, function(friend) {
+    return facebook.getFriend(token, function(friend) {
       return res.send(friend);
     });
   };

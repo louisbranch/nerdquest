@@ -70,7 +70,7 @@ createWrongPath = ({missions, mission, levels}) ->
       times--
     levels--
 
-createNewMission = ({levels, missions, clues}) ->
+exports.createMission = ({levels, missions, clues}) ->
   missions = getMissions(missions)
   mission = setMission(missions)
   getWorlds(missions)

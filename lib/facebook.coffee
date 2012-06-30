@@ -3,7 +3,7 @@ querystring = require 'querystring'
 
 # Gets a random friend from Facebook
 # using the FQL
-get_random_friend = (token, callback) ->
+getRandomFriend = (token, callback) ->
 
   buffer = ''
 
@@ -29,7 +29,7 @@ get_random_friend = (token, callback) ->
 
 # Gets a friend information and all
 # his likes using a Gaph.API batch query
-get_friend_info = (uid, token, callback) ->
+getFriendInfo = (uid, token, callback) ->
 
   buffer = ''
 
@@ -71,8 +71,8 @@ get_friend_info = (uid, token, callback) ->
   req.write(batch_request)
   req.end()
 
-exports.get_friend = (token, callback) ->
-  get_random_friend token, (friend) ->
+exports.getFriend = (token, callback) ->
+  getRandomFriend token, (friend) ->
     uid = friend[0].uid
-    get_friend_info uid, token, (friend) ->
+    getFriendInfo uid, token, (friend) ->
       callback(friend)
