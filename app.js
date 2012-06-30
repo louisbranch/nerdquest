@@ -36,7 +36,7 @@
 
   app.get('/friend.json', friend.index);
 
-  app.post('/missions', missions["new"]);
+  app.get('/missions', missions["new"]);
 
   http.createServer(app).listen(app.get('port'));
 

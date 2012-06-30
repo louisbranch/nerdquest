@@ -8,28 +8,16 @@
 
   creator = require('../lib/creator');
 
-  exports.index = function(req, res) {
-    var friend, missions, new_mission, token;
+  exports["new"] = function(req, res) {
+    var friend, missions, token;
     friend = '';
     missions = '';
     token = req.cookies.token;
-    facebook.getFriend(token, function(friend) {
+    return facebook.getFriend(token, function(friend) {
       return clue.addClues(friend, function(friend) {
-        return friend = friend;
+        return res.send(friend);
       });
     });
-    db.getMissions(function(missions) {
-      return missions = missions;
-    });
-    new_mission = creator.createMission({
-      levels: 3,
-      clues: friend.clues,
-      missions: missions
-    });
-    db.saveMission(new_mission, function() {
-      return console.log('mission saved');
-    });
-    return new_mission;
   };
 
 }).call(this);
