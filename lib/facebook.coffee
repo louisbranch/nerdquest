@@ -3,7 +3,7 @@ querystring = require 'querystring'
 
 # Gets a random friend from Facebook
 # using the FQL
-getRandomFriend = (token, callback) ->
+getRandomFriends = (token, callback) ->
 
   buffer = ''
 
@@ -13,7 +13,7 @@ getRandomFriend = (token, callback) ->
 
   options = {
     host: 'graph.facebook.com'
-    path: "/fql?q=SELECT+uid,+name+FROM+user+WHERE+uid+IN+(SELECT+uid2+FROM+friend+WHERE+uid1+=+me())+ORDER+BY+rand()+limit+1&access_token=#{token}"
+    path: "/fql?q=SELECT+uid,+name+FROM+user+WHERE+uid+IN+(SELECT+uid2+FROM+friend+WHERE+uid1+=+me())+ORDER+BY+rand()+limit+3&access_token=#{token}"
   }
 
   req = https.get options, (res) ->
@@ -72,7 +72,8 @@ getFriendInfo = (uid, token, callback) ->
   req.end()
 
 exports.getFriend = (token, callback) ->
-  getRandomFriend token, (friend) ->
-    uid = friend[0].uid
+  getRandomFriends token, (friends) ->
+    suspects = friends.splice(1,2)
+    uid = friends[0].uid
     getFriendInfo uid, token, (friend) ->
-      callback(friend)
+      callback(friend, suspects)

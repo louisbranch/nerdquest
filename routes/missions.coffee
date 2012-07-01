@@ -8,9 +8,9 @@ exports.new = (req, res) ->
   missions = ''
   token = req.cookies.token
   # Run in parallel
-  facebook.getFriend token, (friend) ->
+  facebook.getFriend token, (friend, suspects) ->
     clue.addClues friend, (friend) ->
-      res.send(friend)
+      res.send {friend: friend, suspects: suspects}
   # db.getMissions (missions) ->
   #   missions = missions
   # new_mission = creator.createMission({levels: 3, clues: friend.clues, missions: missions})

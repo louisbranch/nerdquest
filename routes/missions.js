@@ -13,9 +13,12 @@
     friend = '';
     missions = '';
     token = req.cookies.token;
-    return facebook.getFriend(token, function(friend) {
+    return facebook.getFriend(token, function(friend, suspects) {
       return clue.addClues(friend, function(friend) {
-        return res.send(friend);
+        return res.send({
+          friend: friend,
+          suspects: suspects
+        });
       });
     });
   };
