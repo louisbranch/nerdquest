@@ -125,5 +125,4 @@ parseInfo = (friend) ->
 
 exports.addClues = (friend, callback) ->
   clues = parseInfo(friend)
-  friend = {uid: friend.uid, name: friend.name, clues: clues}
-  callback(friend)
+  callback(clues)

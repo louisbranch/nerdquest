@@ -18,11 +18,11 @@ getWorlds = (missions) ->
 addWorld = (mission, world) ->
   mission.worlds.push(world)
 
-build = (mission) ->
+shuffleMission = (mission) ->
   mission.worlds.shuffle()
   for world in mission.worlds
     delete world.clues
-  delete mission.build
+  delete mission.shuffleMission
   mission
 
 addClues = ({clues, world, previous_world}) ->
@@ -60,11 +60,11 @@ createWrongPath = ({missions, mission, levels}) ->
       times -= 1
     levels -= 1
 
-exports.createMission = ({levels, missions, clues}) ->
+exports.createMissionPath = ({levels, missions, clues}) ->
   missions = getMissions(missions)
   mission = setMission(missions)
   getWorlds(missions)
   clues = getFriendClues(clues)
   createCorrectPath({missions: missions, mission: mission, clues: clues, levels: levels})
   createWrongPath({missions: missions, mission: mission, levels: levels})
-  build(mission)
+  shuffleMission(mission)

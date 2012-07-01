@@ -1,5 +1,6 @@
-https = require 'https'
-qs = require 'querystring'
+https = require('https')
+qs = require('querystring')
+suspect = require('../lib/suspect')
 
 # Gets a random friend from Facebook
 # using the FQL
@@ -73,7 +74,6 @@ getFriendInfo = (uid, token, callback) ->
 
 exports.getFriend = (token, callback) ->
   getRandomFriends token, (friends) ->
-    suspects = friends.splice(1,2)
-    uid = friends[0].uid
+    [uid, suspects] = suspect.select(friends)
     getFriendInfo uid, token, (friend) ->
       callback(friend, suspects)

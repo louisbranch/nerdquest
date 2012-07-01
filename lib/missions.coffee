@@ -4,13 +4,17 @@ creator = require '../lib/creator'
 db = require '../lib/db'
 
 exports.create = (token, callback) ->
+  suspects = []
+  clues = []
+  missions = []
   # Run in parallel
   facebook.getFriend token, (friend, suspects) ->
-    clue.addClues friend, (friend) ->
-      res.send {friend: friend, suspects: suspects}
-  # db.getMissions (missions) ->
-  #   missions = missions
-  # new_mission = creator.createMission({levels: 3, clues: friend.clues, missions: missions})
+    suspects = suspects
+    clue.addClues friend, (clues) ->
+      clues = clues
+  db.getMissions (missions) ->
+    missions = missions
+  new_mission = creator.createMissionPath({levels: 3, clues: clues, missions: missions})
     db.saveMission (new_mission), (id) ->
       console.log id
-  # new_mission
+
