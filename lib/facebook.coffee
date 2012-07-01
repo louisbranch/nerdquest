@@ -1,5 +1,5 @@
 https = require 'https'
-querystring = require 'querystring'
+qs = require 'querystring'
 
 # Gets a random friend from Facebook
 # using the FQL
@@ -45,7 +45,7 @@ getFriendInfo = (uid, token, callback) ->
     batch: "[ { 'method': 'GET', 'relative_url': '#{uid}' }, { 'method': 'GET', 'relative_url': '#{uid}/likes' } ]"
   }
 
-  batch_request = querystring.stringify(params)
+  batch_request = qs.stringify(params)
 
   options = {
     host: 'graph.facebook.com'
