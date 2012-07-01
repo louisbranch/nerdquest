@@ -22,23 +22,12 @@ build = (mission) ->
   mission.worlds.shuffle()
   for world in mission.worlds
     delete world.clues
-    world.places.shuffle()
-    delete mission.build
+  delete mission.build
+  mission
 
-addClues = ({clues, world, previous_world, final_world}) ->
-  first_place = true
-  for place in world.places
-    if first_place && final_world
-      place.final = true
-      first_place = false
-    else if first_place
-      clue = clues.pop()
-      place.phrase = clue.phrase
-      place.type = clue.type
-      first_place = false
-    else if previous_world
-      place.phrase = previous_world.clues.shuffle().pop()
-      place.type = 'world'
+addClues = ({clues, world, previous_world}) ->
+  world.friend_clue = clues.pop()
+  world.world_clues = previous_world.clues.shuffle()
 
 setFirstWorld = (mission, clues, previous_world) ->
   world = mission.world
@@ -53,11 +42,12 @@ createCorrectPath = ({missions, mission, clues, levels}) ->
   while levels > 0
     world = missions.worlds.pop()
     world.level = levels
-    addClues({clues: clues, world: world, previous_world: previous_world, final_world: final_world})
+    unless final_world
+      addClues({clues: clues, world: world, previous_world: previous_world})
     final_world = false
     previous_world = world
     addWorld(mission, world)
-    levels--
+    levels -= 1
   setFirstWorld(mission, clues, previous_world)
 
 createWrongPath = ({missions, mission, levels}) ->
@@ -67,14 +57,14 @@ createWrongPath = ({missions, mission, levels}) ->
       world = missions.worlds.pop()
       world.level = levels
       addWorld(mission, world)
-      times--
-    levels--
+      times -= 1
+    levels -= 1
 
 exports.createMission = ({levels, missions, clues}) ->
   missions = getMissions(missions)
   mission = setMission(missions)
   getWorlds(missions)
   clues = getFriendClues(clues)
-  createCorrectPath({missions: missions, mission: mission, clues: clues, levels: 3})
-  createWrongPath({missions: missions, mission: mission, levels: 2})
+  createCorrectPath({missions: missions, mission: mission, clues: clues, levels: levels})
+  createWrongPath({missions: missions, mission: mission, levels: levels})
   build(mission)
