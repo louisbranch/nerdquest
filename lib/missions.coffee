@@ -1,7 +1,7 @@
 facebook = require '../lib/facebook'
 clue = require '../lib/clue'
 creator = require '../lib/creator'
-# db = require '../lib/db'
+db = require '../lib/db'
 
 exports.create = (token, callback) ->
   # Run in parallel
@@ -11,6 +11,6 @@ exports.create = (token, callback) ->
   # db.getMissions (missions) ->
   #   missions = missions
   # new_mission = creator.createMission({levels: 3, clues: friend.clues, missions: missions})
-  # db.saveMission (new_mission), ->
-  #   console.log('mission saved')
+    db.saveMission (new_mission), (id) ->
+      console.log id
   # new_mission
