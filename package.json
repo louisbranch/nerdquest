@@ -6,10 +6,10 @@
     "start": "node app"
   },
   "dependencies": {
+    "b64url": "*",
     "express": "3.0.0beta4",
     "jade": "*",
-    "sass": "*",
-    "b64url": "*"
+    "nano": "*"
   },
   "engine": "node >= 0.8.1"
 }
