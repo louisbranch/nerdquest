@@ -2,7 +2,10 @@ config = require('../config')
 nano = require('nano')(config.db.url)
 
 mapMissions = (row) ->
-  row.doc
+  mission = row.doc
+  delete(mission._id)
+  delete(mission._rev)
+  mission
 
 exports.getMissions = (callback) ->
   missions = nano.db.use('missions')
