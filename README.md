@@ -3,6 +3,7 @@ Rebuilding the [Sandiego](https://github.com/luizbranco/sandiego) project from s
 
 ## Stack
 * Node.js
+* CouchDB
 * Express.js
 * Backbone.js
 * ???
