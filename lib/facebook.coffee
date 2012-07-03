@@ -2,10 +2,7 @@ https = require('https')
 qs = require('querystring')
 suspect = require('../lib/suspect')
 
-# Gets a random friend from Facebook
-# using the FQL
-getRandomFriends = (token, callback) ->
-
+graphAPI = (path, callback) ->
   buffer = ''
 
   parseResult = ->
@@ -14,7 +11,7 @@ getRandomFriends = (token, callback) ->
 
   options = {
     host: 'graph.facebook.com'
-    path: "/fql?q=SELECT+uid,+name+FROM+user+WHERE+uid+IN+(SELECT+uid2+FROM+friend+WHERE+uid1+=+me())+ORDER+BY+rand()+limit+3&access_token=#{token}"
+    path: path
   }
 
   req = https.get options, (res) ->
@@ -27,6 +24,17 @@ getRandomFriends = (token, callback) ->
 
   req.on 'error', (e) ->
     console.log e
+
+# Gets the user information
+exports.getUser = (token, callback) ->
+  path = "/me?access_token=#{token}"
+  graphAPI(path, callback)
+
+# Gets a random friend from Facebook
+# using the FQL
+getRandomFriends = (token, callback) ->
+  path = "/fql?q=SELECT+uid,+name+FROM+user+WHERE+uid+IN+(SELECT+uid2+FROM+friend+WHERE+uid1+=+me())+ORDER+BY+rand()+limit+3&access_token=#{token}"
+  graphAPI(path, callback)
 
 # Gets a friend information and all
 # his likes using a Gaph.API batch query
