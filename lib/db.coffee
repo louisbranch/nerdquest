@@ -1,6 +1,18 @@
 config = require('../config')
 nano = require('nano')(config.db.url)
 
+exports.findUser = (_id, callback) ->
+  users = nano.db.use('users')
+  user.get _id, {}, (err, body) ->
+    callback(err) if err
+
+exports.addUser = (json, callback) ->
+  users = nano.db.use('users')
+  user = {_id: json.uid, name: json.name}
+  missions.insert user, {}, (err, body) ->
+    if !err || typeof callback == 'function'
+      callback(body.id)
+
 mapMissions = (row) ->
   mission = row.doc
   delete(mission._id)
