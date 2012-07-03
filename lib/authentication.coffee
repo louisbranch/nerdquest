@@ -1,5 +1,6 @@
 config = require('../config')
 base64url = require('b64url')
+db = require('../lib/db')
 
 app = {
   id: '390782924297392'
@@ -11,10 +12,18 @@ app = {
           'friends_religion_politics', 'friends_website', 'friends_work_history']
 }
 
-exports.getToken = (signed_request) ->
+exports.url = "https://www.facebook.com/dialog/oauth?client_id=#{app.id}&redirect_uri=#{app.canvas_url}&scope=#{app.scope.join(',')}"
+
+getToken = (signed_request) ->
   encoded_data = signed_request.split('.',2)
   json = base64url.decode(encoded_data[1])
   data = JSON.parse(json)
-  data.oauth_token
+  {uid: data.user_id, token: data.oauth_token}
 
-exports.url = "https://www.facebook.com/dialog/oauth?client_id=#{app.id}&redirect_uri=#{app.canvas_url}&scope=#{app.scope.join(',')}"
+exports.user = (signed_request, callback) ->
+  user = getToken(signed_request)
+  db.findUser user._id, (err) ->
+    if err
+      facebook.getUser user._id, (user) ->
+        db.newUser(user)
+  callback(user)
