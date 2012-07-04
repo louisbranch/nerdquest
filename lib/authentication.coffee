@@ -1,6 +1,7 @@
 config = require('../config')
 base64url = require('b64url')
 db = require('../lib/db')
+facebook = require('../lib/facebook')
 
 app = {
   id: '390782924297392'
@@ -18,12 +19,12 @@ getToken = (signed_request) ->
   encoded_data = signed_request.split('.',2)
   json = base64url.decode(encoded_data[1])
   data = JSON.parse(json)
-  {uid: data.user_id, token: data.oauth_token}
+  {id: data.user_id, token: data.oauth_token}
 
 exports.user = (signed_request, callback) ->
   user = getToken(signed_request)
-  db.findUser user._id, (err) ->
+  db.findUser user.id, (err) ->
     if err
-      facebook.getUser user._id, (user) ->
-        db.newUser(user)
+      facebook.getUser user.token, (id, data) ->
+        db.addUser(id, data)
   callback(user)
