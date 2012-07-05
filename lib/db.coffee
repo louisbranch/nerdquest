@@ -6,7 +6,7 @@ exports.findUser = (id, callback) ->
   users.get id, (err, body) ->
     callback(err) if err
 
-exports.addUser = (id, data, callback) ->
+exports.saveUser = (id, data, callback) ->
   users = nano.db.use('users')
   users.insert data, id, (err, body) ->
     if err

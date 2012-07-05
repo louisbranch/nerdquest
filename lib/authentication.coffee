@@ -26,5 +26,5 @@ exports.user = (signed_request, callback) ->
   db.findUser user.id, (err) ->
     if err
       facebook.getUser user.token, (id, data) ->
-        db.addUser(id, data)
+        db.saveUser(id, data)
   callback(user)
