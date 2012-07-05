@@ -1,3 +1,4 @@
+# TODO move secrets to app config
 express = require 'express'
 http = require 'http'
 routes = require './routes'

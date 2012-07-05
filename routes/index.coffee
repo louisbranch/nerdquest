@@ -1,4 +1,5 @@
 # TODO add url when there is no signed_request
+# TODO replace cookies for sessions
 auth = require '../lib/authentication'
 
 exports.index = (req, res) ->
