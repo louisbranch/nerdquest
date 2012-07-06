@@ -1,5 +1,5 @@
 config = require('../config')
-nano = require('nano')(config.db.url)
+nano = require('nano')(config.db)
 
 exports.findUser = (id, callback) ->
   users = nano.db.use('users')

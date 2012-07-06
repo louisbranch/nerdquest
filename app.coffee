@@ -1,7 +1,7 @@
-# TODO move secrets to app config
 http = require('http')
 express = require('express')
 socket = require('socket.io')
+config = require('./config')
 routes = require('./routes')
 friend = require('./routes/friend')
 missions = require('./routes/missions')
@@ -16,7 +16,7 @@ app.configure ->
   app.use(express.logger('dev'))
   app.use(express.bodyParser())
   app.use(express.methodOverride())
-  app.use(express.cookieParser('your secret here'))
+  app.use(express.cookieParser(config.secret))
   app.use(express.session())
   app.use(app.router)
   app.use(express.static(__dirname + '/public'))
