@@ -1,8 +1,18 @@
-# TODO: create filter function
+_ = require('underscore')
 
-exports.select = (friends) ->
-  suspects = friends
-  suspects[0].guilt = true
-  guilt_uid = suspects[0].uid
-  [guilt_uid, suspects]
+# Ignore 8 default FB attributes
+# Must have at least 3 info for clues
+filterSuspect = (suspect) ->
+  _.keys(suspect).length > 11
+
+exports.select = (suspects, callback) ->
+  for suspect in suspects
+    if filterSuspect(suspect)
+      suspect.guilt = true
+      guilt_id = suspect.id
+      break
+  if guilt_id
+    callback(null, guilt_id, suspects)
+  else
+    callback('No friends with enough valid information found')
 

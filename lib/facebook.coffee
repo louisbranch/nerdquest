@@ -84,6 +84,9 @@ getFriendInfo = (uid, token, callback) ->
 
 exports.getFriend = (token, callback) ->
   getRandomFriends token, (friends) ->
-    [uid, suspects] = suspect.select(friends)
-    getFriendInfo uid, token, (friend) ->
-      callback(friend, suspects)
+    suspect.select friends, (err, guilt_id, suspects) ->
+      if err
+        # TODO Handle invalid suspects
+      else
+        getFriendInfo guilt_id, token, (friend) ->
+          callback(friend, suspects)
