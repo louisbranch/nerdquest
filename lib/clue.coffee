@@ -1,4 +1,6 @@
 #TODO Add likes parser
+#TODO Refactor parser to no be reacreated
+# on every funcition call
 
 parseInfo = (friend) ->
   parser = {
@@ -22,7 +24,6 @@ parseInfo = (friend) ->
       parser.clues.push
         type: 'birthday'
         phrase: phrase
-
 
     hometown: (i) ->
       parser.clues.push
@@ -74,7 +75,7 @@ parseInfo = (friend) ->
       for lang in i
         parser.clues.push
           type: 'language'
-          phrase: "I head the suspect speaking #{lang.name}"
+          phrase: "I heard the suspect speaking #{lang.name}"
 
     sports: (i) ->
       for sport in i

@@ -30,5 +30,4 @@ exports.getMissions = (callback) ->
 exports.saveMission = (json, callback) ->
   missions = nano.db.use('missions')
   missions.insert json, null, (err, body) ->
-    unless err
-      callback(body.id)
+    callback(body.id) unless err
