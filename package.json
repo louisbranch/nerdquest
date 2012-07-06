@@ -10,7 +10,8 @@
     "b64url": "*",
     "express": ">= 3.0.0beta4",
     "jade": "*",
-    "nano": "*"
+    "nano": "*",
+    "socket.io": "*"
   },
   "engine": "node >= 0.8.1"
 }

@@ -1,9 +1,10 @@
 # TODO move secrets to app config
-express = require 'express'
-http = require 'http'
-routes = require './routes'
-friend = require './routes/friend'
-missions = require './routes/missions'
+http = require('http')
+express = require('express')
+socket = require('socket.io')
+routes = require('./routes')
+friend = require('./routes/friend')
+missions = require('./routes/missions')
 
 app = express()
 
@@ -23,8 +24,17 @@ app.configure ->
 app.configure 'development', ->
   app.use(express.errorHandler())
 
+app.get('/', routes.index)
 app.post('/', routes.index)
 app.get('/friend.json', friend.index)
 app.get('/missions', missions.new)
 
-http.createServer(app).listen(app.get('port'))
+server = http.createServer(app).listen(app.get('port'))
+
+io = socket.listen(server)
+io.sockets.on 'connection', (socket) ->
+  socket.emit('news', { hello: 'world' })
+  socket.on 'my other event', (data) ->
+    console.log(data)
+
+
