@@ -27,12 +27,7 @@ app.configure 'development', ->
 app.get('/', routes.index)
 app.post('/', routes.index)
 app.get('/friend.json', friend.index)
-app.get('/missions', missions.new)
+app.get('/missions', missions.create)
 
 server = http.createServer(app).listen(app.get('port'))
 
-io = socket.listen(server)
-io.sockets.on 'connection', (socket) ->
-  socket.emit('news', { hello: 'world' })
-  socket.on 'my other event', (data) ->
-    console.log(data)

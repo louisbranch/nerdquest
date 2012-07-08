@@ -1,6 +1,5 @@
 https = require('https')
 qs = require('querystring')
-suspect = require('../lib/suspect')
 
 graphAPI = (path, callback) ->
   buffer = ''
@@ -84,9 +83,7 @@ getFriendInfo = (uid, token, callback) ->
 
 exports.getFriend = (token, callback) ->
   getRandomFriends token, (friends) ->
-    suspect.select friends, (err, guilt_id, suspects) ->
-      if err
-        # TODO Handle invalid suspects
-      else
-        getFriendInfo guilt_id, token, (friend) ->
-          callback(friend, suspects)
+    guilt_id = friends[0].uid
+    friends[0].guilt = true
+    getFriendInfo guilt_id, token, (friend) ->
+      callback(friend, friends)
