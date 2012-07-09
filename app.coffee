@@ -4,7 +4,7 @@ socket = require('socket.io')
 config = require('./config')
 routes = require('./routes')
 friend = require('./routes/friend')
-missions = require('./routes/missions')
+quests = require('./routes/quests')
 
 app = express()
 
@@ -27,7 +27,7 @@ app.configure 'development', ->
 app.get('/', routes.index)
 app.post('/', routes.index)
 app.get('/friend.json', friend.index)
-app.get('/missions', missions.create)
+app.get('/quests', quests.create)
 
 server = http.createServer(app).listen(app.get('port'))
 

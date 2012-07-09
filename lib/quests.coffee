@@ -1,4 +1,4 @@
-#TODO Get user to save his own mission
+#TODO Get user to save his own quest
 
 async = require('async')
 facebook = require('../lib/facebook')
@@ -6,17 +6,17 @@ clue = require('../lib/clue')
 creator = require('../lib/creator')
 db = require('../lib/db')
 
-organizeMission = ({path, suspects}) ->
-  mission = path
-  mission.suspects = suspects
-  mission
+organizeQuest = ({path, suspects}) ->
+  quest = path
+  quest.suspects = suspects
+  quest
 
 exports.create = (user, callback) ->
-  mission = {}
+  quest = {}
   async.parallel
     clues: (callback) ->
       facebook.getFriend user.token, (friend, suspects) ->
-        mission.suspects = suspects
+        quest.suspects = suspects
         clue.addClues friend, (clues) ->
           callback(null, clues)
     missions: (callback) ->
@@ -25,9 +25,9 @@ exports.create = (user, callback) ->
     (err, results) ->
       unless err
         callback results
-        #mission.path = creator.createMissionPath({levels: 3, clues: results.clues, missions: results.missions})
-        #mission = organizeMission(mission)
-        #db.saveMission (user, mission), (id) ->
+        #quest.path = creator.createQuestPath({levels: 3, clues: results.clues, missions: results.missions})
+        #quest = organizeQuest(quest)
+        #db.saveQuest (user, quest), (id) ->
         #  console.log id
-        #callback(mission)
+        #callback(quest)
 

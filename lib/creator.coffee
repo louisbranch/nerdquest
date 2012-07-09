@@ -6,37 +6,37 @@ getMissions = (json) ->
 getFriendClues = (json) ->
   json.shuffle()
 
-setMission = (missions) ->
-  mission = missions.pop()
-  mission.worlds = []
-  mission
+setQuest = (missions) ->
+  quest = missions.pop()
+  quest.worlds = []
+  quest
 
 getWorlds = (missions) ->
   missions.worlds = missions.map (mission) ->
     mission.world
 
-addWorld = (mission, world) ->
-  mission.worlds.push(world)
+addWorld = (quest, world) ->
+  quest.worlds.push(world)
 
-shuffleMission = (mission) ->
-  mission.worlds.shuffle()
-  for world in mission.worlds
+shuffleQuest = (quest) ->
+  quest.worlds.shuffle()
+  for world in quest.worlds
     delete world.clues
-  delete mission.shuffleMission
-  mission
+  delete quest.shuffleQuest
+  quest
 
 addClues = ({clues, world, previous_world}) ->
   world.friend_clue = clues.pop()
   world.world_clues = previous_world.clues.shuffle()
 
-setFirstWorld = (mission, clues, previous_world) ->
-  world = mission.world
-  delete mission.world
+setFirstWorld = (quest, clues, previous_world) ->
+  world = quest.world
+  delete quest.world
   addClues({clues: clues, world: world, previous_world: previous_world})
   world.level = 0
-  addWorld(mission, world)
+  addWorld(quest, world)
 
-createCorrectPath = ({missions, mission, clues, levels}) ->
+createCorrectPath = ({missions, quest, clues, levels}) ->
   previous_world = undefined
   final_world = true
   while levels > 0
@@ -46,25 +46,25 @@ createCorrectPath = ({missions, mission, clues, levels}) ->
       addClues({clues: clues, world: world, previous_world: previous_world})
     final_world = false
     previous_world = world
-    addWorld(mission, world)
+    addWorld(quest, world)
     levels -= 1
-  setFirstWorld(mission, clues, previous_world)
+  setFirstWorld(quest, clues, previous_world)
 
-createWrongPath = ({missions, mission, levels}) ->
+createWrongPath = ({missions, quest, levels}) ->
   while levels > 0
     times = 2
     while times > 0
       world = missions.worlds.pop()
       world.level = levels
-      addWorld(mission, world)
+      addWorld(quest, world)
       times -= 1
     levels -= 1
 
-exports.createMissionPath = ({levels, missions, clues}) ->
+exports.createQuestPath = ({levels, missions, clues}) ->
   missions = getMissions(missions)
-  mission = setMission(missions)
+  quest = setMission(missions)
   getWorlds(missions)
   clues = getFriendClues(clues)
-  createCorrectPath({missions: missions, mission: mission, clues: clues, levels: levels})
-  createWrongPath({missions: missions, mission: mission, levels: levels})
-  shuffleMission(mission)
+  createCorrectPath({missions: missions, quest: quest, clues: clues, levels: levels})
+  createWrongPath({missions: missions, quest: quest, levels: levels})
+  shuffleQuest(quest)
