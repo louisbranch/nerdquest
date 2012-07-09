@@ -1,4 +1,4 @@
-#TODO Get user to save on his mission
+#TODO Get user to save his own mission
 
 async = require('async')
 facebook = require('../lib/facebook')
