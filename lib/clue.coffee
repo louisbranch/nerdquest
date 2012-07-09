@@ -1,6 +1,43 @@
-#TODO Add likes parser
-
 clues = []
+
+likeParser = {
+
+  'Musician/band': (i) ->
+    type: 'music'
+    phrase: "The suspect was listening to #{i}"
+
+  'Movie': (i) ->
+    type: 'movie'
+    phrase: "The suspect dropped a movie ticket from #{i}"
+
+  'Game/toys': (i) ->
+    type: 'game'
+    phrase: "The suspect invited me to play #{i}"
+
+  'Tv show': (i) ->
+    type: 'tv show'
+    phrase: "The suspect told something about the last episode from #{i}"
+
+  'Musical gender': (i) ->
+    type: 'musical genre'
+    phrase: "The suspect bet me at RockBand playing #{i}"
+
+  'Sport': (i) ->
+    type: 'sport'
+    phrase: "The suspect practices #{i}"
+
+  'Book': (i) ->
+    type: 'book'
+    phrase: "The suspect was carrying #{i}"
+
+  'Writer': (i) ->
+    type: 'writer'
+    phrase: "The suspect was reading a book from #{i}"
+
+  'App page': (i) ->
+    type: 'app'
+    phrase: "The suspect sent me an annoying invite from #{i}"
+}
 
 parser = {
   gender: (i) ->
@@ -116,6 +153,12 @@ parser = {
     clues.push
       type: 'relationship status'
       phrase: status
+
+  likes: (i) ->
+    for like in i
+      if likeParser.hasOwnProperty(like.category)
+        clue = likeParser[like.category](like.name)
+        clues.push(clue)
 }
 
 parseInfo = (friend) ->
