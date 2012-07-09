@@ -31,3 +31,8 @@ app.get('/missions', missions.create)
 
 server = http.createServer(app).listen(app.get('port'))
 
+io = socket.listen(server)
+io.sockets.on 'connection', (socket) ->
+  socket.emit('news', { hello: 'world' })
+  socket.on 'my other event', (data) ->
+    console.log(data)
