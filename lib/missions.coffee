@@ -11,11 +11,11 @@ organizeMission = ({path, suspects}) ->
   mission.suspects = suspects
   mission
 
-exports.create = (token, callback) ->
+exports.create = (user, callback) ->
   mission = {}
   async.parallel
     clues: (callback) ->
-      facebook.getFriend token, (friend, suspects) ->
+      facebook.getFriend user.token, (friend, suspects) ->
         mission.suspects = suspects
         clue.addClues friend, (clues) ->
           callback(null, clues)
@@ -23,10 +23,11 @@ exports.create = (token, callback) ->
       db.getMissions (missions) ->
         callback(null, missions)
     (err, results) ->
-      callback results
-  #mission.path = creator.createMissionPath({levels: 3, clues: mission.clues, missions: mission.missions})
-  #mission = organizeMission(mission)
-  #db.saveMission (new_mission), (id) ->
-  #  console.log id
-  #mission
+      unless err
+        callback results
+        #mission.path = creator.createMissionPath({levels: 3, clues: results.clues, missions: results.missions})
+        #mission = organizeMission(mission)
+        #db.saveMission (user, mission), (id) ->
+        #  console.log id
+        #callback(mission)
 
