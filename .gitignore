@@ -1,5 +1,3 @@
 node_modules/
 config.*
-app.js
-lib/*.js
-routes/*.js
+*.js
