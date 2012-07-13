@@ -9,3 +9,6 @@ exports.index = (req, res) ->
       req.session.id = user.id
       req.session.token = user.token
       res.render('index')
+
+exports.tester = (req, res) ->
+  res.render('index')

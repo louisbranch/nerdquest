@@ -24,6 +24,7 @@ app.configure ->
 app.configure 'development', ->
   app.use(express.errorHandler())
 
+app.get('/t', routes.tester)
 app.get('/', routes.index)
 app.post('/', routes.index)
 app.get('/friend.json', friend.index)
