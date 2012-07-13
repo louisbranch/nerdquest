@@ -62,7 +62,7 @@ createWrongPath = ({missions, quest, levels}) ->
 
 exports.createQuestPath = ({levels, missions, clues}) ->
   missions = getMissions(missions)
-  quest = setMission(missions)
+  quest = setQuest(missions)
   getWorlds(missions)
   clues = getFriendClues(clues)
   createCorrectPath({missions: missions, quest: quest, clues: clues, levels: levels})
