@@ -1,37 +1,45 @@
-window.Quest = Backbone.Model.extend()
+Quest = Backbone.Model.extend()
 
-Quests = Backbone.Collection.extend
+window.Quests = Backbone.Collection.extend
   model: Quest
+  url: '/quests'
 
-window.QuestView = Backbone.View.extend
-  tagName: 'article'
+QuestView = Backbone.View.extend
+  tagName: 'li'
   className: 'quest'
 
   initialize: ->
     _.bindAll(@, 'render')
     @model.bind('change', @render)
-    @template = _.template($('#quest-template').text())
+    @template = _.template($('#quest-template').html())
 
   render: ->
     rendered = @template(@model.toJSON())
     $(@el).html(rendered)
     @
 
-QuestsView = Backbone.View.extend
+window.QuestsView = Backbone.View.extend
   tagName: 'section'
-  className: 'quests'
+  className: 'quest-log'
 
   initialize: ->
     _.bindAll(@, 'render')
-    @template = _.template($('#quests-template').text())
+    @template = _.template($('#quests-template').html())
+    @collection.bind('reset', @render)
     @render()
 
   render: ->
     $(@.el).html(@template({}))
-    quests = @$('.quests')
+    $quests = @$('.quests')
     @collection.each (quest) ->
       view = new QuestView
         model: quest
         collection: @collection
-      quests.append(view.render().el)
+      $quests.append(view.render().el)
     @
+
+$ ->
+  quests = new Quests()
+  questsView = new QuestsView({collection: quests})
+  $('body').append(questsView.render().el)
+  quests.fetch()

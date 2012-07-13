@@ -3,5 +3,18 @@ extends layout
 block content
   h1 NerdQuest
 
-  script(type='jade/template', id='quest-template')
-    h1 <%= name %>
+  script(type='text/template', id='quests-template')
+    h1 Your Quests:
+    ul.quests
+
+  script(type='text/template', id='quest-template')
+    h2 <%= name %>
+    p <%= description %>
+    ol.suspects
+      <% _.each(suspects, function(suspect) { %>
+      li <%= suspect.name %>
+      <% }); %>
+    ol.worlds
+      <% _.each(worlds, function(world) { %>
+      li <%= world.name %>
+      <% }); %>
