@@ -11,11 +11,11 @@ organizeQuest = ({path, suspects}) ->
   quest.suspects = suspects
   quest
 
-exports.create = (user, callback) ->
+exports.create = (user_id, token, callback) ->
   quest = {}
   async.parallel
     clues: (callback) ->
-      facebook.getFriend user.token, (friend, suspects) ->
+      facebook.getFriend token, (friend, suspects) ->
         quest.suspects = suspects
         clue.addClues friend, (clues) ->
           callback(null, clues)
