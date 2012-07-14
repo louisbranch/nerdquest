@@ -16,7 +16,8 @@ Nerd.QuestView = Backbone.View.extend
     @
 
   start: ->
-    console.log('start')
+    @model.start()
+    console.log('started')
 
 Nerd.QuestsView = Backbone.View.extend
   tagName: 'section'

@@ -21,7 +21,8 @@
       return this;
     },
     start: function() {
-      return console.log('start');
+      this.model.start();
+      return console.log('started');
     }
   });
 
