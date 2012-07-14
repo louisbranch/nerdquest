@@ -5,15 +5,23 @@ Nerd.QuestView = Backbone.View.extend
   initialize: ->
     _.bindAll(@, 'render')
     @model.bind('change', @render)
+    @model.bind('worldChange', @updateWorld)
     @template = _.template($('#quest-template').html())
 
   events: ->
     'click .start-quest' : 'start'
+    'click .world' : 'selectWorld'
 
   render: ->
     rendered = @template(@model.toJSON())
     $(@el).html(rendered)
     @
+
+  updateWorld: (world) ->
+    alert 'changed'
+
+  selectWorld: (world) ->
+    console.log world
 
   start: ->
     @model.start()

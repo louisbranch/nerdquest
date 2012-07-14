@@ -7,11 +7,13 @@
     initialize: function() {
       _.bindAll(this, 'render');
       this.model.bind('change', this.render);
+      this.model.bind('worldChange', this.updateWorld);
       return this.template = _.template($('#quest-template').html());
     },
     events: function() {
       return {
-        'click .start-quest': 'start'
+        'click .start-quest': 'start',
+        'click .world': 'selectWorld'
       };
     },
     render: function() {
@@ -19,6 +21,12 @@
       rendered = this.template(this.model.toJSON());
       $(this.el).html(rendered);
       return this;
+    },
+    updateWorld: function(world) {
+      return alert('changed');
+    },
+    selectWorld: function(world) {
+      return console.log(world);
     },
     start: function() {
       this.model.start();
