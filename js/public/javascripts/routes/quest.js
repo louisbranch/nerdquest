@@ -6,14 +6,14 @@
       't': 'index'
     },
     index: function() {
-      var $questLog, quests, questsView;
-      $questLog = $('#quest-log');
-      $questLog.empty();
+      var $content, quests, questsView;
+      $content = $('#content');
+      $content.empty();
       quests = new Nerd.Quests();
-      questsView = new Nerd.QuestsView({
+      questsView = new Nerd.QuestListView({
         collection: quests
       });
-      $questLog.append(questsView.render().el);
+      $content.append(questsView.render().el);
       return quests.fetch();
     }
   });

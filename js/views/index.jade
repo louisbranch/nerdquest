@@ -2,23 +2,23 @@ extends layout
 
 block content
   h1 NerdQuest
-  #quest-log
+  #content
 
-  script(type='text/template', id='quests-template')
-    h1 Your Quests:
-    ul.quests
+  #templates
+    script(type='text/html', id='quest-list-template')
+      h1 Your Quests:
+      ul.quests
 
-  script(type='text/template', id='quest-template')
-    h2 <%= name %>
-    p <%= description %>
-    ol.suspects
-      <% _.each(suspects, function(suspect) { %>
-      li <%= suspect.name %>
-      <% }); %>
-    button.start-quest Start
+    script(type='text/html', id='quest-row-template')
+      a(href='#', class='quest-title') <%= name %>
 
-  script(type='text/template', id='worlds-template')
-    h1 Worlds:
+    script(type='text/html', id='quest-briefing-template')
+      h2 <%= name %>
+      p <%= description %>
+      button.quest-start Start
 
-  script(type='text/template', id='world-template')
-    h2 <%= name %>
+    script(type='text/html', id='worlds-template')
+      h1 Worlds:
+
+    script(type='text/html', id='world-template')
+      h2 <%= name %>

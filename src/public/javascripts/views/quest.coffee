@@ -1,39 +1,52 @@
-Nerd.QuestView = Backbone.View.extend
-  tagName: 'li'
-  className: 'quest'
+Nerd.QuestBriefingView = Backbone.View.extend
+  tagName: 'section'
+  className: 'quest-briefing'
 
   initialize: ->
     _.bindAll(@, 'render')
     @model.bind('change', @render)
-    @model.bind('worldChange', @updateWorld)
-    @template = _.template($('#quest-template').html())
+    @template = _.template($('#quest-briefing-template').html())
 
   events: ->
-    'click .start-quest' : 'start'
-    'click .world' : 'selectWorld'
+    'click .quest-start' : 'start'
 
   render: ->
     rendered = @template(@model.toJSON())
     $(@el).html(rendered)
     @
 
-  updateWorld: (world) ->
-    alert 'changed'
-
-  selectWorld: (world) ->
-    console.log world
-
   start: ->
-    @model.start()
-    console.log('started')
+    console.log 'starting'
 
-Nerd.QuestsView = Backbone.View.extend
+Nerd.QuestRowView = Backbone.View.extend
+  tagName: 'li'
+  className: 'quest'
+
+  initialize: ->
+    _.bindAll(@, 'render')
+    @model.bind('change', @render)
+    @template = _.template($('#quest-row-template').html())
+
+  events: ->
+    'click .quest-title' : 'briefing'
+
+  render: ->
+    rendered = @template(@model.toJSON())
+    $(@el).html(rendered)
+    @
+
+  briefing: (e) ->
+    view = new Nerd.QuestBriefingView(model: @model)
+    $('#content').html(view.render().el)
+    e.preventDefault()
+
+Nerd.QuestListView = Backbone.View.extend
   tagName: 'section'
   className: 'quest-log'
 
   initialize: ->
     _.bindAll(@, 'render')
-    @template = _.template($('#quests-template').html())
+    @template = _.template($('#quest-list-template').html())
     @collection.bind('reset', @render)
     @render()
 
@@ -41,7 +54,7 @@ Nerd.QuestsView = Backbone.View.extend
     $(@.el).html(@template({}))
     $quests = @$('.quests')
     @collection.each (quest) ->
-      view = new Nerd.QuestView
+      view = new Nerd.QuestRowView
         model: quest
         collection: @collection
       $quests.append(view.render().el)
