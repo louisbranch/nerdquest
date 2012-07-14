@@ -1,4 +1,12 @@
-Nerd.Quest = Backbone.Model.extend
+Nerd.Quest = Backbone.RelationalModel.extend
+
+  relations: [
+    {
+      type: Backbone.HasMany
+      key: 'worlds'
+      relatedModel: 'Nerd.World'
+    }
+  ]
 
   worlds: ->
     @get('worlds')

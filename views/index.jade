@@ -15,8 +15,10 @@ block content
       <% _.each(suspects, function(suspect) { %>
       li <%= suspect.name %>
       <% }); %>
-    ol.worlds
-      <% _.each(worlds, function(world) { %>
-      li.world <%= world.name %>
-      <% }); %>
     button.start-quest Start
+
+  script(type='text/template', id='worlds-template')
+    h1 Worlds:
+
+  script(type='text/template', id='world-template')
+    h2 <%= name %>
