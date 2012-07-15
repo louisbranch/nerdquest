@@ -34,11 +34,11 @@ Nerd.WorldListView = Backbone.View.extend
 
   selectWorld: ->
     @model.isRight (err, result) =>
+      #TODO animate selection
       if err
         $(@el).addClass('wrong')
       else
         $(@el).addClass('right')
-        #animate
         new Nerd.WorldView(model: @model)
         nextWorlds = new Nerd.Worlds(result.nextWorlds)
         new Nerd.WorldsListView(collection: nextWorlds)

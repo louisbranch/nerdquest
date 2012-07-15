@@ -1,4 +1,4 @@
-#TODO Get user to save his own quest
+#TODO Save user quest
 
 async = require('async')
 facebook = require('../lib/facebook')
