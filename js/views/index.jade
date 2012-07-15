@@ -13,12 +13,18 @@ block content
       a(href='#', class='quest-title') <%= name %>
 
     script(type='text/html', id='quest-briefing-template')
-      h2 <%= name %>
-      p <%= description %>
-      button.quest-start Start
+      h1 <%= name %>
+      #map
+        p <%= description %>
+        button.quest-start Start
 
-    script(type='text/html', id='worlds-template')
+    script(type='text/html', id='worlds-list-template')
       h1 Worlds:
+      ol.worlds
+
+    script(type='text/html', id='world-row-template')
+      h2 <%= name %>
 
     script(type='text/html', id='world-template')
       h2 <%= name %>
+      h3 Next World Clues:

@@ -2,12 +2,32 @@
 (function() {
 
   Nerd.WorldView = Backbone.View.extend({
+    tagName: 'section',
+    className: 'world',
+    initialize: function() {
+      console.log('created');
+      _.bindAll(this, 'render');
+      this.model.bind('change', this.render);
+      this.template = _.template($('#world-template').html());
+      return this.render();
+    },
+    render: function() {
+      var $map, rendered;
+      $map = $('#map');
+      rendered = this.template(this.model.toJSON());
+      $(this.el).html(rendered);
+      $map.html(this.el);
+      return this;
+    }
+  });
+
+  Nerd.WorldListView = Backbone.View.extend({
     tagName: 'li',
     className: 'world',
     initialize: function() {
       _.bindAll(this, 'render');
       this.model.bind('change', this.render);
-      return this.template = _.template($('#world-template').html());
+      return this.template = _.template($('#world-row-template').html());
     },
     events: function() {
       return {
@@ -20,35 +40,34 @@
       $(this.el).html(rendered);
       return this;
     },
-    updateWorld: function(world) {
-      return alert('changed');
-    },
     selectWorld: function(world) {
       return console.log(world);
     }
   });
 
-  Nerd.WorldsView = Backbone.View.extend({
+  Nerd.WorldsListView = Backbone.View.extend({
     tagName: 'section',
     className: 'worlds-map',
     initialize: function() {
       _.bindAll(this, 'render');
-      this.template = _.template($('#worlds-template').html());
+      this.template = _.template($('#worlds-list-template').html());
       this.collection.bind('reset', this.render);
       return this.render();
     },
     render: function() {
-      var $worlds;
+      var $map, $worlds;
+      $map = $('#map');
       $(this.el).html(this.template({}));
       $worlds = this.$('.worlds');
       this.collection.each(function(world) {
         var view;
-        view = new Nerd.WorldView({
+        view = new Nerd.WorldListView({
           model: world,
           collection: this.collection
         });
         return $worlds.append(view.render().el);
       });
+      $map.html(this.el);
       return this;
     }
   });

@@ -6,31 +6,17 @@
       {
         type: Backbone.HasMany,
         key: 'worlds',
-        relatedModel: 'Nerd.World'
+        relatedModel: 'Nerd.World',
+        collectionType: 'Nerd.Worlds',
+        reverseRelation: {
+          key: 'quest'
+        }
       }
     ],
-    worlds: function() {
-      return this.get('worlds');
-    },
-    currentWorld: {},
-    worldsByLevel: function(lvl) {
-      return _.select(this.worlds(), function(world) {
-        return world.level === lvl;
-      });
-    },
-    gotToWorld: function(world) {
-      this.currentWorld = world;
-      return this.trigger('worldChange', world);
-    },
-    nextWorld: function() {
-      return console.log('changing world');
-    },
-    start: function() {
-      var first;
-      console.log('starting');
-      first = this.worldsByLevel(0)[0];
-      this.gotToWorld(first);
-      return console.log(this.currentWorld);
+    start: function(callback) {
+      var world;
+      world = this.get('worlds').firstWorld();
+      return callback(world);
     }
   });
 

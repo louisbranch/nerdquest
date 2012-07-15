@@ -6,7 +6,7 @@ Nerd.QuestsRouter = Backbone.Router.extend
     $content = $('#content')
     $content.empty()
     quests = new Nerd.Quests()
-    questsView = new Nerd.QuestListView({collection: quests})
+    questsView = new Nerd.QuestListView(collection: quests)
     $content.append(questsView.render().el)
     quests.fetch()
 

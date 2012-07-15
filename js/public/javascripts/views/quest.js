@@ -21,7 +21,21 @@
       return this;
     },
     start: function() {
-      return console.log('starting');
+      return this.model.start(function(world) {
+        return new Nerd.WorldView({
+          model: world
+        });
+      });
+    },
+    nextLevel: function() {
+      return this.model.start(function(world) {
+        var worlds, worldsListView;
+        worlds = new Nerd.Worlds();
+        worldsListView = new Nerd.WorldsListView({
+          collection: worlds
+        });
+        return worlds.reset([world]);
+      });
     }
   });
 

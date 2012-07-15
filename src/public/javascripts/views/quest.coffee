@@ -16,7 +16,14 @@ Nerd.QuestBriefingView = Backbone.View.extend
     @
 
   start: ->
-    console.log 'starting'
+    @model.start (world) ->
+      new Nerd.WorldView(model: world)
+
+  nextLevel: () ->
+    @model.start (world) ->
+      worlds = new Nerd.Worlds()
+      worldsListView = new Nerd.WorldsListView(collection: worlds)
+      worlds.reset([world])
 
 Nerd.QuestRowView = Backbone.View.extend
   tagName: 'li'
@@ -51,7 +58,7 @@ Nerd.QuestListView = Backbone.View.extend
     @render()
 
   render: ->
-    $(@.el).html(@template({}))
+    $(@el).html(@template({}))
     $quests = @$('.quests')
     @collection.each (quest) ->
       view = new Nerd.QuestRowView
