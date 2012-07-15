@@ -49,7 +49,9 @@
     var clues, previous_world, world;
     clues = _arg.clues, world = _arg.world, previous_world = _arg.previous_world;
     world.friend_clue = clues.pop();
-    return world.world_clues = previous_world.clues.shuffle();
+    if (previous_world) {
+      return world.world_clues = previous_world.clues.shuffle();
+    }
   };
 
   setFirstWorld = function(quest, clues, previous_world) {
@@ -66,21 +68,17 @@
   };
 
   createCorrectPath = function(_arg) {
-    var clues, final_world, levels, missions, previous_world, quest, world;
+    var clues, levels, missions, previous_world, quest, world;
     missions = _arg.missions, quest = _arg.quest, clues = _arg.clues, levels = _arg.levels;
     previous_world = void 0;
-    final_world = true;
     while (levels > 0) {
       world = missions.worlds.pop();
       world.level = levels;
-      if (!final_world) {
-        addClues({
-          clues: clues,
-          world: world,
-          previous_world: previous_world
-        });
-      }
-      final_world = false;
+      addClues({
+        clues: clues,
+        world: world,
+        previous_world: previous_world
+      });
       previous_world = world;
       addWorld(quest, world);
       levels -= 1;

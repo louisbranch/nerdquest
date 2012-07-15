@@ -4,7 +4,7 @@
   Nerd.World = Backbone.RelationalModel.extend({
     isRight: function(callback) {
       var clues, level;
-      clues = this.get('world_clues');
+      clues = this.get('world_clues') || this.get('friend_clue');
       if (clues) {
         level = this.get('level');
         return this.get('quest').scoreRightWorld(level, callback);

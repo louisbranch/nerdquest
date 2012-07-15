@@ -27,24 +27,22 @@ shuffleQuest = (quest) ->
 
 addClues = ({clues, world, previous_world}) ->
   world.friend_clue = clues.pop()
-  world.world_clues = previous_world.clues.shuffle()
+  if previous_world
+    world.world_clues = previous_world.clues.shuffle()
 
 setFirstWorld = (quest, clues, previous_world) ->
   world = quest.world
   delete quest.world
-  addClues({clues: clues, world: world, previous_world: previous_world})
+  addClues({clues, world, previous_world})
   world.level = 0
   addWorld(quest, world)
 
 createCorrectPath = ({missions, quest, clues, levels}) ->
   previous_world = undefined
-  final_world = true
   while levels > 0
     world = missions.worlds.pop()
     world.level = levels
-    unless final_world
-      addClues({clues: clues, world: world, previous_world: previous_world})
-    final_world = false
+    addClues({clues, world, previous_world})
     previous_world = world
     addWorld(quest, world)
     levels -= 1

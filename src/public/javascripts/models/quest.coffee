@@ -14,7 +14,11 @@ Nerd.Quest = Backbone.RelationalModel.extend
 
   scoreRightWorld: (level, callback) ->
     nextWorlds = @get('worlds').worldsByLevel(level+1)
-    callback(null, {nextWorlds})
+    if nextWorlds.length == 0
+      #TODO show suspects list
+      console.log 'Final!'
+    else
+      callback(null, {nextWorlds})
 
   scoreWrongWorld: ->
     console.log 'meh'

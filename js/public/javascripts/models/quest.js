@@ -19,9 +19,13 @@
     scoreRightWorld: function(level, callback) {
       var nextWorlds;
       nextWorlds = this.get('worlds').worldsByLevel(level + 1);
-      return callback(null, {
-        nextWorlds: nextWorlds
-      });
+      if (nextWorlds.length === 0) {
+        return console.log('Final!');
+      } else {
+        return callback(null, {
+          nextWorlds: nextWorlds
+        });
+      }
     },
     scoreWrongWorld: function() {
       return console.log('meh');

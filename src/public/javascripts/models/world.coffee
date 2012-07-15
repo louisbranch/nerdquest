@@ -1,6 +1,6 @@
 Nerd.World = Backbone.RelationalModel.extend
   isRight: (callback) ->
-    clues = @get('world_clues')
+    clues = @get('world_clues') || @get('friend_clue')
     if clues
       level = @get('level')
       @get('quest').scoreRightWorld(level, callback)
