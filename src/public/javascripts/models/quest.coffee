@@ -10,8 +10,7 @@ Nerd.Quest = Backbone.RelationalModel.extend
   ]
 
   start: (callback) ->
-    world = @get('worlds').firstWorld()
-    callback(world)
+    @get('worlds').start(callback)
 
 Nerd.Quests = Backbone.Collection.extend
   model: Nerd.Quest

@@ -19,7 +19,6 @@ block content
         button.quest-start Start
 
     script(type='text/html', id='worlds-list-template')
-      h1 Worlds:
       ol.worlds
 
     script(type='text/html', id='world-row-template')
@@ -27,4 +26,6 @@ block content
 
     script(type='text/html', id='world-template')
       h2 <%= name %>
-      h3 Next World Clues:
+      .clues
+        Clues...
+      h3 Next World:

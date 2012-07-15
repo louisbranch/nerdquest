@@ -14,9 +14,7 @@
       }
     ],
     start: function(callback) {
-      var world;
-      world = this.get('worlds').firstWorld();
-      return callback(world);
+      return this.get('worlds').start(callback);
     }
   });
 

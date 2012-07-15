@@ -3,7 +3,6 @@ Nerd.WorldView = Backbone.View.extend
   className: 'world'
 
   initialize: ->
-    console.log 'created'
     _.bindAll(@, 'render')
     @model.bind('change', @render)
     @template = _.template($('#world-template').html())
@@ -26,19 +25,22 @@ Nerd.WorldListView = Backbone.View.extend
     @template = _.template($('#world-row-template').html())
 
   events: ->
-    'click .world' : 'selectWorld'
+    'click' : 'selectWorld'
 
   render: ->
     rendered = @template(@model.toJSON())
     $(@el).html(rendered)
     @
 
-  selectWorld: (world) ->
-    console.log world
+  selectWorld: ->
+    if @model.isRight()
+      console.log 'right'
+    else
+      console.log 'wrong'
 
 Nerd.WorldsListView = Backbone.View.extend
   tagName: 'section'
-  className: 'worlds-map'
+  className: 'next-worlds'
 
   initialize: ->
     _.bindAll(@, 'render')
@@ -55,5 +57,5 @@ Nerd.WorldsListView = Backbone.View.extend
         model: world
         collection: @collection
       $worlds.append(view.render().el)
-    $map.html(@el)
+    $map.append(@el)
     @

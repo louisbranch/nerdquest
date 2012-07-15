@@ -21,20 +21,15 @@
       return this;
     },
     start: function() {
-      return this.model.start(function(world) {
-        return new Nerd.WorldView({
-          model: world
+      return this.model.start(function(result) {
+        var next;
+        new Nerd.WorldView({
+          model: result.firstWorld
         });
-      });
-    },
-    nextLevel: function() {
-      return this.model.start(function(world) {
-        var worlds, worldsListView;
-        worlds = new Nerd.Worlds();
-        worldsListView = new Nerd.WorldsListView({
-          collection: worlds
+        next = new Nerd.Worlds(result.nextWorlds);
+        return new Nerd.WorldsListView({
+          collection: next
         });
-        return worlds.reset([world]);
       });
     }
   });

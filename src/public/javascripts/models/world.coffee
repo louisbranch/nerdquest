@@ -1,4 +1,6 @@
-Nerd.World = Backbone.RelationalModel.extend()
+Nerd.World = Backbone.RelationalModel.extend
+  isRight: ->
+    false
 
 Nerd.Worlds = Backbone.Collection.extend
   model: Nerd.World
@@ -11,9 +13,12 @@ Nerd.Worlds = Backbone.Collection.extend
 
   gotToWorld: (world) ->
     @currentWorld = world
-    world.trigger('new')
 
   firstWorld: ->
     first = @worldsByLevel(0)[0]
     @gotToWorld(first)
 
+  start: (callback) ->
+    firstWorld = @firstWorld()
+    nextWorlds = @worldsByLevel(1)
+    callback({firstWorld, nextWorlds})

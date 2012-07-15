@@ -5,7 +5,6 @@
     tagName: 'section',
     className: 'world',
     initialize: function() {
-      console.log('created');
       _.bindAll(this, 'render');
       this.model.bind('change', this.render);
       this.template = _.template($('#world-template').html());
@@ -31,7 +30,7 @@
     },
     events: function() {
       return {
-        'click .world': 'selectWorld'
+        'click': 'selectWorld'
       };
     },
     render: function() {
@@ -40,14 +39,18 @@
       $(this.el).html(rendered);
       return this;
     },
-    selectWorld: function(world) {
-      return console.log(world);
+    selectWorld: function() {
+      if (this.model.isRight()) {
+        return console.log('right');
+      } else {
+        return console.log('wrong');
+      }
     }
   });
 
   Nerd.WorldsListView = Backbone.View.extend({
     tagName: 'section',
-    className: 'worlds-map',
+    className: 'next-worlds',
     initialize: function() {
       _.bindAll(this, 'render');
       this.template = _.template($('#worlds-list-template').html());
@@ -67,7 +70,7 @@
         });
         return $worlds.append(view.render().el);
       });
-      $map.html(this.el);
+      $map.append(this.el);
       return this;
     }
   });
