@@ -22,13 +22,13 @@
     },
     start: function() {
       return this.model.start(function(result) {
-        var next;
+        var nextWorlds;
         new Nerd.WorldView({
           model: result.firstWorld
         });
-        next = new Nerd.Worlds(result.nextWorlds);
+        nextWorlds = new Nerd.Worlds(result.nextWorlds);
         return new Nerd.WorldsListView({
-          collection: next
+          collection: nextWorlds
         });
       });
     }

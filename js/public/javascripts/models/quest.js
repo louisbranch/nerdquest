@@ -15,6 +15,16 @@
     ],
     start: function(callback) {
       return this.get('worlds').start(callback);
+    },
+    scoreRightWorld: function(level, callback) {
+      var nextWorlds;
+      nextWorlds = this.get('worlds').worldsByLevel(level + 1);
+      return callback(null, {
+        nextWorlds: nextWorlds
+      });
+    },
+    scoreWrongWorld: function() {
+      return console.log('meh');
     }
   });
 

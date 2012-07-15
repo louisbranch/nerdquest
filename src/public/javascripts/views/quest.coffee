@@ -18,8 +18,8 @@ Nerd.QuestBriefingView = Backbone.View.extend
   start: ->
     @model.start (result) ->
       new Nerd.WorldView(model: result.firstWorld)
-      next = new Nerd.Worlds(result.nextWorlds)
-      new Nerd.WorldsListView(collection: next)
+      nextWorlds = new Nerd.Worlds(result.nextWorlds)
+      new Nerd.WorldsListView(collection: nextWorlds)
 
 Nerd.QuestRowView = Backbone.View.extend
   tagName: 'li'

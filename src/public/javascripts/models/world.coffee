@@ -1,22 +1,22 @@
 Nerd.World = Backbone.RelationalModel.extend
-  isRight: ->
-    false
+  isRight: (callback) ->
+    clues = @get('world_clues')
+    if clues
+      level = @get('level')
+      @get('quest').scoreRightWorld(level, callback)
+    else
+      @get('quest').scoreWrongWorld()
+      callback('Wrong world', null)
 
 Nerd.Worlds = Backbone.Collection.extend
   model: Nerd.World
-
-  currentWorld: {}
 
   worldsByLevel: (lvl) ->
     _.select @models, (world) ->
       world.get('level') == lvl
 
-  gotToWorld: (world) ->
-    @currentWorld = world
-
   firstWorld: ->
-    first = @worldsByLevel(0)[0]
-    @gotToWorld(first)
+    @worldsByLevel(0)[0]
 
   start: (callback) ->
     firstWorld = @firstWorld()

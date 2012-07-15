@@ -2,26 +2,28 @@
 (function() {
 
   Nerd.World = Backbone.RelationalModel.extend({
-    isRight: function() {
-      return false;
+    isRight: function(callback) {
+      var clues, level;
+      clues = this.get('world_clues');
+      if (clues) {
+        level = this.get('level');
+        return this.get('quest').scoreRightWorld(level, callback);
+      } else {
+        this.get('quest').scoreWrongWorld();
+        return callback('Wrong world', null);
+      }
     }
   });
 
   Nerd.Worlds = Backbone.Collection.extend({
     model: Nerd.World,
-    currentWorld: {},
     worldsByLevel: function(lvl) {
       return _.select(this.models, function(world) {
         return world.get('level') === lvl;
       });
     },
-    gotToWorld: function(world) {
-      return this.currentWorld = world;
-    },
     firstWorld: function() {
-      var first;
-      first = this.worldsByLevel(0)[0];
-      return this.gotToWorld(first);
+      return this.worldsByLevel(0)[0];
     },
     start: function(callback) {
       var firstWorld, nextWorlds;

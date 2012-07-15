@@ -40,11 +40,22 @@
       return this;
     },
     selectWorld: function() {
-      if (this.model.isRight()) {
-        return console.log('right');
-      } else {
-        return console.log('wrong');
-      }
+      var _this = this;
+      return this.model.isRight(function(err, result) {
+        var nextWorlds;
+        if (err) {
+          return $(_this.el).addClass('wrong');
+        } else {
+          $(_this.el).addClass('right');
+          new Nerd.WorldView({
+            model: _this.model
+          });
+          nextWorlds = new Nerd.Worlds(result.nextWorlds);
+          return new Nerd.WorldsListView({
+            collection: nextWorlds
+          });
+        }
+      });
     }
   });
 

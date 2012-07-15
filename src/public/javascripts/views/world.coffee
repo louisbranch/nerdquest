@@ -33,10 +33,15 @@ Nerd.WorldListView = Backbone.View.extend
     @
 
   selectWorld: ->
-    if @model.isRight()
-      console.log 'right'
-    else
-      console.log 'wrong'
+    @model.isRight (err, result) =>
+      if err
+        $(@el).addClass('wrong')
+      else
+        $(@el).addClass('right')
+        #animate
+        new Nerd.WorldView(model: @model)
+        nextWorlds = new Nerd.Worlds(result.nextWorlds)
+        new Nerd.WorldsListView(collection: nextWorlds)
 
 Nerd.WorldsListView = Backbone.View.extend
   tagName: 'section'
