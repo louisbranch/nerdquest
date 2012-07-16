@@ -12,11 +12,11 @@
       return this.renderClues();
     },
     render: function() {
-      var $nextWorlds, rendered;
-      $nextWorlds = $('.next-worlds');
+      var $worldCanvas, rendered;
+      $worldCanvas = $('.world-canvas');
       rendered = this.template(this.model.toJSON());
       $(this.el).html(rendered);
-      $nextWorlds.html(this.el);
+      $worldCanvas.html(this.el);
       return this;
     },
     renderClues: function() {
@@ -77,8 +77,8 @@
       return this.render();
     },
     render: function() {
-      var $nextWorlds, $worlds;
-      $nextWorlds = $('.next-worlds');
+      var $world, $worlds;
+      $world = $('section.world');
       $(this.el).html(this.template({}));
       $worlds = this.$('.worlds');
       this.collection.each(function(world) {
@@ -89,7 +89,7 @@
         });
         return $worlds.append(view.render().el);
       });
-      $nextWorlds.append(this.el);
+      $world.append(this.el);
       return this;
     }
   });

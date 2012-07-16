@@ -20,11 +20,14 @@ Nerd.CluesView = Backbone.View.extend
   initialize: ->
     _.bindAll(@, 'render')
     @collection.bind('reset', @render)
+    @template = _.template($('#clues-template').html())
     @render()
     @renderNextClue()
 
   render: ->
-    console.log 'renderings clue collection'
+    $world = $('section.world')
+    $(@el).html(@template({}))
+    $world.html(@el)
 
   renderNextClue: ->
     clue = @collection.at(0)

@@ -23,11 +23,15 @@
     initialize: function() {
       _.bindAll(this, 'render');
       this.collection.bind('reset', this.render);
+      this.template = _.template($('#clues-template').html());
       this.render();
       return this.renderNextClue();
     },
     render: function() {
-      return console.log('renderings clue collection');
+      var $world;
+      $world = $('section.world');
+      $(this.el).html(this.template({}));
+      return $world.html(this.el);
     },
     renderNextClue: function() {
       var clue, view;

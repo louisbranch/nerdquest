@@ -10,10 +10,10 @@ Nerd.WorldView = Backbone.View.extend
     @renderClues()
 
   render: ->
-    $nextWorlds = $('.next-worlds')
+    $worldCanvas = $('.world-canvas')
     rendered = @template(@model.toJSON())
     $(@el).html(rendered)
-    $nextWorlds.html(@el)
+    $worldCanvas.html(@el)
     @
 
   renderClues: ->
@@ -60,7 +60,7 @@ Nerd.WorldsListView = Backbone.View.extend
     @render()
 
   render: ->
-    $nextWorlds = $('.next-worlds')
+    $world = $('section.world')
     $(@el).html(@template({}))
     $worlds = @$('.worlds')
     @collection.each (world) ->
@@ -68,5 +68,5 @@ Nerd.WorldsListView = Backbone.View.extend
         model: world
         collection: @collection
       $worlds.append(view.render().el)
-    $nextWorlds.append(@el)
+    $world.append(@el)
     @

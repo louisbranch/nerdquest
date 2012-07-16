@@ -13,12 +13,15 @@ block content
       a(href='#', class='quest-title') <%= name %>
 
     script(type='text/html', id='quest-briefing-template')
-      h1 <%= name %>
-      .next-worlds
+      header
+        h1 <%= name %>
+      .quest-description
         p <%= description %>
         button.quest-start Start Quest
+      .world-canvas
 
     script(type='text/html', id='worlds-list-template')
+      h3 Next World:
       ol.worlds
 
     script(type='text/html', id='world-row-template')
@@ -26,11 +29,10 @@ block content
 
     script(type='text/html', id='world-template')
       h2 <%= name %>
-      .clues
-      h3 Next World:
 
     script(type='text/html', id='clues-template')
       h3 Clues:
+      .next-clue >
 
     script(type='text/html', id='clue-template')
       p <%= phrase %>

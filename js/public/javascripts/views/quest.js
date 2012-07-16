@@ -3,7 +3,7 @@
 
   Nerd.QuestBriefingView = Backbone.View.extend({
     tagName: 'section',
-    className: 'quest-briefing',
+    className: 'quest-canvas',
     initialize: function() {
       _.bindAll(this, 'render');
       this.model.bind('change', this.render);
@@ -21,6 +21,7 @@
       return this;
     },
     start: function() {
+      $('.quest-description').remove();
       return this.model.start(function(result) {
         var nextWorlds;
         new Nerd.WorldView({

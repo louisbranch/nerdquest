@@ -1,6 +1,6 @@
 Nerd.QuestBriefingView = Backbone.View.extend
   tagName: 'section'
-  className: 'quest-briefing'
+  className: 'quest-canvas'
 
   initialize: ->
     _.bindAll(@, 'render')
@@ -16,6 +16,7 @@ Nerd.QuestBriefingView = Backbone.View.extend
     @
 
   start: ->
+    $('.quest-description').remove()
     @model.start (result) ->
       new Nerd.WorldView(model: result.firstWorld)
       nextWorlds = new Nerd.Worlds(result.nextWorlds)
