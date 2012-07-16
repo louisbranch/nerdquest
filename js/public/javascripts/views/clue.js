@@ -31,7 +31,7 @@
       var $world;
       $world = $('section.world');
       $(this.el).html(this.template({}));
-      return $world.html(this.el);
+      return $world.append(this.el);
     },
     renderNextClue: function() {
       var clue, view;
