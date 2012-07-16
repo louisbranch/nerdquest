@@ -7,13 +7,18 @@ Nerd.WorldView = Backbone.View.extend
     @model.bind('change', @render)
     @template = _.template($('#world-template').html())
     @render()
+    @renderClues()
 
   render: ->
-    $map = $('#map')
+    $nextWorlds = $('.next-worlds')
     rendered = @template(@model.toJSON())
     $(@el).html(rendered)
-    $map.html(@el)
+    $nextWorlds.html(@el)
     @
+
+  renderClues: ->
+    nextClues = new Nerd.Clues(@get('nextClues')
+    new Nerd.CluesView(collection: nextClues)
 
 Nerd.WorldListView = Backbone.View.extend
   tagName: 'li'
@@ -39,6 +44,7 @@ Nerd.WorldListView = Backbone.View.extend
         $(@el).addClass('wrong')
       else
         $(@el).addClass('right')
+        #TODO move this logic to quest view
         new Nerd.WorldView(model: @model)
         nextWorlds = new Nerd.Worlds(result.nextWorlds)
         new Nerd.WorldsListView(collection: nextWorlds)
@@ -54,7 +60,7 @@ Nerd.WorldsListView = Backbone.View.extend
     @render()
 
   render: ->
-    $map = $('#map')
+    $nextWorlds = $('.next-worlds')
     $(@el).html(@template({}))
     $worlds = @$('.worlds')
     @collection.each (world) ->
@@ -62,5 +68,5 @@ Nerd.WorldsListView = Backbone.View.extend
         model: world
         collection: @collection
       $worlds.append(view.render().el)
-    $map.append(@el)
+    $nextWorlds.append(@el)
     @

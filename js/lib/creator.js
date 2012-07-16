@@ -46,7 +46,7 @@
     clues = _arg.clues, world = _arg.world, previous_world = _arg.previous_world;
     world.friend_clue = clues.pop();
     if (previous_world) {
-      return world.world_clues = _.shuffle(previous_world.clues);
+      return world.nextClues = _.shuffle(previous_world.clues);
     }
   };
 

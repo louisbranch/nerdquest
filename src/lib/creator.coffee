@@ -28,7 +28,7 @@ shuffleQuest = (quest) ->
 addClues = ({clues, world, previous_world}) ->
   world.friend_clue = clues.pop()
   if previous_world
-    world.world_clues = _.shuffle(previous_world.clues)
+    world.nextClues = _.shuffle(previous_world.clues)
 
 setFirstWorld = (quest, clues, previous_world) ->
   world = quest.world

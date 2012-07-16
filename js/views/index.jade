@@ -4,7 +4,7 @@ block content
   h1 NerdQuest
   #content
 
-  #templates
+  .templates
     script(type='text/html', id='quest-list-template')
       h1 Your Quests:
       ul.quests
@@ -14,9 +14,9 @@ block content
 
     script(type='text/html', id='quest-briefing-template')
       h1 <%= name %>
-      #map
+      .next-worlds
         p <%= description %>
-        button.quest-start Start
+        button.quest-start Start Quest
 
     script(type='text/html', id='worlds-list-template')
       ol.worlds
@@ -27,5 +27,8 @@ block content
     script(type='text/html', id='world-template')
       h2 <%= name %>
       .clues
-        Clues...
+        h3 Clues:
       h3 Next World:
+
+    script(type='text/html', id='clue-template')
+      p <%= phrase %>

@@ -2,10 +2,20 @@
 (function() {
 
   Nerd.World = Backbone.RelationalModel.extend({
+    relations: [
+      {
+        type: Backbone.HasMany,
+        key: 'nextClues',
+        relatedModel: 'Nerd.Clue',
+        collectionType: 'Nerd.Clues',
+        reverseRelation: {
+          key: 'world'
+        }
+      }
+    ],
     isRight: function(callback) {
-      var clues, level;
-      clues = this.get('world_clues') || this.get('friend_clue');
-      if (clues) {
+      var level;
+      if (this.get('nextClues')) {
         level = this.get('level');
         return this.get('quest').scoreRightWorld(level, callback);
       } else {

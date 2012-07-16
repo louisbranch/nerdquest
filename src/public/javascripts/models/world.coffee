@@ -1,7 +1,16 @@
 Nerd.World = Backbone.RelationalModel.extend
+
+  relations: [
+    type: Backbone.HasMany
+    key: 'nextClues'
+    relatedModel: 'Nerd.Clue'
+    collectionType: 'Nerd.Clues'
+    reverseRelation:
+      key: 'world'
+  ]
+
   isRight: (callback) ->
-    clues = @get('world_clues') || @get('friend_clue')
-    if clues
+    if @get('nextClues')
       level = @get('level')
       @get('quest').scoreRightWorld(level, callback)
     else

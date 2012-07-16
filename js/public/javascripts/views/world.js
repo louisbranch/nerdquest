@@ -8,15 +8,19 @@
       _.bindAll(this, 'render');
       this.model.bind('change', this.render);
       this.template = _.template($('#world-template').html());
-      return this.render();
+      this.render();
+      return this.renderClues();
     },
     render: function() {
-      var $map, rendered;
-      $map = $('#map');
+      var $nextWorlds, rendered;
+      $nextWorlds = $('.next-worlds');
       rendered = this.template(this.model.toJSON());
       $(this.el).html(rendered);
-      $map.html(this.el);
+      $nextWorlds.html(this.el);
       return this;
+    },
+    renderClues: function() {
+      return console.log('rendering');
     }
   });
 
@@ -69,8 +73,8 @@
       return this.render();
     },
     render: function() {
-      var $map, $worlds;
-      $map = $('#map');
+      var $nextWorlds, $worlds;
+      $nextWorlds = $('.next-worlds');
       $(this.el).html(this.template({}));
       $worlds = this.$('.worlds');
       this.collection.each(function(world) {
@@ -81,7 +85,7 @@
         });
         return $worlds.append(view.render().el);
       });
-      $map.append(this.el);
+      $nextWorlds.append(this.el);
       return this;
     }
   });
