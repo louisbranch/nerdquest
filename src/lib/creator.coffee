@@ -1,10 +1,10 @@
-Array::shuffle = -> @sort -> 0.5 - Math.random()
+_ = require('underscore')
 
 getMissions = (json) ->
-  json.shuffle()
+  _.shuffle(json)
 
 getFriendClues = (json) ->
-  json.shuffle()
+  _.shuffle(json)
 
 setQuest = (missions) ->
   quest = missions.pop()
@@ -19,7 +19,7 @@ addWorld = (quest, world) ->
   quest.worlds.push(world)
 
 shuffleQuest = (quest) ->
-  quest.worlds.shuffle()
+  quest.worlds = _.shuffle(quest.worlds)
   for world in quest.worlds
     delete world.clues
   delete quest.shuffleQuest
@@ -28,7 +28,7 @@ shuffleQuest = (quest) ->
 addClues = ({clues, world, previous_world}) ->
   world.friend_clue = clues.pop()
   if previous_world
-    world.world_clues = previous_world.clues.shuffle()
+    world.world_clues = _.shuffle(previous_world.clues)
 
 setFirstWorld = (quest, clues, previous_world) ->
   world = quest.world
