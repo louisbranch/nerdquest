@@ -17,7 +17,7 @@ Nerd.WorldView = Backbone.View.extend
     @
 
   renderClues: ->
-    nextClues = new Nerd.Clues(@get('nextClues')
+    nextClues = @model.get('nextClues')
     new Nerd.CluesView(collection: nextClues)
 
 Nerd.WorldListView = Backbone.View.extend

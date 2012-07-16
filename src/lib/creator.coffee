@@ -42,6 +42,8 @@ createCorrectPath = ({missions, quest, clues, levels}) ->
   while levels > 0
     world = missions.worlds.pop()
     world.level = levels
+    unless previous_world
+      world.final = true
     addClues({clues, world, previous_world})
     previous_world = world
     addWorld(quest, world)

@@ -27,8 +27,10 @@ block content
     script(type='text/html', id='world-template')
       h2 <%= name %>
       .clues
-        h3 Clues:
       h3 Next World:
+
+    script(type='text/html', id='clues-template')
+      h3 Clues:
 
     script(type='text/html', id='clue-template')
       p <%= phrase %>

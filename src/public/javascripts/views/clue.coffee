@@ -4,29 +4,28 @@ Nerd.ClueView = Backbone.View.extend
 
   initialize: ->
     _.bindAll(@, 'render')
-    @model.bind('change', @render)
     @template = _.template($('#clue-template').html())
-    @render()
 
   render: ->
     rendered = @template(@model.toJSON())
     $(@el).html(rendered)
     @
-
-  renderClues: ->
-    nextClues = new Nerd.Clues(@get('nextClues')
-    new Nerd.CluesView(collection: nextClues)
 
 Nerd.CluesView = Backbone.View.extend
   tagName: 'section'
   className: 'clues'
 
+  currentClueIndex: 0
+
   initialize: ->
     _.bindAll(@, 'render')
-    @model.bind('change', @render)
-    @template = _.template($('#clues-template').html())
+    @collection.bind('reset', @render)
+    @render()
+    @renderNextClue()
 
   render: ->
-    rendered = @template(@model.toJSON())
-    $(@el).html(rendered)
-    @
+    console.log 'renderings clue collection'
+
+  renderNextClue: ->
+    clue = @collection.at(0)
+    view = new Nerd.ClueView(model: clue)

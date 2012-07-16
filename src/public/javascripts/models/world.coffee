@@ -10,7 +10,8 @@ Nerd.World = Backbone.RelationalModel.extend
   ]
 
   isRight: (callback) ->
-    if @get('nextClues')
+    nextClues = @get('nextClues').models
+    if _.any(nextClues) || @get('final')
       level = @get('level')
       @get('quest').scoreRightWorld(level, callback)
     else

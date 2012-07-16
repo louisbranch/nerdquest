@@ -14,8 +14,9 @@
       }
     ],
     isRight: function(callback) {
-      var level;
-      if (this.get('nextClues')) {
+      var level, nextClues;
+      nextClues = this.get('nextClues').models;
+      if (_.any(nextClues) || this.get('final')) {
         level = this.get('level');
         return this.get('quest').scoreRightWorld(level, callback);
       } else {

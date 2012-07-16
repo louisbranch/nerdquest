@@ -70,6 +70,9 @@
     while (levels > 0) {
       world = missions.worlds.pop();
       world.level = levels;
+      if (!previous_world) {
+        world.final = true;
+      }
       addClues({
         clues: clues,
         world: world,

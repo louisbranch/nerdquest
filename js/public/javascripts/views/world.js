@@ -20,7 +20,11 @@
       return this;
     },
     renderClues: function() {
-      return console.log('rendering');
+      var nextClues;
+      nextClues = this.model.get('nextClues');
+      return new Nerd.CluesView({
+        collection: nextClues
+      });
     }
   });
 
