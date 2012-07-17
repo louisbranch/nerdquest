@@ -30,7 +30,6 @@
 
   Nerd.WorldListView = Backbone.View.extend({
     tagName: 'li',
-    className: 'world',
     initialize: function() {
       _.bindAll(this, 'render');
       this.model.bind('change', this.render);
@@ -68,7 +67,6 @@
   });
 
   Nerd.WorldsListView = Backbone.View.extend({
-    tagName: 'section',
     className: 'next-worlds',
     initialize: function() {
       _.bindAll(this, 'render');

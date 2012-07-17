@@ -1,5 +1,5 @@
 Nerd.ClueView = Backbone.View.extend
-  tagName: 'article'
+  tagName: 'p'
 
   initialize: ->
     _.bindAll(@, 'render')
@@ -11,7 +11,6 @@ Nerd.ClueView = Backbone.View.extend
     @
 
 Nerd.CluesView = Backbone.View.extend
-  tagName: 'section'
   className: 'clues'
 
   currentClueIndex: 0

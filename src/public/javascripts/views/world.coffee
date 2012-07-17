@@ -22,7 +22,6 @@ Nerd.WorldView = Backbone.View.extend
 
 Nerd.WorldListView = Backbone.View.extend
   tagName: 'li'
-  className: 'world'
 
   initialize: ->
     _.bindAll(@, 'render')
@@ -50,7 +49,6 @@ Nerd.WorldListView = Backbone.View.extend
         new Nerd.WorldsListView(collection: nextWorlds)
 
 Nerd.WorldsListView = Backbone.View.extend
-  tagName: 'section'
   className: 'next-worlds'
 
   initialize: ->

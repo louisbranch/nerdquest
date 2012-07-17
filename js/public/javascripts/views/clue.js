@@ -2,7 +2,7 @@
 (function() {
 
   Nerd.ClueView = Backbone.View.extend({
-    tagName: 'article',
+    tagName: 'p',
     initialize: function() {
       _.bindAll(this, 'render');
       return this.template = _.template($('#clue-template').html());
@@ -16,7 +16,6 @@
   });
 
   Nerd.CluesView = Backbone.View.extend({
-    tagName: 'section',
     className: 'clues',
     currentClueIndex: 0,
     initialize: function() {
