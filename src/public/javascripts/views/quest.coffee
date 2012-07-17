@@ -3,8 +3,9 @@ Nerd.QuestBriefingView = Backbone.View.extend
   className: 'quest-canvas'
 
   initialize: ->
-    _.bindAll(@, 'render')
+    _.bindAll(@, 'render', 'renderSuspects')
     @model.bind('change', @render)
+    @model.bind('finalLevel', @renderSuspects)
     @template = _.template($('#quest-briefing-template').html())
 
   events: ->
@@ -21,6 +22,10 @@ Nerd.QuestBriefingView = Backbone.View.extend
       new Nerd.WorldView(model: result.firstWorld)
       nextWorlds = new Nerd.Worlds(result.nextWorlds)
       new Nerd.WorldsListView(collection: nextWorlds)
+
+  renderSuspects: ->
+    suspects = @model.get('suspects')
+    new Nerd.SuspectsView(collection: suspects)
 
 Nerd.QuestRowView = Backbone.View.extend
   tagName: 'li'

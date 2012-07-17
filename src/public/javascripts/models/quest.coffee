@@ -1,12 +1,22 @@
 Nerd.Quest = Backbone.RelationalModel.extend
 
   relations: [
-    type: Backbone.HasMany
-    key: 'worlds'
-    relatedModel: 'Nerd.World'
-    collectionType: 'Nerd.Worlds'
-    reverseRelation:
-      key: 'quest'
+    {
+      type: Backbone.HasMany
+      key: 'worlds'
+      relatedModel: 'Nerd.World'
+      collectionType: 'Nerd.Worlds'
+      reverseRelation:
+        key: 'quest'
+    }
+    {
+      type: Backbone.HasMany
+      key: 'suspects'
+      relatedModel: 'Nerd.Suspect'
+      collectionType: 'Nerd.Suspects'
+      reverseRelation:
+        key: 'quest'
+    }
   ]
 
   start: (callback) ->
@@ -15,8 +25,7 @@ Nerd.Quest = Backbone.RelationalModel.extend
   scoreRightWorld: (level, callback) ->
     nextWorlds = @get('worlds').worldsByLevel(level+1)
     if nextWorlds.length == 0
-      #TODO show suspects list
-      console.log 'Final!'
+      @trigger('finalLevel')
     else
       callback(null, {nextWorlds})
 

@@ -5,8 +5,9 @@
     tagName: 'section',
     className: 'quest-canvas',
     initialize: function() {
-      _.bindAll(this, 'render');
+      _.bindAll(this, 'render', 'renderSuspects');
       this.model.bind('change', this.render);
+      this.model.bind('finalLevel', this.renderSuspects);
       return this.template = _.template($('#quest-briefing-template').html());
     },
     events: function() {
@@ -31,6 +32,13 @@
         return new Nerd.WorldsListView({
           collection: nextWorlds
         });
+      });
+    },
+    renderSuspects: function() {
+      var suspects;
+      suspects = this.model.get('suspects');
+      return new Nerd.SuspectsView({
+        collection: suspects
       });
     }
   });

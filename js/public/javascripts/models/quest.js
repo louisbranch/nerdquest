@@ -11,6 +11,14 @@
         reverseRelation: {
           key: 'quest'
         }
+      }, {
+        type: Backbone.HasMany,
+        key: 'suspects',
+        relatedModel: 'Nerd.Suspect',
+        collectionType: 'Nerd.Suspects',
+        reverseRelation: {
+          key: 'quest'
+        }
       }
     ],
     start: function(callback) {
@@ -20,7 +28,7 @@
       var nextWorlds;
       nextWorlds = this.get('worlds').worldsByLevel(level + 1);
       if (nextWorlds.length === 0) {
-        return console.log('Final!');
+        return this.trigger('finalLevel');
       } else {
         return callback(null, {
           nextWorlds: nextWorlds
