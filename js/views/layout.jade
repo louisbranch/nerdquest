@@ -2,6 +2,7 @@ doctype 5
 html
   head
     title NerdQuest
+    link(rel='stylesheet', href='/stylesheets/bootstrap.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/nerd.js')
@@ -25,4 +26,5 @@ html
         });
       });
   body
-    block content
+    .container
+      block content
