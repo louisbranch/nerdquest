@@ -3,7 +3,6 @@
 
   Nerd.ClueView = Backbone.View.extend({
     tagName: 'article',
-    className: 'clue',
     initialize: function() {
       _.bindAll(this, 'render');
       return this.template = _.template($('#clue-template').html());
@@ -27,6 +26,9 @@
       this.render();
       return this.renderNextClue();
     },
+    events: {
+      'click .next-clue': 'renderNextClue'
+    },
     render: function() {
       var $world;
       $world = $('section.world');
@@ -34,11 +36,20 @@
       return $world.append(this.el);
     },
     renderNextClue: function() {
-      var clue, view;
-      clue = this.collection.at(0);
-      return view = new Nerd.ClueView({
+      var $clue, clue, view;
+      $clue = $('.clue');
+      clue = this.collection.at(this.currentClueIndex);
+      view = new Nerd.ClueView({
         model: clue
       });
+      $clue.html(view.render().el);
+      return this.incrementCounter();
+    },
+    incrementCounter: function() {
+      this.currentClueIndex += 1;
+      if (this.collection.length === this.currentClueIndex) {
+        return $('.next-clue').remove();
+      }
     }
   });
 

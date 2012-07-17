@@ -1,6 +1,5 @@
 Nerd.ClueView = Backbone.View.extend
   tagName: 'article'
-  className: 'clue'
 
   initialize: ->
     _.bindAll(@, 'render')
@@ -24,11 +23,22 @@ Nerd.CluesView = Backbone.View.extend
     @render()
     @renderNextClue()
 
+  events:
+    'click .next-clue': 'renderNextClue'
+
   render: ->
     $world = $('section.world')
     $(@el).html(@template({}))
     $world.append(@el)
 
   renderNextClue: ->
-    clue = @collection.at(0)
+    $clue = $('.clue')
+    clue = @collection.at(@currentClueIndex)
     view = new Nerd.ClueView(model: clue)
+    $clue.html(view.render().el)
+    @incrementCounter()
+
+  incrementCounter: ->
+    @currentClueIndex += 1
+    if @collection.length == @currentClueIndex
+      $('.next-clue').remove()
