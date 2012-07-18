@@ -81,9 +81,8 @@ getFriendInfo = (uid, token, callback) ->
   req.write(batch_request)
   req.end()
 
-exports.getFriend = (token, callback) ->
+exports.getFriends = (token, callback) ->
   getRandomFriends token, (friends) ->
-    guilt_id = friends[0].uid
-    friends[0].guilt = true
-    getFriendInfo guilt_id, token, (friend) ->
-      callback(friend, friends)
+    guilted = friends[0]
+    getFriendInfo guilted.uid, token, (guilted) ->
+      callback(guilted, friends)

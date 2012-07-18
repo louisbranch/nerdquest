@@ -253,11 +253,11 @@
     }
   };
 
-  parseInfo = function(friend) {
+  parseInfo = function(guilted) {
     var k, v;
     clues = [];
-    for (k in friend) {
-      v = friend[k];
+    for (k in guilted) {
+      v = guilted[k];
       if (parser.hasOwnProperty(k)) {
         parser[k](v);
       }
@@ -265,10 +265,9 @@
     return clues;
   };
 
-  exports.addClues = function(friend, callback) {
-    var friend_clues;
-    friend_clues = parseInfo(friend);
-    return callback(friend_clues);
+  exports.addClues = function(guilted, callback) {
+    clues = parseInfo(guilted);
+    return callback(clues);
   };
 
 }).call(this);

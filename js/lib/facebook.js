@@ -87,13 +87,12 @@
     return req.end();
   };
 
-  exports.getFriend = function(token, callback) {
+  exports.getFriends = function(token, callback) {
     return getRandomFriends(token, function(friends) {
-      var guilt_id;
-      guilt_id = friends[0].uid;
-      friends[0].guilt = true;
-      return getFriendInfo(guilt_id, token, function(friend) {
-        return callback(friend, friends);
+      var guilted;
+      guilted = friends[0];
+      return getFriendInfo(guilted.uid, token, function(guilted) {
+        return callback(guilted, friends);
       });
     });
   };

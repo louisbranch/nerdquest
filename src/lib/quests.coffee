@@ -6,26 +6,21 @@ clue = require('../lib/clue')
 creator = require('../lib/creator')
 db = require('../lib/db')
 
-organizeQuest = (path, suspects) ->
-  quest = path
-  quest.suspects = suspects
-  quest
-
 exports.create = (user_id, token, callback) ->
-  quest_suspects = []
   async.parallel
-    clues: (callback) ->
-      facebook.getFriend token, (friend, suspects) ->
-        quest_suspects = suspects
-        clue.addClues friend, (clues) ->
-          callback(null, clues)
-    missions: (callback) ->
+    suspects: (callback) ->
+      facebook.getFriends token, (guilted, suspects) ->
+        clue.addClues guilted, (clues) ->
+          suspects[0].clues = clues
+          callback(null, suspects)
+    quest: (callback) ->
       db.getMissions (missions) ->
-        callback(null, missions)
+        quest = creator.createQuestPath({levels: 3, missions: missions})
+        callback(null, quest)
     (err, results) ->
       unless err
-        path = creator.createQuestPath({levels: 3, clues: results.clues, missions: results.missions})
-        quest = organizeQuest(path, quest_suspects)
+        quest = results.quest
+        quest.suspects = results.suspects
         #db.saveQuest (user_id, quest), (id) ->
         #  console.log id
         callback(quest)

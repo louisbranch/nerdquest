@@ -161,13 +161,13 @@ parser = {
         clues.push(clue)
 }
 
-parseInfo = (friend) ->
+parseInfo = (guilted) ->
   clues = []
-  for k,v of friend
+  for k,v of guilted
     if parser.hasOwnProperty(k)
       parser[k](v)
   clues
 
-exports.addClues = (friend, callback) ->
-  friend_clues = parseInfo(friend)
-  callback(friend_clues)
+exports.addClues = (guilted, callback) ->
+  clues = parseInfo(guilted)
+  callback(clues)
