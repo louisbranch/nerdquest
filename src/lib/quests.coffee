@@ -1,6 +1,7 @@
 #TODO Save user quest
 
 async = require('async')
+_ = require('underscore')
 facebook = require('../lib/facebook')
 clue = require('../lib/clue')
 creator = require('../lib/creator')
@@ -20,7 +21,7 @@ exports.create = (user_id, token, callback) ->
     (err, results) ->
       unless err
         quest = results.quest
-        quest.suspects = results.suspects
+        quest.suspects = _.shuffle(results.suspects)
         #db.saveQuest (user_id, quest), (id) ->
         #  console.log id
         callback(quest)
