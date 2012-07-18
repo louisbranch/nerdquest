@@ -35,11 +35,9 @@
         });
       }
     },
-    scoreWrongWorld: function() {
-      return console.log('meh');
-    },
+    scoreWrongWorld: function() {},
     finish: function() {
-      return console.log('Finish HIM!');
+      return this.trigger('finished');
     }
   });
 

@@ -30,10 +30,10 @@ Nerd.Quest = Backbone.RelationalModel.extend
       callback(null, {nextWorlds})
 
   scoreWrongWorld: ->
-    console.log 'meh'
+    # reduce score
 
   finish: ->
-    console.log 'Finish HIM!'
+    @trigger('finished')
 
 Nerd.Quests = Backbone.Collection.extend
   model: Nerd.Quest

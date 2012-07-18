@@ -6,7 +6,6 @@
     className: 'world',
     initialize: function() {
       _.bindAll(this, 'render');
-      this.model.bind('change', this.render);
       this.template = _.template($('#world-template').html());
       this.render();
       return this.renderClues();
@@ -32,7 +31,6 @@
     tagName: 'li',
     initialize: function() {
       _.bindAll(this, 'render');
-      this.model.bind('change', this.render);
       return this.template = _.template($('#world-row-template').html());
     },
     events: function() {

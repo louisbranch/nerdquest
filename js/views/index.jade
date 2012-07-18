@@ -12,13 +12,16 @@ block content
     script(type='text/html', id='quest-row-template')
       a(href='#', class='quest-title') <%= name %>
 
-    script(type='text/html', id='quest-briefing-template')
+    script(type='text/html', id='quest-template')
       header
         h1 <%= name %>
       .quest-description
         p <%= description %>
         button.quest-start Start Quest
       .world-canvas
+
+    script(type='text/html', id='quest-final-template')
+      h2 Final!
 
     script(type='text/html', id='worlds-list-template')
       h3 Next World:

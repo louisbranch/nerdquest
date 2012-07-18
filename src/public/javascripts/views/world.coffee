@@ -4,7 +4,6 @@ Nerd.WorldView = Backbone.View.extend
 
   initialize: ->
     _.bindAll(@, 'render')
-    @model.bind('change', @render)
     @template = _.template($('#world-template').html())
     @render()
     @renderClues()
@@ -25,7 +24,6 @@ Nerd.WorldListView = Backbone.View.extend
 
   initialize: ->
     _.bindAll(@, 'render')
-    @model.bind('change', @render)
     @template = _.template($('#world-row-template').html())
 
   events: ->
