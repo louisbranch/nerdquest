@@ -37,6 +37,9 @@
     },
     scoreWrongWorld: function() {
       return console.log('meh');
+    },
+    finish: function() {
+      return console.log('Finish HIM!');
     }
   });
 

@@ -5,10 +5,23 @@ Nerd.SuspectView = Backbone.View.extend
     _.bindAll(@, 'render')
     @template = _.template($('#suspect-template').html())
 
+  events:
+    'click' : 'selectSuspect'
+
   render: ->
     rendered = @template(@model.toJSON())
     $(@el).html(rendered)
     @
+
+  selectSuspect: ->
+    @model.isRight (err, result) =>
+      #TODO animate selection
+      #TODO extract this in a reusable method
+      if err
+        $(@el).addClass('wrong')
+      else
+        $(@el).addClass('right')
+        @model.get('quest').finish()
 
 Nerd.SuspectsView = Backbone.View.extend
   className: 'suspects'

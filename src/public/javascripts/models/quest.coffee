@@ -32,6 +32,9 @@ Nerd.Quest = Backbone.RelationalModel.extend
   scoreWrongWorld: ->
     console.log 'meh'
 
+  finish: ->
+    console.log 'Finish HIM!'
+
 Nerd.Quests = Backbone.Collection.extend
   model: Nerd.Quest
   url: '/quests'

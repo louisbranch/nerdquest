@@ -7,11 +7,25 @@
       _.bindAll(this, 'render');
       return this.template = _.template($('#suspect-template').html());
     },
+    events: {
+      'click': 'selectSuspect'
+    },
     render: function() {
       var rendered;
       rendered = this.template(this.model.toJSON());
       $(this.el).html(rendered);
       return this;
+    },
+    selectSuspect: function() {
+      var _this = this;
+      return this.model.isRight(function(err, result) {
+        if (err) {
+          return $(_this.el).addClass('wrong');
+        } else {
+          $(_this.el).addClass('right');
+          return _this.model.get('quest').finish();
+        }
+      });
     }
   });
 
