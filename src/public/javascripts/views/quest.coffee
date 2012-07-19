@@ -23,20 +23,10 @@ Nerd.QuestView = Backbone.View.extend
     @model.bind('finished', @renderFinal)
     @template = _.template($('#quest-template').html())
 
-  events: ->
-    'click .quest-start' : 'start'
-
   render: ->
     rendered = @template(@model.toJSON())
     $(@el).html(rendered)
     @
-
-  start: ->
-    $('.quest-description').remove()
-    @model.start (result) ->
-      new Nerd.WorldView(model: result.firstWorld)
-      nextWorlds = new Nerd.Worlds(result.nextWorlds)
-      new Nerd.WorldsListView(collection: nextWorlds)
 
   renderSuspects: ->
     suspects = @model.get('suspects')
@@ -54,17 +44,20 @@ Nerd.QuestRowView = Backbone.View.extend
     @template = _.template($('#quest-row-template').html())
 
   events: ->
-    'click .quest-title' : 'briefing'
+    'click' : 'start'
 
   render: ->
     rendered = @template(@model.toJSON())
     $(@el).html(rendered)
     @
 
-  briefing: (e) ->
+  start: ->
     view = new Nerd.QuestView(model: @model)
-    $('#content').html(view.render().el)
-    e.preventDefault()
+    $('.quest-log').replaceWith(view.render().el)
+    @model.start (result) ->
+      new Nerd.WorldView(model: result.firstWorld)
+      nextWorlds = new Nerd.Worlds(result.nextWorlds)
+      new Nerd.WorldsListView(collection: nextWorlds)
 
 Nerd.QuestListView = Backbone.View.extend
   tagName: 'section'

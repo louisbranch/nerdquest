@@ -27,29 +27,11 @@
       this.model.bind('finished', this.renderFinal);
       return this.template = _.template($('#quest-template').html());
     },
-    events: function() {
-      return {
-        'click .quest-start': 'start'
-      };
-    },
     render: function() {
       var rendered;
       rendered = this.template(this.model.toJSON());
       $(this.el).html(rendered);
       return this;
-    },
-    start: function() {
-      $('.quest-description').remove();
-      return this.model.start(function(result) {
-        var nextWorlds;
-        new Nerd.WorldView({
-          model: result.firstWorld
-        });
-        nextWorlds = new Nerd.Worlds(result.nextWorlds);
-        return new Nerd.WorldsListView({
-          collection: nextWorlds
-        });
-      });
     },
     renderSuspects: function() {
       var suspects;
@@ -74,7 +56,7 @@
     },
     events: function() {
       return {
-        'click .quest-title': 'briefing'
+        'click': 'start'
       };
     },
     render: function() {
@@ -83,13 +65,22 @@
       $(this.el).html(rendered);
       return this;
     },
-    briefing: function(e) {
+    start: function() {
       var view;
       view = new Nerd.QuestView({
         model: this.model
       });
-      $('#content').html(view.render().el);
-      return e.preventDefault();
+      $('.quest-log').replaceWith(view.render().el);
+      return this.model.start(function(result) {
+        var nextWorlds;
+        new Nerd.WorldView({
+          model: result.firstWorld
+        });
+        nextWorlds = new Nerd.Worlds(result.nextWorlds);
+        return new Nerd.WorldsListView({
+          collection: nextWorlds
+        });
+      });
     }
   });
 

@@ -2,6 +2,17 @@
 (function() {
 
   Nerd.Suspect = Backbone.RelationalModel.extend({
+    relations: [
+      {
+        type: Backbone.HasMany,
+        key: 'clues',
+        relatedModel: 'Nerd.Clue',
+        collectionType: 'Nerd.Clues',
+        reverseRelation: {
+          key: 'suspect'
+        }
+      }
+    ],
     isRight: function(callback) {
       if (this.get('clues')) {
         return callback(null, true);

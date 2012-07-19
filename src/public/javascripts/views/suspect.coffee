@@ -11,7 +11,13 @@ Nerd.SuspectView = Backbone.View.extend
   render: ->
     rendered = @template(@model.toJSON())
     $(@el).html(rendered)
+    @renderClues()
     @
+
+  renderClues: ->
+    clues = @model.get('clues')
+    if _.any(clues.models)
+      new Nerd.CluesView(collection: clues)
 
   selectSuspect: ->
     @model.isRight (err, result) =>
@@ -36,10 +42,10 @@ Nerd.SuspectsView = Backbone.View.extend
     $world = $('section.world')
     $(@el).html(@template({}))
     $suspects = @$('.suspects')
+    $world.html(@el)
     @collection.each (suspect) ->
       view = new Nerd.SuspectView
         model: suspect
         collection: @collection
       $suspects.append(view.render().el)
-    $world.html(@el)
     @

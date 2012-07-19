@@ -10,13 +10,11 @@ block content
       ul.quests
 
     script(type='text/html', id='quest-row-template')
-      a(href='#', class='quest-title') <%= name %>
+      <%= name %>
 
     script(type='text/html', id='quest-template')
       header
         h1 <%= name %>
-      .quest-description
-        button.quest-start Start Quest
       .world-canvas
 
     script(type='text/html', id='quest-final-template')
@@ -31,6 +29,7 @@ block content
 
     script(type='text/html', id='world-template')
       h2 <%= name %>
+      ul.clues
 
     script(type='text/html', id='clues-template')
       h3 Clues:
@@ -45,4 +44,5 @@ block content
 
     script(type='text/html', id='suspects-template')
       h2 Who is the Suspect?
+      ul.clues
       ol.suspects

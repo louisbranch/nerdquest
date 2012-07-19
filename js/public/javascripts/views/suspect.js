@@ -14,7 +14,17 @@
       var rendered;
       rendered = this.template(this.model.toJSON());
       $(this.el).html(rendered);
+      this.renderClues();
       return this;
+    },
+    renderClues: function() {
+      var clues;
+      clues = this.model.get('clues');
+      if (_.any(clues.models)) {
+        return new Nerd.CluesView({
+          collection: clues
+        });
+      }
     },
     selectSuspect: function() {
       var _this = this;
@@ -42,6 +52,7 @@
       $world = $('section.world');
       $(this.el).html(this.template({}));
       $suspects = this.$('.suspects');
+      $world.html(this.el);
       this.collection.each(function(suspect) {
         var view;
         view = new Nerd.SuspectView({
@@ -50,7 +61,6 @@
         });
         return $suspects.append(view.render().el);
       });
-      $world.html(this.el);
       return this;
     }
   });
