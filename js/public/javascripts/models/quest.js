@@ -24,8 +24,29 @@
     start: function(callback) {
       return this.get('worlds').start(callback);
     },
+    finish: function() {
+      this.stats();
+      return this.trigger('finished');
+    },
+    score: 0,
+    scoreMultiplier: 10,
+    usedClues: 0,
+    rightWorlds: 0,
+    wrongWorlds: 0,
+    increaseScore: function(n) {
+      this.score = this.score + (n * this.scoreMultiplier);
+      return this.scoreMultiplier += 1;
+    },
+    decreaseScore: function(n) {
+      this.score = this.score - n;
+      if (this.scoreMultiplier !== 0) {
+        return this.scoreMultiplier -= 1;
+      }
+    },
     scoreRightWorld: function(level, callback) {
       var nextWorlds;
+      this.increaseScore(300);
+      this.rightWorlds += 1;
       nextWorlds = this.get('worlds').worldsByLevel(level + 1);
       if (nextWorlds.length === 0) {
         return this.trigger('finalLevel');
@@ -35,9 +56,25 @@
         });
       }
     },
-    scoreWrongWorld: function() {},
-    finish: function() {
-      return this.trigger('finished');
+    scoreWrongWorld: function() {
+      this.decreaseScore(800);
+      return this.wrongWorlds += 1;
+    },
+    scoreRightSuspect: function() {
+      return this.increaseScore(1000);
+    },
+    scoreWrongSuspect: function() {
+      return this.increaseScore(2500);
+    },
+    useClue: function() {
+      this.decreaseScore(300);
+      return this.usedClues += 1;
+    },
+    stats: function() {
+      console.log("Score: " + this.score);
+      console.log("Right Worlds: " + this.rightWorlds);
+      console.log("Wrong Worlds: " + this.wrongWorlds);
+      return console.log("Used Clues: " + this.usedClues);
     }
   });
 

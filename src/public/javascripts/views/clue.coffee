@@ -4,11 +4,21 @@ Nerd.ClueView = Backbone.View.extend
   initialize: ->
     _.bindAll(@, 'render')
     @template = _.template($('#clue-template').html())
+    @setQuest()
+
+  quest: {}
 
   render: ->
     rendered = @template(@model.toJSON())
     $(@el).html(rendered)
+    @quest.useClue()
     @
+
+  setQuest: ->
+    if @model.get('world')
+      @quest = @model.get('world').get('quest')
+    else if @model.get('suspect')
+      @quest = @model.get('suspect').get('quest')
 
 Nerd.CluesView = Backbone.View.extend
   tagName: 'ul'

@@ -11,8 +11,10 @@ Nerd.Suspect = Backbone.RelationalModel.extend
 
   isRight: (callback) ->
     if @get('clues')
+      @get('quest').scoreRightSuspect()
       callback(null, true)
     else
+      @get('quest').scoreWrongSuspect()
       callback('Wrong suspect')
 
 Nerd.Suspects = Backbone.Collection.extend

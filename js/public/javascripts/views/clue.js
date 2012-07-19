@@ -5,13 +5,23 @@
     tagName: 'p',
     initialize: function() {
       _.bindAll(this, 'render');
-      return this.template = _.template($('#clue-template').html());
+      this.template = _.template($('#clue-template').html());
+      return this.setQuest();
     },
+    quest: {},
     render: function() {
       var rendered;
       rendered = this.template(this.model.toJSON());
       $(this.el).html(rendered);
+      this.quest.useClue();
       return this;
+    },
+    setQuest: function() {
+      if (this.model.get('world')) {
+        return this.quest = this.model.get('world').get('quest');
+      } else if (this.model.get('suspect')) {
+        return this.quest = this.model.get('suspect').get('quest');
+      }
     }
   });
 

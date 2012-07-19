@@ -15,8 +15,10 @@
     ],
     isRight: function(callback) {
       if (this.get('clues')) {
+        this.get('quest').scoreRightSuspect();
         return callback(null, true);
       } else {
+        this.get('quest').scoreWrongSuspect();
         return callback('Wrong suspect');
       }
     }
