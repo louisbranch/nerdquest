@@ -20,9 +20,11 @@ Nerd.Quest = Backbone.RelationalModel.extend
   ]
 
   start: (callback) ->
+    @timerStart = new Date()
     @get('worlds').start(callback)
 
   finish: ->
+    @timerEnd = new Date()
     @stats()
     @trigger('finished')
 
@@ -31,6 +33,8 @@ Nerd.Quest = Backbone.RelationalModel.extend
   usedClues: 0
   rightWorlds: 0
   wrongWorlds: 0
+  timerStart: 0
+  timerEnd: 0
 
   increaseScore: (n) ->
     @score = @score + (n * @scoreMultiplier)
@@ -64,11 +68,18 @@ Nerd.Quest = Backbone.RelationalModel.extend
     @decreaseScore(300)
     @usedClues += 1
 
+  duration: ->
+    time = @timerEnd - @timerStart
+    seconds = parseInt(time / 1000)
+    minutes = parseInt(time / 1000 / 60)
+    "#{minutes}:#{seconds}"
+
   stats: ->
     console.log("Score: #{@score}")
     console.log("Right Worlds: #{@rightWorlds}")
     console.log("Wrong Worlds: #{@wrongWorlds}")
     console.log("Used Clues: #{@usedClues}")
+    console.log("Time: #{@duration()}")
 
 Nerd.Quests = Backbone.Collection.extend
   model: Nerd.Quest

@@ -22,9 +22,11 @@
       }
     ],
     start: function(callback) {
+      this.timerStart = new Date();
       return this.get('worlds').start(callback);
     },
     finish: function() {
+      this.timerEnd = new Date();
       this.stats();
       return this.trigger('finished');
     },
@@ -33,6 +35,8 @@
     usedClues: 0,
     rightWorlds: 0,
     wrongWorlds: 0,
+    timerStart: 0,
+    timerEnd: 0,
     increaseScore: function(n) {
       this.score = this.score + (n * this.scoreMultiplier);
       return this.scoreMultiplier += 1;
@@ -70,11 +74,19 @@
       this.decreaseScore(300);
       return this.usedClues += 1;
     },
+    duration: function() {
+      var minutes, seconds, time;
+      time = this.timerEnd - this.timerStart;
+      seconds = parseInt(time / 1000);
+      minutes = parseInt(time / 1000 / 60);
+      return "" + minutes + ":" + seconds;
+    },
     stats: function() {
       console.log("Score: " + this.score);
       console.log("Right Worlds: " + this.rightWorlds);
       console.log("Wrong Worlds: " + this.wrongWorlds);
-      return console.log("Used Clues: " + this.usedClues);
+      console.log("Used Clues: " + this.usedClues);
+      return console.log("Time: " + (this.duration()));
     }
   });
 
