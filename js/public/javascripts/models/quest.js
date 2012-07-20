@@ -82,11 +82,13 @@
       return "" + minutes + ":" + seconds;
     },
     stats: function() {
-      console.log("Score: " + this.score);
-      console.log("Right Worlds: " + this.rightWorlds);
-      console.log("Wrong Worlds: " + this.wrongWorlds);
-      console.log("Used Clues: " + this.usedClues);
-      return console.log("Time: " + (this.duration()));
+      return this.set({
+        score: this.score,
+        rightWorlds: this.rightWorlds,
+        wrongWorlds: this.wrongWorlds,
+        usedClues: this.usedClues,
+        duration: this.duration()
+      });
     }
   });
 

@@ -18,7 +18,18 @@ block content
       .world-canvas
 
     script(type='text/html', id='quest-final-template')
-      h2 Final!
+      h2 Congratulations, you've finished the Quest!
+      dl
+        dt Score
+        dd <%= score %>
+        dt Duration
+        dd <%= duration %>
+        dt Right Worlds
+        dd <%= rightWorlds %>
+        dt Wrong Worlds
+        dd <%= wrongWorlds %>
+        dt Used Clues
+        dd <%= usedClues %>
 
     script(type='text/html', id='worlds-list-template')
       h3 Next World:

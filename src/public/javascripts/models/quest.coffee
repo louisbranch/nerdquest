@@ -75,11 +75,13 @@ Nerd.Quest = Backbone.RelationalModel.extend
     "#{minutes}:#{seconds}"
 
   stats: ->
-    console.log("Score: #{@score}")
-    console.log("Right Worlds: #{@rightWorlds}")
-    console.log("Wrong Worlds: #{@wrongWorlds}")
-    console.log("Used Clues: #{@usedClues}")
-    console.log("Time: #{@duration()}")
+    @set({
+      score: @score
+      rightWorlds: @rightWorlds
+      wrongWorlds: @wrongWorlds
+      usedClues: @usedClues
+      duration: @duration()
+    })
 
 Nerd.Quests = Backbone.Collection.extend
   model: Nerd.Quest
