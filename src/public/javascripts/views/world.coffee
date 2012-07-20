@@ -38,6 +38,7 @@ Nerd.WorldListView = Backbone.View.extend
     @model.isRight (err, result) =>
       #TODO animate selection
       if err
+        @undelegateEvents()
         $(@el).addClass('wrong')
       else
         $(@el).addClass('right')

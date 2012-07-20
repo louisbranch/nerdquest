@@ -49,6 +49,7 @@
       return this.model.isRight(function(err, result) {
         var nextWorlds;
         if (err) {
+          _this.undelegateEvents();
           return $(_this.el).addClass('wrong');
         } else {
           $(_this.el).addClass('right');
