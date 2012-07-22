@@ -1,24 +1,25 @@
 extends layout
 
 block content
-  h1 NerdQuest
   #content
 
   .templates
     script(type='text/html', id='quest-list-template')
-      h1 Your Quests:
+      h2 Your Quests:
       ul.quests
 
     script(type='text/html', id='quest-row-template')
-      <%= name %>
+      img(src='#')
+      .name
+        <%= name %>
 
     script(type='text/html', id='quest-template')
       header
-        h1 <%= name %>
+        h2 <%= name %>
       .world-canvas
 
     script(type='text/html', id='quest-final-template')
-      h2 Congratulations, you've finished the Quest!
+      h3 Congratulations, you've finished the Quest!
       dl
         dt Score
         dd <%= score %>
@@ -32,28 +33,33 @@ block content
         dd <%= usedClues %>
 
     script(type='text/html', id='worlds-list-template')
-      h3 Next World:
+      h4 Next World:
       ol.worlds
 
     script(type='text/html', id='world-row-template')
-      h2 <%= name %>
+      img(src="#")
+      .name
+        <%= name %>
 
     script(type='text/html', id='world-template')
-      h2 <%= name %>
+      h3 <%= name %>
       ul.clues
 
     script(type='text/html', id='clues-template')
-      h3 Clues:
+      h4 Clues:
       .clue
       .next-clue Next Clue >
 
     script(type='text/html', id='clue-template')
       <%= phrase %>
 
-    script(type='text/html', id='suspect-template')
-      h2 <%= name %>
-
     script(type='text/html', id='suspects-template')
-      h2 Who is the Suspect?
+      h3 Who is the Suspect?
       ul.clues
       ol.suspects
+
+    script(type='text/html', id='suspect-template')
+      img(src="#")
+      .name
+        <%= name %>
+

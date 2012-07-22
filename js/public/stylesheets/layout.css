@@ -1,6 +1,94 @@
-body {
-  background-color: #eee;
+ul,
+ol {
+  margin: 0;
+  list-style: none;
 }
-.quests li {
+body {
+  font-family: 'GraphicPixel', sans-serif;
+  font-size: 18px;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.9);
+  background: url("/images/project_papper.png") repeat;
+}
+.container {
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+h1.logo {
+  margin: 40px 0;
+  font-size: 40px;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+ul.quests {
+  margin: 0 0 0 -20px;
+}
+ul.quests li {
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+  position: relative;
+  margin: 20px 0 0 20px;
+  width: 200px;
+  height: 150px;
   cursor: pointer;
+}
+ul.quests li img {
+  width: 100%;
+  height: 100%;
+}
+ul.quests li .name {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 0;
+  background-color: rgba(0,0,0,0.5);
+  color: #fff;
+  text-align: center;
+  text-shadow: -1px -1px 0 rgba(0,0,0,0.2);
+}
+.quest-canvas h2 {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.world-canvas .clues {
+  text-align: center;
+}
+.world-canvas .clues .next-clue {
+  cursor: pointer;
+}
+.world-canvas .worlds,
+.world-canvas .suspects {
+  margin: 0 0 0 -20px;
+  float: none;
+  text-align: center;
+}
+.world-canvas .worlds li,
+.world-canvas .suspects li {
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+  position: relative;
+  margin: 20px 0 0 20px;
+  width: 200px;
+  height: 150px;
+  cursor: pointer;
+}
+.world-canvas .worlds li img,
+.world-canvas .suspects li img {
+  width: 100%;
+  height: 100%;
+}
+.world-canvas .worlds li .name,
+.world-canvas .suspects li .name {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 0;
+  background-color: rgba(0,0,0,0.5);
+  color: #fff;
+  text-align: center;
+  text-shadow: -1px -1px 0 rgba(0,0,0,0.2);
 }

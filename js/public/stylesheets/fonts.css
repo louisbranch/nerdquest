@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'GraphicPixel';
+  src: url("http://cdn.mozilla.net/browserquest/fonts/graphicpixel-webfont.eot");
+  src: url("http://cdn.mozilla.net/browserquest/fonts/graphicpixel-webfont.eot?#iefix") format('embedded-opentype'), url("http://cdn.mozilla.net/browserquest/fonts/graphicpixel-webfont.woff") format('woff'), url("http://cdn.mozilla.net/browserquest/fonts/graphicpixel-webfont.ttf") format('truetype'), url("http://cdn.mozilla.net/browserquest/fonts/graphicpixel-webfont.svg#GraphicPixelRegular") format('svg');
+  font-weight: normal;
+  font-style: normal;
+}

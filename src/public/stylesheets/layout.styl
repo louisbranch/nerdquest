@@ -1,6 +1,43 @@
-body
-  background-color #EEE
+@import 'mixins'
 
-.quests
-  li
-    cursor pointer
+// Reset
+ul, ol
+  margin 0
+  list-style none
+
+body
+  font-family 'GraphicPixel', sans-serif
+  font-size: 18px
+  text-shadow 1px 1px 0 rgba(255,255,255,0.9)
+  background url('/images/project_papper.png') repeat
+
+.container
+  padding 20px
+  margin-top 20px
+  background-color white
+  border 1px solid #ccc
+
+h1.logo
+  margin 40px 0
+  font-size 40px
+  text-align center
+  letter-spacing 0.1em
+
+ul.quests
+  choose-list()
+
+.quest-canvas
+  h2
+    margin-bottom 20px
+    padding-bottom 10px
+    border-bottom 1px solid #ddd
+
+.world-canvas
+  .clues
+    text-align center
+    .next-clue
+      cursor pointer
+  .worlds, .suspects
+    choose-list()
+    float none
+    text-align center

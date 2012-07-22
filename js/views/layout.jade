@@ -3,6 +3,8 @@ html
   head
     title NerdQuest
     link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+    link(rel='stylesheet', href='/stylesheets/mixins.css')
+    link(rel='stylesheet', href='/stylesheets/fonts.css')
     link(rel='stylesheet', href='/stylesheets/layout.css')
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/nerd.js')
@@ -28,5 +30,8 @@ html
         });
       });
   body
+    header
+      h1.logo
+        a(href='/t') NerdQuest
     .container
       block content
