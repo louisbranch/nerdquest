@@ -9,28 +9,29 @@
       return this.render();
     },
     render: function() {
-      var $world, rendered;
-      $world = $('.world-canvas');
+      var $canvas, rendered;
+      $canvas = $('.quest-canvas');
       rendered = this.template(this.model.toJSON());
       $(this.el).html(rendered);
-      $world.html(this.el);
+      $canvas.html(this.el);
       return this;
     }
   });
 
   Nerd.QuestView = Backbone.View.extend({
-    tagName: 'section',
-    className: 'quest-canvas',
     initialize: function() {
       _.bindAll(this, 'render', 'renderSuspects', 'renderFinal');
       this.model.bind('finalLevel', this.renderSuspects);
       this.model.bind('finished', this.renderFinal);
-      return this.template = _.template($('#quest-template').html());
+      this.template = _.template($('#quest-template').html());
+      return this.render();
     },
     render: function() {
-      var rendered;
+      var $canvas, rendered;
+      $canvas = $('.quest-canvas');
       rendered = this.template(this.model.toJSON());
       $(this.el).html(rendered);
+      $canvas.append(this.el);
       return this;
     },
     renderSuspects: function() {
@@ -66,11 +67,9 @@
       return this;
     },
     start: function() {
-      var view;
-      view = new Nerd.QuestView({
+      new Nerd.QuestView({
         model: this.model
       });
-      $('.quest-log').replaceWith(view.render().el);
       return this.model.start(function(result) {
         var nextWorlds;
         new Nerd.WorldView({

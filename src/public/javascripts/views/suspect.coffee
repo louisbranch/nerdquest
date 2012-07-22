@@ -30,19 +30,20 @@ Nerd.SuspectView = Backbone.View.extend
         @model.get('quest').finish()
 
 Nerd.SuspectsView = Backbone.View.extend
-  className: 'suspects'
+  className: 'suspects-canvas'
 
   initialize: ->
     _.bindAll(@, 'render')
     @collection.bind('reset', @render)
     @template = _.template($('#suspects-template').html())
+    console.log 'created'
     @render()
 
   render: ->
-    $world = $('section.world')
+    $canvas = $('.quest-canvas')
     $(@el).html(@template({}))
     $suspects = @$('.suspects')
-    $world.html(@el)
+    $canvas.html(@el)
     @collection.each (suspect) ->
       view = new Nerd.SuspectView
         model: suspect

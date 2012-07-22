@@ -2,8 +2,7 @@
 (function() {
 
   Nerd.WorldView = Backbone.View.extend({
-    tagName: 'section',
-    className: 'world',
+    className: 'world-canvas',
     initialize: function() {
       _.bindAll(this, 'render');
       this.template = _.template($('#world-template').html());
@@ -11,11 +10,11 @@
       return this.renderClues();
     },
     render: function() {
-      var $worldCanvas, rendered;
-      $worldCanvas = $('.world-canvas');
+      var $canvas, rendered;
+      $canvas = $('.quest-canvas');
       rendered = this.template(this.model.toJSON());
       $(this.el).html(rendered);
-      $worldCanvas.html(this.el);
+      $canvas.html(this.el);
       return this;
     },
     renderClues: function() {
@@ -74,8 +73,8 @@
       return this.render();
     },
     render: function() {
-      var $world, $worlds;
-      $world = $('section.world');
+      var $canvas, $worlds;
+      $canvas = $('.quest-canvas');
       $(this.el).html(this.template({}));
       $worlds = this.$('.worlds');
       this.collection.each(function(world) {
@@ -86,7 +85,7 @@
         });
         return $worlds.append(view.render().el);
       });
-      $world.append(this.el);
+      $canvas.append(this.el);
       return this;
     }
   });

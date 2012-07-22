@@ -6,14 +6,13 @@
       't': 'index'
     },
     index: function() {
-      var $content, quests, questsView;
-      $content = $('#content');
-      $content.empty();
+      var $canvas, quests, questsView;
+      $canvas = $('.quest-canvas');
       quests = new Nerd.Quests();
       questsView = new Nerd.QuestListView({
         collection: quests
       });
-      $content.append(questsView.render().el);
+      $canvas.html(questsView.render().el);
       return quests.fetch();
     }
   });

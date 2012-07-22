@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  #content
+  .quest-canvas
 
   .templates
     script(type='text/html', id='quest-list-template')
@@ -14,12 +14,10 @@ block content
         <%= name %>
 
     script(type='text/html', id='quest-template')
-      header
-        h2 <%= name %>
       .world-canvas
 
     script(type='text/html', id='quest-final-template')
-      h3 Congratulations, you've finished the Quest!
+      h2 Congratulations, you've finished the Quest!
       dl
         dt Score
         dd <%= score %>
@@ -42,7 +40,8 @@ block content
         <%= name %>
 
     script(type='text/html', id='world-template')
-      h3 <%= name %>
+      header
+        h2 <%= name %>
       ul.clues
 
     script(type='text/html', id='clues-template')
@@ -54,7 +53,8 @@ block content
       <%= phrase %>
 
     script(type='text/html', id='suspects-template')
-      h3 Who is the Suspect?
+      header
+        h2 Who is the Suspect?
       ul.clues
       ol.suspects
 

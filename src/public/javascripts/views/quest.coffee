@@ -7,25 +7,26 @@ Nerd.QuestFinalView = Backbone.View.extend
     @render()
 
   render: ->
-    $world = $('.world-canvas')
+    $canvas = $('.quest-canvas')
     rendered = @template(@model.toJSON())
     $(@el).html(rendered)
-    $world.html(@el)
+    $canvas.html(@el)
     @
 
 Nerd.QuestView = Backbone.View.extend
-  tagName: 'section'
-  className: 'quest-canvas'
 
   initialize: ->
     _.bindAll(@, 'render', 'renderSuspects', 'renderFinal')
     @model.bind('finalLevel', @renderSuspects)
     @model.bind('finished', @renderFinal)
     @template = _.template($('#quest-template').html())
+    @render()
 
   render: ->
+    $canvas = $('.quest-canvas')
     rendered = @template(@model.toJSON())
     $(@el).html(rendered)
+    $canvas.append(@el)
     @
 
   renderSuspects: ->
@@ -52,8 +53,7 @@ Nerd.QuestRowView = Backbone.View.extend
     @
 
   start: ->
-    view = new Nerd.QuestView(model: @model)
-    $('.quest-log').replaceWith(view.render().el)
+    new Nerd.QuestView(model: @model)
     @model.start (result) ->
       new Nerd.WorldView(model: result.firstWorld)
       nextWorlds = new Nerd.Worlds(result.nextWorlds)

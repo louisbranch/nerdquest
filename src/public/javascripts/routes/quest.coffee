@@ -3,11 +3,10 @@ Nerd.QuestsRouter = Backbone.Router.extend
     't': 'index'
 
   index: ->
-    $content = $('#content')
-    $content.empty()
+    $canvas = $('.quest-canvas')
     quests = new Nerd.Quests()
     questsView = new Nerd.QuestListView(collection: quests)
-    $content.append(questsView.render().el)
+    $canvas.html(questsView.render().el)
     quests.fetch()
 
 $ ->

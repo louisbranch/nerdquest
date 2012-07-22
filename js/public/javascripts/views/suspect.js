@@ -40,19 +40,20 @@
   });
 
   Nerd.SuspectsView = Backbone.View.extend({
-    className: 'suspects',
+    className: 'suspects-canvas',
     initialize: function() {
       _.bindAll(this, 'render');
       this.collection.bind('reset', this.render);
       this.template = _.template($('#suspects-template').html());
+      console.log('created');
       return this.render();
     },
     render: function() {
-      var $suspects, $world;
-      $world = $('section.world');
+      var $canvas, $suspects;
+      $canvas = $('.quest-canvas');
       $(this.el).html(this.template({}));
       $suspects = this.$('.suspects');
-      $world.html(this.el);
+      $canvas.html(this.el);
       this.collection.each(function(suspect) {
         var view;
         view = new Nerd.SuspectView({
