@@ -73,7 +73,7 @@ block content
         ol.suspects
 
     script(type='text/html', id='suspect-template')
-      img(src="#")
+      | <img src="http://graph.facebook.com/<%= uid %>/picture?type=large" />
       .name
         <%= name %>
 
