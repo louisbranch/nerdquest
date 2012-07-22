@@ -26,7 +26,6 @@
   });
 
   Nerd.CluesView = Backbone.View.extend({
-    tagName: 'ul',
     className: 'clues',
     currentClueIndex: 0,
     initialize: function() {
@@ -41,7 +40,7 @@
     },
     render: function() {
       var $clues;
-      $clues = $('ul.clues');
+      $clues = $('.clues');
       $(this.el).html(this.template({}));
       $clues.replaceWith(this.el);
       return this;

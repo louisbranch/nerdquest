@@ -9,11 +9,15 @@ body {
   text-shadow: 1px 1px 0 rgba(255,255,255,0.9);
   background: url("/images/project_papper.png") repeat;
 }
-.container {
-  padding: 20px;
+.wall {
+  margin: 20px;
   margin-top: 20px;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  border: 24px solid #ccc;
+  border-image: url("/images/wall.png") 24 round repeat;
+}
+.ground {
+  padding: 20px;
+  background: url("/images/snow.png") repeat;
 }
 h1.logo {
   margin: 40px 0;
@@ -21,50 +25,56 @@ h1.logo {
   text-align: center;
   letter-spacing: 0.1em;
 }
-ul.quests {
-  margin: 0 0 0 -20px;
-}
-ul.quests li {
+i {
   display: inline-block;
   zoom: 1;
   *display: inline;
-  position: relative;
-  margin: 20px 0 0 20px;
-  width: 200px;
-  height: 150px;
-  cursor: pointer;
+  height: 25px;
+  width: 25px;
+  margin-right: 5px;
+  background: url("/images/sprite.png") no-repeat center center;
+  vertical-align: text-bottom;
 }
-ul.quests li img {
-  width: 100%;
-  height: 100%;
+i.sign {
+  background-position: 0 0;
 }
-ul.quests li .name {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 10px 0;
-  background-color: rgba(0,0,0,0.5);
-  color: #fff;
-  text-align: center;
-  text-shadow: -1px -1px 0 rgba(0,0,0,0.2);
+i.sword {
+  background-position: -25px 0;
+}
+i.crox {
+  background-position: -50px 0;
+}
+i.directions {
+  background-position: 0 -25px;
+}
+i.ball {
+  background-position: -25px -25px;
+}
+i.grave {
+  background-position: -50px -25px;
 }
 .quest-canvas h2 {
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ddd;
+  vertical-align: middle;
 }
 .clues {
-  text-align: center;
+  margin: 40px 0;
+}
+.clues .clue {
+  margin-top: 20px;
 }
 .clues .next-clue {
   cursor: pointer;
 }
+.next-worlds,
+.suspect {
+  margin: 40px 0;
+}
+ul.quests,
 ol.worlds,
 ol.suspects {
   margin: 0 0 0 -20px;
-  float: none;
-  text-align: center;
 }
+ul.quests li,
 ol.worlds li,
 ol.suspects li {
   display: inline-block;
@@ -76,11 +86,13 @@ ol.suspects li {
   height: 150px;
   cursor: pointer;
 }
+ul.quests li img,
 ol.worlds li img,
 ol.suspects li img {
   width: 100%;
   height: 100%;
 }
+ul.quests li .name,
 ol.worlds li .name,
 ol.suspects li .name {
   position: absolute;

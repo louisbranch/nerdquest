@@ -5,7 +5,9 @@ block content
 
   .templates
     script(type='text/html', id='quest-list-template')
-      h2 Your Quests:
+      h2
+        i.sword
+        | Your Quests:
       ul.quests
 
     script(type='text/html', id='quest-row-template')
@@ -31,21 +33,27 @@ block content
         dd <%= usedClues %>
 
     script(type='text/html', id='worlds-list-template')
-      h4 Next World:
+      h2
+        i.directions
+        | Next World:
       ol.worlds
 
     script(type='text/html', id='world-row-template')
-      img(src="#")
+      | <img src="https://s3.amazonaws.com/nerdquest_imgs/<%= img %>" />
       .name
         <%= name %>
 
     script(type='text/html', id='world-template')
       header
-        h2 <%= name %>
-      ul.clues
+        h2
+          i.sign
+          | <%= name %>
+      .clues
 
     script(type='text/html', id='clues-template')
-      h4 Clues:
+      h2
+        i.ball
+        | Clues:
       .clue
       .next-clue Next Clue >
 
@@ -54,9 +62,15 @@ block content
 
     script(type='text/html', id='suspects-template')
       header
-        h2 Who is the Suspect?
+        h2
+          i.crox
+          | Who is the Suspect?
       ul.clues
-      ol.suspects
+      .suspect
+        h2
+          i.grave
+          | Suspect:
+        ol.suspects
 
     script(type='text/html', id='suspect-template')
       img(src="#")

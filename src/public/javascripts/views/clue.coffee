@@ -21,7 +21,6 @@ Nerd.ClueView = Backbone.View.extend
       @quest = @model.get('suspect').get('quest')
 
 Nerd.CluesView = Backbone.View.extend
-  tagName: 'ul'
   className: 'clues'
 
   currentClueIndex: 0
@@ -37,7 +36,7 @@ Nerd.CluesView = Backbone.View.extend
     'click .next-clue': 'renderNextClue'
 
   render: ->
-    $clues = $('ul.clues')
+    $clues = $('.clues')
     $(@el).html(@template({}))
     $clues.replaceWith(@el)
     @

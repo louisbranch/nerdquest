@@ -7,15 +7,19 @@ ul, ol
 
 body
   font-family 'GraphicPixel', sans-serif
-  font-size: 18px
+  font-size 18px
   text-shadow 1px 1px 0 rgba(255,255,255,0.9)
   background url('/images/project_papper.png') repeat
 
-.container
-  padding 20px
+.wall
+  margin 20px
   margin-top 20px
-  background-color white
-  border 1px solid #ccc
+  border 24px solid #ccc
+  border-image url("/images/wall.png") 24 round repeat
+
+.ground
+  padding 20px
+  background url('/images/snow.png') repeat
 
 h1.logo
   margin 40px 0
@@ -23,21 +27,39 @@ h1.logo
   text-align center
   letter-spacing 0.1em
 
-ul.quests
-  choose-list()
+i
+  inline-block()
+  height 25px
+  width 25px
+  margin-right 5px
+  background url("/images/sprite.png") no-repeat center center
+  vertical-align text-bottom
+  &.sign
+    background-position 0 0
+  &.sword
+    background-position -25px 0
+  &.crox
+    background-position -50px 0
+  &.directions
+    background-position 0 -25px
+  &.ball
+    background-position -25px -25px
+  &.grave
+    background-position -50px -25px
 
 .quest-canvas
   h2
-    margin-bottom 20px
-    padding-bottom 10px
-    border-bottom 1px solid #ddd
+    vertical-align middle
 
 .clues
-  text-align center
+  margin 40px 0
+  .clue
+    margin-top 20px
   .next-clue
     cursor pointer
 
-ol.worlds, ol.suspects
+.next-worlds, .suspect
+  margin 40px 0
+
+ul.quests, ol.worlds, ol.suspects
   choose-list()
-  float none
-  text-align center
