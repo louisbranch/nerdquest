@@ -85,6 +85,8 @@ ol.suspects li {
   width: 200px;
   height: 150px;
   cursor: pointer;
+  border: 8px solid #ccc;
+  border-image: url("/images/frame.png") 8 round repeat;
 }
 ul.quests li img,
 ol.worlds li img,
