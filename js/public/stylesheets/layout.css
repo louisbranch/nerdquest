@@ -7,23 +7,21 @@ body {
   font-family: 'GraphicPixel', sans-serif;
   font-size: 18px;
   text-shadow: 1px 1px 0 rgba(255,255,255,0.9);
-  background: url("/images/project_papper.png") repeat;
+  background: url("/images/wood.png") repeat;
 }
-.wall {
-  margin: 20px;
-  margin-top: 20px;
-  border: 24px solid #ccc;
-  border-image: url("/images/wall.png") 24 round repeat;
-}
-.ground {
-  padding: 20px;
-  background: url("/images/snow.png") repeat;
+.wrapper {
+  width: 1246px;
+  min-height: 500px;
+  margin: 0 auto;
+  padding: 40px;
+  background: url("/images/parchment.png") no-repeat;
 }
 h1.logo {
   margin: 40px 0;
   font-size: 40px;
   text-align: center;
   letter-spacing: 0.1em;
+  text-shadow: -1px -1px 0 rgba(0,0,0,0.9);
 }
 i {
   display: inline-block;
@@ -86,7 +84,7 @@ ol.suspects li {
   height: 150px;
   cursor: pointer;
   border: 8px solid #ccc;
-  border-image: url("/images/frame.png") 8 round repeat;
+  border-image: url("/images/border.png") 8 round repeat;
 }
 ul.quests li img,
 ol.worlds li img,
