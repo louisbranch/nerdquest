@@ -47,17 +47,15 @@ block content
       header
         h2
           i.sign
-          | <%= name %>
+          <%= name %>
       .clues
 
     script(type='text/html', id='clues-template')
-      h2
-        i.ball
-        | Clues:
       .clue
       .next-clue Next Clue >
 
     script(type='text/html', id='clue-template')
+      strong Clue:
       <%= phrase %>
 
     script(type='text/html', id='suspects-template')

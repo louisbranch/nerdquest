@@ -10,7 +10,7 @@ body {
   background: url("/images/wood.png") repeat;
 }
 .wrapper {
-  width: 1246px;
+  width: 1168px;
   min-height: 500px;
   margin: 0 auto;
   padding: 40px;
@@ -51,17 +51,37 @@ i.ball {
 i.grave {
   background-position: -50px -25px;
 }
-.quest-canvas h2 {
-  vertical-align: middle;
+h2 {
+  text-align: center;
 }
 .clues {
-  margin: 40px 0;
+  margin: 20px 0;
 }
 .clues .clue {
-  margin-top: 20px;
+  margin: 20px 0 10px;
+  border: 5px solid #ccc;
+  border-image: url("/images/clues.png") 8 space repeat;
+}
+.clues .clue p {
+  margin: 0;
+  padding: 10px;
+  background-color: #cfcdba;
+  text-align: center;
+}
+.clues .clue p strong {
+  margin-right: 5px;
 }
 .clues .next-clue {
+  margin: 0 auto;
+  width: 50px;
+  height: 33px;
   cursor: pointer;
+  text-indent: -9999px;
+  background: url("/images/next.png") no-repeat center center;
+}
+.clues .next-clue:active {
+  -webkit-transform: translateY(1px);
+  -moz-transform: translateY(1px);
 }
 .next-worlds,
 .suspect {
@@ -70,7 +90,8 @@ i.grave {
 ul.quests,
 ol.worlds,
 ol.suspects {
-  margin: 0 0 0 -20px;
+  width: 720px;
+  margin: 0 auto;
 }
 ul.quests li,
 ol.worlds li,
