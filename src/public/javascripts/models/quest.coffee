@@ -28,14 +28,6 @@ Nerd.Quest = Backbone.RelationalModel.extend
     @stats()
     @trigger('finished')
 
-  score: 0
-  scoreMultiplier: 10
-  usedClues: 0
-  rightWorlds: 0
-  wrongWorlds: 0
-  timerStart: 0
-  timerEnd: 0
-
   increaseScore: (n) ->
     @score = @score + (n * @scoreMultiplier)
     @scoreMultiplier += 1

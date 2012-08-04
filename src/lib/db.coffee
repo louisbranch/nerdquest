@@ -14,20 +14,15 @@ exports.saveUser = (id, data, callback) ->
     else if typeof callback == 'function'
       callback(body.id)
 
-mapMissions = (row) ->
-  mission = row.doc
-  delete(mission._id)
-  delete(mission._rev)
-  mission
+mapWorlds = (row) ->
+  world = row.doc
+  delete(world._id)
+  delete(world._rev)
+  world
 
-exports.getMissions = (callback) ->
-  missions = nano.db.use('missions')
-  missions.list {include_docs: true}, (err, body) ->
-    unless err
-      missions = body.rows.map(mapMissions)
-      callback(missions)
-
-exports.saveMission = (json, callback) ->
-  missions = nano.db.use('missions')
-  missions.insert json, null, (err, body) ->
-    callback(body.id) unless err
+exports.getWorlds = (callback) ->
+  worlds = nano.db.use('worlds')
+  worlds.list {include_docs: true}, (err, body) ->
+    return if err
+    worlds = body.rows.map(mapWorlds)
+    callback(worlds)

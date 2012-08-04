@@ -30,13 +30,6 @@
       this.stats();
       return this.trigger('finished');
     },
-    score: 0,
-    scoreMultiplier: 10,
-    usedClues: 0,
-    rightWorlds: 0,
-    wrongWorlds: 0,
-    timerStart: 0,
-    timerEnd: 0,
     increaseScore: function(n) {
       this.score = this.score + (n * this.scoreMultiplier);
       return this.scoreMultiplier += 1;

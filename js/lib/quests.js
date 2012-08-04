@@ -25,11 +25,11 @@
         });
       },
       quest: function(callback) {
-        return db.getMissions(function(missions) {
+        return db.getWorlds(function(worlds) {
           var quest;
           quest = creator.createQuestPath({
             levels: 3,
-            missions: missions
+            worlds: worlds
           });
           return callback(null, quest);
         });

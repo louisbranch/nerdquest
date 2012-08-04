@@ -15,8 +15,8 @@ exports.create = (user_id, token, callback) ->
           suspects[0].clues = clues
           callback(null, suspects)
     quest: (callback) ->
-      db.getMissions (missions) ->
-        quest = creator.createQuestPath({levels: 3, missions: missions})
+      db.getWorlds (worlds) ->
+        quest = creator.createQuestPath({levels: 3, worlds})
         callback(null, quest)
     (err, results) ->
       unless err
