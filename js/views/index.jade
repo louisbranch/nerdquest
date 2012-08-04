@@ -16,6 +16,11 @@ block content
       // Challenger Photo, name, score
 
     script(type='text/html', id='quest-template')
+      header
+        .progress-bar
+          "|| || || ||"
+        .score
+          | Score:
       .world-canvas
 
     script(type='text/html', id='quest-final-template')
@@ -44,11 +49,8 @@ block content
         <%= name %>
 
     script(type='text/html', id='world-template')
-      header
-        h2
-          i.sign
-          <%= name %>
       .clues
+      .next-worlds
 
     script(type='text/html', id='clues-template')
       .clue

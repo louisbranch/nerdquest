@@ -11,10 +11,10 @@
     },
     render: function() {
       var $canvas, rendered;
-      $canvas = $('.quest-canvas');
+      $canvas = $('.world-canvas');
       rendered = this.template(this.model.toJSON());
       $(this.el).html(rendered);
-      $canvas.html(this.el);
+      $canvas.replaceWith(this.el);
       return this;
     },
     renderClues: function() {
@@ -73,8 +73,8 @@
       return this.render();
     },
     render: function() {
-      var $canvas, $worlds;
-      $canvas = $('.quest-canvas');
+      var $nextWorlds, $worlds;
+      $nextWorlds = $('.next-worlds');
       $(this.el).html(this.template({}));
       $worlds = this.$('.worlds');
       this.collection.each(function(world) {
@@ -82,10 +82,10 @@
         view = new Nerd.WorldListView({
           model: world,
           collection: this.collection
-        });
+        }, this.collection);
         return $worlds.append(view.render().el);
       });
-      $canvas.append(this.el);
+      $nextWorlds.replaceWith(this.el);
       return this;
     }
   });

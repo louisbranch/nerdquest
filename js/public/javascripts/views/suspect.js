@@ -50,7 +50,7 @@
     },
     render: function() {
       var $canvas, $suspects;
-      $canvas = $('.quest-canvas');
+      $canvas = $('.world-canvas');
       $(this.el).html(this.template({}));
       $suspects = this.$('.suspects');
       $canvas.html(this.el);

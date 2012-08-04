@@ -19,6 +19,7 @@
   });
 
   Nerd.QuestView = Backbone.View.extend({
+    className: 'quest-canvas',
     initialize: function() {
       _.bindAll(this, 'render', 'renderSuspects', 'renderFinal');
       this.model.bind('finalLevel', this.renderSuspects);
@@ -31,7 +32,7 @@
       $canvas = $('.quest-canvas');
       rendered = this.template(this.model.toJSON());
       $(this.el).html(rendered);
-      $canvas.append(this.el);
+      $canvas.replaceWith(this.el);
       return this;
     },
     renderSuspects: function() {

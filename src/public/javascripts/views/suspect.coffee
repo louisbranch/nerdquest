@@ -40,7 +40,7 @@ Nerd.SuspectsView = Backbone.View.extend
     @render()
 
   render: ->
-    $canvas = $('.quest-canvas')
+    $canvas = $('.world-canvas')
     $(@el).html(@template({}))
     $suspects = @$('.suspects')
     $canvas.html(@el)

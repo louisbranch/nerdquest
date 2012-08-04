@@ -14,6 +14,7 @@ Nerd.QuestFinalView = Backbone.View.extend
     @
 
 Nerd.QuestView = Backbone.View.extend
+  className: 'quest-canvas'
 
   initialize: ->
     _.bindAll(@, 'render', 'renderSuspects', 'renderFinal')
@@ -26,7 +27,7 @@ Nerd.QuestView = Backbone.View.extend
     $canvas = $('.quest-canvas')
     rendered = @template(@model.toJSON())
     $(@el).html(rendered)
-    $canvas.append(@el)
+    $canvas.replaceWith(@el)
     @
 
   renderSuspects: ->

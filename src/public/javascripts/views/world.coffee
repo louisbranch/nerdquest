@@ -8,10 +8,10 @@ Nerd.WorldView = Backbone.View.extend
     @renderClues()
 
   render: ->
-    $canvas = $('.quest-canvas')
+    $canvas = $('.world-canvas')
     rendered = @template(@model.toJSON())
     $(@el).html(rendered)
-    $canvas.html(@el)
+    $canvas.replaceWith(@el)
     @
 
   renderClues: ->
@@ -56,13 +56,14 @@ Nerd.WorldsListView = Backbone.View.extend
     @render()
 
   render: ->
-    $canvas = $('.quest-canvas')
+    $nextWorlds = $('.next-worlds')
     $(@el).html(@template({}))
     $worlds = @$('.worlds')
     @collection.each (world) ->
       view = new Nerd.WorldListView
         model: world
         collection: @collection
+        @collection
       $worlds.append(view.render().el)
-    $canvas.append(@el)
+    $nextWorlds.replaceWith(@el)
     @
