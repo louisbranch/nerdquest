@@ -7,6 +7,7 @@
   Quest = function() {
     return {
       score: 0,
+      duration: 0,
       scoreMultiplier: 10,
       usedClues: 0,
       rightWorlds: 0,

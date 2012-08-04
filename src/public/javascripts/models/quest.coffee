@@ -20,26 +20,30 @@ Nerd.Quest = Backbone.RelationalModel.extend
   ]
 
   start: (callback) ->
-    @timerStart = new Date()
+    @set('timerStart', new Date())
     @get('worlds').start(callback)
 
   finish: ->
-    @timerEnd = new Date()
-    @stats()
+    @set('timerEnd', new Date())
+    @duration()
     @trigger('finished')
 
   increaseScore: (n) ->
-    @score = @score + (n * @scoreMultiplier)
-    @scoreMultiplier += 1
+    multiplier = @get('scoreMultiplier')
+    newScore = @get('score') + (n * multiplier)
+    @set('score', newScore)
+    @set('scoreMultiplier', multiplier + 1)
 
   decreaseScore: (n) ->
-    @score = @score - n
-    unless @scoreMultiplier == 0
-      @scoreMultiplier -= 1
+    multiplier = @get('scoreMultiplier')
+    newScore = @get('score') - n
+    @set('score', newScore)
+    unless multiplier == 0
+      @set('scoreMultiplier', multiplier - 1)
 
   scoreRightWorld: (level, callback) ->
     @increaseScore(300)
-    @rightWorlds +=1
+    @set('rightWorlds', @get('rightWorlds') + 1)
     nextWorlds = @get('worlds').worldsByLevel(level+1)
     if nextWorlds.length == 0
       @trigger('finalLevel')
@@ -48,7 +52,7 @@ Nerd.Quest = Backbone.RelationalModel.extend
 
   scoreWrongWorld: ->
     @decreaseScore(800)
-    @wrongWorlds += 1
+    @set('wrongWorlds', @get('wrongWorlds') + 1)
 
   scoreRightSuspect: ->
     @increaseScore(1000)
@@ -58,22 +62,13 @@ Nerd.Quest = Backbone.RelationalModel.extend
 
   useClue: ->
     @decreaseScore(300)
-    @usedClues += 1
+    @set('usedClues', @get('usedClues') + 1)
 
   duration: ->
-    time = @timerEnd - @timerStart
+    time = @get('timerEnd') - @get('timerStart')
     seconds = parseInt(time / 1000)
     minutes = parseInt(time / 1000 / 60)
-    "#{minutes}:#{seconds}"
-
-  stats: ->
-    @set({
-      score: @score
-      rightWorlds: @rightWorlds
-      wrongWorlds: @wrongWorlds
-      usedClues: @usedClues
-      duration: @duration()
-    })
+    @set('duration', "#{minutes}:#{seconds}")
 
 Nerd.Quests = Backbone.Collection.extend
   model: Nerd.Quest

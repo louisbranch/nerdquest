@@ -22,28 +22,34 @@
       }
     ],
     start: function(callback) {
-      this.timerStart = new Date();
+      this.set('timerStart', new Date());
       return this.get('worlds').start(callback);
     },
     finish: function() {
-      this.timerEnd = new Date();
-      this.stats();
+      this.set('timerEnd', new Date());
+      this.duration();
       return this.trigger('finished');
     },
     increaseScore: function(n) {
-      this.score = this.score + (n * this.scoreMultiplier);
-      return this.scoreMultiplier += 1;
+      var multiplier, newScore;
+      multiplier = this.get('scoreMultiplier');
+      newScore = this.get('score') + (n * multiplier);
+      this.set('score', newScore);
+      return this.set('scoreMultiplier', multiplier + 1);
     },
     decreaseScore: function(n) {
-      this.score = this.score - n;
-      if (this.scoreMultiplier !== 0) {
-        return this.scoreMultiplier -= 1;
+      var multiplier, newScore;
+      multiplier = this.get('scoreMultiplier');
+      newScore = this.get('score') - n;
+      this.set('score', newScore);
+      if (multiplier !== 0) {
+        return this.set('scoreMultiplier', multiplier - 1);
       }
     },
     scoreRightWorld: function(level, callback) {
       var nextWorlds;
       this.increaseScore(300);
-      this.rightWorlds += 1;
+      this.set('rightWorlds', this.get('rightWorlds') + 1);
       nextWorlds = this.get('worlds').worldsByLevel(level + 1);
       if (nextWorlds.length === 0) {
         return this.trigger('finalLevel');
@@ -55,7 +61,7 @@
     },
     scoreWrongWorld: function() {
       this.decreaseScore(800);
-      return this.wrongWorlds += 1;
+      return this.set('wrongWorlds', this.get('wrongWorlds') + 1);
     },
     scoreRightSuspect: function() {
       return this.increaseScore(1000);
@@ -65,23 +71,14 @@
     },
     useClue: function() {
       this.decreaseScore(300);
-      return this.usedClues += 1;
+      return this.set('usedClues', this.get('usedClues') + 1);
     },
     duration: function() {
       var minutes, seconds, time;
-      time = this.timerEnd - this.timerStart;
+      time = this.get('timerEnd') - this.get('timerStart');
       seconds = parseInt(time / 1000);
       minutes = parseInt(time / 1000 / 60);
-      return "" + minutes + ":" + seconds;
-    },
-    stats: function() {
-      return this.set({
-        score: this.score,
-        rightWorlds: this.rightWorlds,
-        wrongWorlds: this.wrongWorlds,
-        usedClues: this.usedClues,
-        duration: this.duration()
-      });
+      return this.set('duration', "" + minutes + ":" + seconds);
     }
   });
 
