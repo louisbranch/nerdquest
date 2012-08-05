@@ -18,6 +18,8 @@ Nerd.QuestView = Backbone.View.extend
 
   initialize: ->
     _.bindAll(@, 'render', 'renderSuspects', 'renderFinal')
+    @model.bind('progress', @progress)
+    @model.bind('updateScore', @updateScore)
     @model.bind('finalLevel', @renderSuspects)
     @model.bind('finished', @renderFinal)
     @template = _.template($('#quest-template').html())
@@ -29,6 +31,12 @@ Nerd.QuestView = Backbone.View.extend
     $(@el).html(rendered)
     $canvas.replaceWith(@el)
     @
+
+  progress: (length) ->
+    $('.progress-bar span').css('width', "#{length}%")
+
+  updateScore: (score) ->
+    $('.score').html(score)
 
   renderSuspects: ->
     suspects = @model.get('suspects')

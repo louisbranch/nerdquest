@@ -25,6 +25,9 @@ h1.logo
   letter-spacing 0.1em
   text-shadow -1px -1px 0 rgba(0,0,0,0.9)
 
+h2
+  text-align center
+
 i
   inline-block()
   height 25px
@@ -45,35 +48,58 @@ i
   &.grave
     background-position -50px -25px
 
-h2
-  text-align center
+.quest-canvas
+  header
+    clearfix()
+  .progress-bar
+    width 70%
+    float left
+    height 30px
+    overflow hidden
+    background-color #F7F7F7
+    background-repeat repeat-x
+    bg-linear-gradient(#f9f9f9, whiteSmoke, 100%, 50%)
+    border-radius(5px)
+    box-shadow(inset 0 1px 2px rgba(0, 0, 0, 0.2))
+    span
+      display block
+      height 100%
+      width 0
+      background url("/images/progress.png") repeat-x
+  .score
+    margin-left 40px
+    text-align right
+    font-size 35px
+    line-height 30px
 
-.clues
-  margin 20px 0
-  .clue
-    margin 20px 0 10px
-    border 5px solid #ccc
-    border-image url("/images/clues.png") 8 space repeat
-    p
-      margin 0
-      padding 10px
-      background-color #cfcdba
-      text-align center
-      strong
-        margin-right 5px
-  .next-clue
-    margin 0 auto
-    width 50px
-    height 33px
-    cursor pointer
-    text-indent -9999px
-    background url("/images/next.png") no-repeat center center
-    &:active
-      -webkit-transform: translateY(1px)
-      -moz-transform: translateY(1px)
+.world-canvas
+  clearfix()
+  .clues
+    margin 20px 0
+    .clue
+      margin 20px 0 10px
+      border 5px solid #ccc
+      border-image url("/images/clues.png") 8 space repeat
+      p
+        margin 0
+        padding 10px
+        background-color #cfcdba
+        text-align center
+        strong
+          margin-right 5px
+    .next-clue
+      margin 0 auto
+      width 50px
+      height 33px
+      cursor pointer
+      text-indent -9999px
+      background url("/images/next.png") no-repeat center center
+      &active
+        -webkit-transform translateY(1px)
+        -moz-transform translateY(1px)
 
-.next-worlds, .suspect
-  margin 40px 0
+  .next-worlds, .suspect
+    margin 40px 0
 
-ol.worlds, ol.suspects
-  choose-list()
+  ol.worlds, ol.suspects
+    choose-list()

@@ -1,8 +1,35 @@
+clearfix()
+  zoom 1
+  &:before
+    display table
+    content ""
+  &:after
+    display table
+    content ""
+    clear both
+
 inline-block()
   display inline-block
   //IE7 fix
   zoom 1
   *display inline
+
+bg-linear-gradient(color1, color2, stop1, stop2)
+  background-image linear-gradient(bottom, color2 stop2, color1 stop1)
+  background-image -o-linear-gradient(bottom, color2 stop2, color1 stop1)
+  background-image -moz-linear-gradient(bottom, color2 stop2, color1 stop1)
+  background-image -webkit-linear-gradient(bottom, color2 stop2, color1 stop1)
+  background-image -ms-linear-gradient(bottom, color2 stop2, color1 stop1)
+
+border-radius(radius)
+  -webkit-border-radius radius
+  -moz-border-radius radius
+  border-radius radius
+
+box-shadow(shadow)
+  -webkit-box-shadow shadow
+  -moz-box-shadow shadow
+  box-shadow shadow
 
 choose-list()
   width 720px
@@ -28,3 +55,4 @@ choose-list()
       color white
       text-align center
       text-shadow -1px -1px 0 rgba(0,0,0,0.2)
+

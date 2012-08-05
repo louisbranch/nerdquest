@@ -22,6 +22,8 @@
     className: 'quest-canvas',
     initialize: function() {
       _.bindAll(this, 'render', 'renderSuspects', 'renderFinal');
+      this.model.bind('progress', this.progress);
+      this.model.bind('updateScore', this.updateScore);
       this.model.bind('finalLevel', this.renderSuspects);
       this.model.bind('finished', this.renderFinal);
       this.template = _.template($('#quest-template').html());
@@ -34,6 +36,12 @@
       $(this.el).html(rendered);
       $canvas.replaceWith(this.el);
       return this;
+    },
+    progress: function(length) {
+      return $('.progress-bar span').css('width', "" + length + "%");
+    },
+    updateScore: function(score) {
+      return $('.score').html(score);
     },
     renderSuspects: function() {
       var suspects;

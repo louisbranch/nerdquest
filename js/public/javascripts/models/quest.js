@@ -21,12 +21,26 @@
         }
       }
     ],
+    progress: function() {
+      var counter, timer,
+        _this = this;
+      counter = 0;
+      return timer = setInterval(function() {
+        _this.trigger('progress', counter);
+        counter += 0.1;
+        if (counter > 100) {
+          return clearInterval(timer);
+        }
+      }, 50);
+    },
     start: function(callback) {
       this.set('timerStart', new Date());
+      this.progress();
       return this.get('worlds').start(callback);
     },
     finish: function() {
       this.set('timerEnd', new Date());
+      delete this.progress;
       this.duration();
       return this.trigger('finished');
     },
@@ -35,13 +49,12 @@
       multiplier = this.get('scoreMultiplier');
       newScore = this.get('score') + (n * multiplier);
       this.set('score', newScore);
-      return this.set('scoreMultiplier', multiplier + 1);
+      this.set('scoreMultiplier', multiplier + 1);
+      return this.trigger('updateScore', newScore);
     },
     decreaseScore: function(n) {
-      var multiplier, newScore;
+      var multiplier;
       multiplier = this.get('scoreMultiplier');
-      newScore = this.get('score') - n;
-      this.set('score', newScore);
       if (multiplier !== 0) {
         return this.set('scoreMultiplier', multiplier - 1);
       }

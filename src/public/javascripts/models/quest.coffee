@@ -19,12 +19,23 @@ Nerd.Quest = Backbone.RelationalModel.extend
     }
   ]
 
+  progress: ->
+    counter = 0
+    timer = setInterval =>
+      @trigger('progress', counter)
+      counter += 0.1
+      if counter > 100
+        clearInterval(timer)
+    , 50
+
   start: (callback) ->
     @set('timerStart', new Date())
+    @progress()
     @get('worlds').start(callback)
 
   finish: ->
     @set('timerEnd', new Date())
+    delete @progress
     @duration()
     @trigger('finished')
 
@@ -33,11 +44,10 @@ Nerd.Quest = Backbone.RelationalModel.extend
     newScore = @get('score') + (n * multiplier)
     @set('score', newScore)
     @set('scoreMultiplier', multiplier + 1)
+    @trigger('updateScore', newScore)
 
   decreaseScore: (n) ->
     multiplier = @get('scoreMultiplier')
-    newScore = @get('score') - n
-    @set('score', newScore)
     unless multiplier == 0
       @set('scoreMultiplier', multiplier - 1)
 

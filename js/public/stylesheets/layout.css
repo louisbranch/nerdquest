@@ -23,6 +23,9 @@ h1.logo {
   letter-spacing: 0.1em;
   text-shadow: -1px -1px 0 rgba(0,0,0,0.9);
 }
+h2 {
+  text-align: center;
+}
 i {
   display: inline-block;
   zoom: 1;
@@ -51,27 +54,79 @@ i.ball {
 i.grave {
   background-position: -50px -25px;
 }
-h2 {
-  text-align: center;
+.quest-canvas header {
+  zoom: 1;
 }
-.clues {
+.quest-canvas header:before {
+  display: table;
+  content: "";
+}
+.quest-canvas header:after {
+  display: table;
+  content: "";
+  clear: both;
+}
+.quest-canvas .progress-bar {
+  width: 70%;
+  float: left;
+  height: 30px;
+  overflow: hidden;
+  background-color: #f7f7f7;
+  background-repeat: repeat-x;
+  background-image: linear-gradient(bottom, whiteSmoke 50%, #f9f9f9 100%);
+  background-image: -o-linear-gradient(bottom, whiteSmoke 50%, #f9f9f9 100%);
+  background-image: -moz-linear-gradient(bottom, whiteSmoke 50%, #f9f9f9 100%);
+  background-image: -webkit-linear-gradient(bottom, whiteSmoke 50%, #f9f9f9 100%);
+  background-image: -ms-linear-gradient(bottom, whiteSmoke 50%, #f9f9f9 100%);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+}
+.quest-canvas .progress-bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: url("/images/progress.png") repeat-x;
+}
+.quest-canvas .score {
+  margin-left: 40px;
+  text-align: right;
+  font-size: 35px;
+  line-height: 30px;
+}
+.world-canvas {
+  zoom: 1;
+}
+.world-canvas:before {
+  display: table;
+  content: "";
+}
+.world-canvas:after {
+  display: table;
+  content: "";
+  clear: both;
+}
+.world-canvas .clues {
   margin: 20px 0;
 }
-.clues .clue {
+.world-canvas .clues .clue {
   margin: 20px 0 10px;
   border: 5px solid #ccc;
   border-image: url("/images/clues.png") 8 space repeat;
 }
-.clues .clue p {
+.world-canvas .clues .clue p {
   margin: 0;
   padding: 10px;
   background-color: #cfcdba;
   text-align: center;
 }
-.clues .clue p strong {
+.world-canvas .clues .clue p strong {
   margin-right: 5px;
 }
-.clues .next-clue {
+.world-canvas .clues .next-clue {
   margin: 0 auto;
   width: 50px;
   height: 33px;
@@ -79,21 +134,21 @@ h2 {
   text-indent: -9999px;
   background: url("/images/next.png") no-repeat center center;
 }
-.clues .next-clue:active {
+.world-canvas .clues .next-clueactive {
   -webkit-transform: translateY(1px);
   -moz-transform: translateY(1px);
 }
-.next-worlds,
-.suspect {
+.world-canvas .next-worlds,
+.world-canvas .suspect {
   margin: 40px 0;
 }
-ol.worlds,
-ol.suspects {
+.world-canvas ol.worlds,
+.world-canvas ol.suspects {
   width: 720px;
   margin: 0 auto;
 }
-ol.worlds li,
-ol.suspects li {
+.world-canvas ol.worlds li,
+.world-canvas ol.suspects li {
   display: inline-block;
   zoom: 1;
   *display: inline;
@@ -105,13 +160,13 @@ ol.suspects li {
   border: 8px solid #ccc;
   border-image: url("/images/border.png") 8 round repeat;
 }
-ol.worlds li img,
-ol.suspects li img {
+.world-canvas ol.worlds li img,
+.world-canvas ol.suspects li img {
   width: 100%;
   height: 100%;
 }
-ol.worlds li .name,
-ol.suspects li .name {
+.world-canvas ol.worlds li .name,
+.world-canvas ol.suspects li .name {
   position: absolute;
   bottom: 0;
   width: 100%;
