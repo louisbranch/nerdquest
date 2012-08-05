@@ -134,7 +134,7 @@ i.grave {
   text-indent: -9999px;
   background: url("/images/next.png") no-repeat center center;
 }
-.world-canvas .clues .next-clueactive {
+.world-canvas .clues .next-clue:active {
   -webkit-transform: translateY(1px);
   -moz-transform: translateY(1px);
 }
@@ -175,4 +175,12 @@ i.grave {
   color: #fff;
   text-align: center;
   text-shadow: -1px -1px 0 rgba(0,0,0,0.2);
+}
+.world-canvas ol.worlds li:active,
+.world-canvas ol.suspects li:active {
+  -webkit-transform: translateY(2px);
+  -moz-transform: translateY(2px);
+}
+.suspects-canvas {
+  margin-top: 20px;
 }

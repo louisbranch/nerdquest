@@ -20,13 +20,16 @@ Nerd.Quest = Backbone.RelationalModel.extend
   ]
 
   progress: ->
-    counter = 0
+    total = 90000
+    start = @get('timerStart')
     timer = setInterval =>
-      @trigger('progress', counter)
-      counter += 0.1
-      if counter > 100
+      now = new Date()
+      diff = now - start
+      length = (diff*100)/total
+      if diff > total
         clearInterval(timer)
-    , 50
+      @trigger('progress', length)
+    , 25
 
   start: (callback) ->
     @set('timerStart', new Date())

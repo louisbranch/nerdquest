@@ -22,16 +22,20 @@
       }
     ],
     progress: function() {
-      var counter, timer,
+      var start, timer, total,
         _this = this;
-      counter = 0;
+      total = 90000;
+      start = this.get('timerStart');
       return timer = setInterval(function() {
-        _this.trigger('progress', counter);
-        counter += 0.1;
-        if (counter > 100) {
-          return clearInterval(timer);
+        var diff, length, now;
+        now = new Date();
+        diff = now - start;
+        length = (diff * 100) / total;
+        if (diff > total) {
+          clearInterval(timer);
         }
-      }, 50);
+        return _this.trigger('progress', length);
+      }, 25);
     },
     start: function(callback) {
       this.set('timerStart', new Date());
